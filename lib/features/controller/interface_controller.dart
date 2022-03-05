@@ -10,7 +10,7 @@ class FbInterfaceController {
   Map<int, FbWidget> fbWidgets = {};
 
   ///Each of them hold the list of child/children
-  Map<int, FbData> childMap = {};
+  Map<int, FbData> fbData = {};
   Map<int, FbWidgetConfig> widgetConfig = {};
 
   FbInterfaceController() {
@@ -18,10 +18,11 @@ class FbInterfaceController {
     int mainId = 111;
 
     idList.add(mainId);
-    childMap[mainId] = FbData(
+    fbData[mainId] = FbData(
       id: mainId,
       widgetType: FbWidgetType.main,
       levelInTree: 0,
+      children: [],
     );
   }
 
@@ -36,27 +37,29 @@ class FbInterfaceController {
     }
   }
 
-  bool addChildWidget(int parentId, FbWidget childWidget) {
+  Map<int, FbData> addChildWidget(int parentId, FbWidget childWidget) {
     final id = childWidget.id;
 
     //Add id to the Id list
     idList.add(id);
     fbWidgets[id] = childWidget;
+    widgetConfig[id] = childWidget.getWidgetConfig();
 
-    var parentData = childMap[parentId];
+    var parentData = fbData[parentId];
 
     if (parentData == null) {
       throw Exception('Parent not found');
     }
 
-    childMap[id] = FbData(
+    fbData[id] = FbData(
       id: id,
       widgetType: childWidget.widgetType,
       levelInTree: parentData.levelInTree + 1,
+      children: [],
     );
 
     //add widget to parent list
     parentData.addWidget(id);
-    return true;
+    return fbData;
   }
 }

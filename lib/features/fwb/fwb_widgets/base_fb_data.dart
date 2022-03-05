@@ -6,7 +6,7 @@ class FbData {
 
   final int id;
   final FbWidgetType widgetType;
-  final List children;
+  final List<int> children;
 
   /// Represent the how the widget is in the tree.
   /// The topmost widget is `0` and child `1` any subsequent child added
@@ -17,7 +17,7 @@ class FbData {
   FbData({
     required this.id,
     required this.widgetType,
-    this.children = const [],
+    required this.children,
     required this.levelInTree,
     this.childType = FbChildType.single,
   });
