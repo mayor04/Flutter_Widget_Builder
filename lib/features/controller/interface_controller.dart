@@ -1,6 +1,7 @@
 import 'package:flutter_widget_builder/core/constant/constant.dart';
 import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_data.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container.dart';
@@ -65,6 +66,10 @@ class FbInterfaceController {
     //add widget to parent list
     parentData.addWidget(id);
     return fbDataMap;
+  }
+
+  List<FbInput> getWidgetInput(int id) {
+    return fbWidgetsMap[id]?.getInputs() ?? [];
   }
 
   void _refreshWidgetConfig(int id) {

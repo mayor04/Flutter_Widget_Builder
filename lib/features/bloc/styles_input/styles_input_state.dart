@@ -1,10 +1,9 @@
 part of 'styles_input_bloc.dart';
 
-abstract class StylesInputState extends Equatable {
-  const StylesInputState();
-  
+class StylesInputState extends Equatable {
+  final List<FbInput> allInput;
+  const StylesInputState(this.allInput);
+
   @override
   List<Object> get props => [];
 }
-
-class StylesInputInitial extends StylesInputState {}

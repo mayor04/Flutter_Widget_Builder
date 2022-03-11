@@ -23,12 +23,13 @@ class SectionWidgetTree extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 100,
-            decoration: DarkBorderDecoration(),
+            height: 80,
+            decoration: RadiusDecoration(),
             child: Column(
               children: [
                 // >>>logo
                 Expanded(
+                  flex: 2,
                   child: Container(
                     alignment: Alignment.centerLeft,
                     child: Container(
@@ -36,13 +37,14 @@ class SectionWidgetTree extends StatelessWidget {
                       width: 60,
                       margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                       decoration: RadiusDecoration(
-                        color: AppColors.appBlue,
+                        color: AppColors.appGrey,
                       ),
                     ),
                   ),
                 ),
                 // >>>tabs
                 Expanded(
+                  flex: 5,
                   child: Align(
                     alignment: Alignment.center,
                     child: Row(

@@ -6,3 +6,8 @@ abstract class StylesInputEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class StylesGetInputsEvent extends StylesInputEvent {
+  final int widgetId;
+  const StylesGetInputsEvent(this.widgetId);
+}

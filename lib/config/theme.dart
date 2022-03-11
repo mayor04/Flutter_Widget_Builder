@@ -22,19 +22,19 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.inputFill,
+        fillColor: AppColors.appDark.withOpacity(0.7),
         border: _inputBorder(),
         enabledBorder: _inputBorder(),
         focusedBorder: _inputBorder(color: AppColors.focusedBorder),
-        contentPadding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+        contentPadding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       ),
-      // dividerTheme: const DividerThemeData(
-      //   color: AppColors.dividerColor,
-      //   thickness: 1,
-      //   endIndent: 0,
-      //   indent: 0,
-      //   space: 1,
-      // ),
+      dividerTheme: DividerThemeData(
+        color: AppColors.appDark.withOpacity(0.7),
+        thickness: 1,
+        endIndent: 0,
+        indent: 0,
+        space: 1,
+      ),
       tooltipTheme: TooltipThemeData(
         decoration: RadiusDecoration(
           color: Colors.black.withOpacity(0.5),
@@ -102,7 +102,7 @@ class AppTheme {
         // color: AppColors.bodyMedium,
       ),
       titleMedium: TextStyle(
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: FontWeight.w300,
         // color: AppColors.shadowColor,
       ),
@@ -113,10 +113,4 @@ class AppTheme {
       ),
     );
   }
-}
-
-extension ResponsiveColor on ColorScheme {
-  // Color get descriptionColor {
-  //   // return AppColors.labelSmall;
-  // }
 }

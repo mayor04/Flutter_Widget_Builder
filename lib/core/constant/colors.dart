@@ -4,6 +4,7 @@ class AppColors {
   static const Color primary = Color.fromARGB(255, 216, 204, 199);
   static const Color appGrey = Color(0xFF404040);
   static const Color appDark = Color(0xFF2B2B2B);
+  static const Color appBg = Color(0xFF474747);
 
   //Border
   static const Color lightBorder = Color(0xFF696969);

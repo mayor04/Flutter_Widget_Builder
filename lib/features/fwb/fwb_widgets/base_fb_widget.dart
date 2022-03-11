@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 
 ///This abstract class is the base class for every widget
 ///Extends this class to add more functionality
@@ -17,6 +18,8 @@ abstract class FbWidget<T extends FbWidgetConfig> {
   String generateCode(String child);
 
   T getWidgetConfig();
+
+  List<FbInput> getInputs();
 }
 
 abstract class FbWidgetConfig {
