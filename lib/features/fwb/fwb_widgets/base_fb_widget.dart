@@ -4,7 +4,7 @@ import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
 ///This abstract class is the base class for every widget
 ///Extends this class to add more functionality
 ///`FBcontainer extends FBwidget`
-abstract class FbWidget {
+abstract class FbWidget<T extends FbWidgetConfig> {
   final int id = DateTime.now().millisecondsSinceEpoch;
   final FbWidgetType widgetType;
   final FbChildType childType;
@@ -16,7 +16,7 @@ abstract class FbWidget {
 
   String generateCode(String child);
 
-  FbWidgetConfig getWidgetConfig();
+  T getWidgetConfig();
 }
 
 abstract class FbWidgetConfig {

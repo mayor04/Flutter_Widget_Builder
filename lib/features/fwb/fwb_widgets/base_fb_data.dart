@@ -1,4 +1,5 @@
 import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
+import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 
 class FbData {
@@ -14,6 +15,10 @@ class FbData {
   final int levelInTree;
   final FbChildType childType;
 
+  String get name {
+    return widgetType.name.capitalizeFirst;
+  }
+
   FbData({
     required this.id,
     required this.widgetType,
@@ -25,7 +30,7 @@ class FbData {
   bool addWidget(id) {
     assert(() {
       if (childType == FbChildType.single && children.isNotEmpty) {
-        throw Exception('Single widget cant have multiple');
+        throw Exception('Single widget cant have multiple children');
       }
       return true;
     }());

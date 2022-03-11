@@ -3,8 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
 
-class FbContainer extends FbWidget<FbContainerConfig> {
-  FbContainer() : super(FbWidgetType.container, FbChildType.single);
+class FbColumn extends FbWidget<FbColumnConfig> {
+  FbColumn() : super(FbWidgetType.column, FbChildType.multiple);
 
   @override
   String generateCode(String child) {
@@ -13,8 +13,8 @@ class FbContainer extends FbWidget<FbContainerConfig> {
   }
 
   @override
-  FbContainerConfig getWidgetConfig() {
-    return FbContainerConfig(
+  FbColumnConfig getWidgetConfig() {
+    return FbColumnConfig(
       id,
       widgetType,
       height: 50,
@@ -24,12 +24,12 @@ class FbContainer extends FbWidget<FbContainerConfig> {
   }
 }
 
-class FbContainerConfig extends FbWidgetConfig {
+class FbColumnConfig extends FbWidgetConfig {
   final int height;
   final int width;
   final Color color;
 
-  FbContainerConfig(
+  FbColumnConfig(
     int id,
     FbWidgetType widgetType, {
     required this.height,

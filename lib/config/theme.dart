@@ -37,14 +37,16 @@ class AppTheme {
       // ),
       tooltipTheme: TooltipThemeData(
         decoration: RadiusDecoration(
-          color: Colors.black,
+          color: Colors.black.withOpacity(0.5),
           radius: 3,
         ),
         height: 28,
+        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+        waitDuration: const Duration(milliseconds: 200),
         textStyle: TextStyle(
-          fontSize: 12,
+          fontSize: 11,
           color: Colors.grey[200],
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w600,
         ),
       ),
       iconTheme: const IconThemeData(

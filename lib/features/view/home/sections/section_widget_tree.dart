@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
+import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
+import 'package:flutter_widget_builder/core/utils/logg.dart';
+import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_data.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_column.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container.dart';
 import 'package:flutter_widget_builder/features/view/home/widgets/icon_box.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
@@ -51,15 +58,22 @@ class SectionWidgetTree extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              itemExtent: 40,
-              padding: const EdgeInsets.fromLTRB(9, 30, 9, 0),
-              children: const [
-                WidgetTypeItem(),
-                WidgetTypeItem(),
-                WidgetTypeItem(),
-                WidgetTypeItem(),
-              ],
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(9, 30, 9, 100),
+              child: BlocBuilder<WidgetTreeBloc, WidgetTreeState>(
+                builder: (context, state) {
+                  var parentFbData = state.firstWidgetData;
+                  if (parentFbData == null) {
+                    //You can return an add buttom first
+                    return Container();
+                  }
+
+                  return WidgetTypeItem(
+                    fbDataMap: state.fbDataMap,
+                    data: parentFbData,
+                  );
+                },
+              ),
             ),
           )
         ],
@@ -68,46 +82,133 @@ class SectionWidgetTree extends StatelessWidget {
   }
 }
 
+///TODO: this might not be the best way to solve this
 class WidgetTypeItem extends StatelessWidget {
+  final Map<int, FbData> fbDataMap;
+  final FbData data;
+
   const WidgetTypeItem({
     Key? key,
+    required this.fbDataMap,
+    required this.data,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: 35,
-        padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
-        decoration: LightBorderDecoration(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    List<Widget> children = [];
+
+    for (int i = 0; i < data.children.length; i++) {
+      var childData = getChildData(i);
+      if (childData == null) {
+        AppLog.info(
+          'WidgetTypeItem',
+          'Child index $i is not present in $FbData',
+        );
+        continue;
+      }
+
+      children.add(
+        WidgetTypeItem(
+          fbDataMap: fbDataMap,
+          data: childData,
+        ),
+      );
+    }
+
+    return Stack(
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Container',
-              style: context.textTheme.bodyMedium,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                IconBox(
-                  tooltip: 'Wrap - Ctrl W',
-                  icon: Icon(Icons.wrap_text),
+            _FbWidgetBox(data: data),
+            if (data.children.isEmpty)
+              Container()
+            else
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 3, 0, 3),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: children,
                 ),
-                Box.horizontal(15),
-                IconBox(
+              )
+          ],
+        ),
+        Positioned(
+          left: 3,
+          top: 37,
+          bottom: 2,
+          child: Container(
+            width: 1,
+            color: AppColors.lightBorder,
+          ),
+        ),
+        if (data.childType == FbChildType.multiple)
+          Positioned(
+            left: 3,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              height: 1,
+              color: AppColors.lightBorder,
+            ),
+          )
+      ],
+    );
+  }
+
+  FbData? getChildData(int index) {
+    return fbDataMap[data.children[index]];
+  }
+}
+
+class _FbWidgetBox extends StatelessWidget {
+  final FbData data;
+  const _FbWidgetBox({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 35,
+      margin: const EdgeInsets.fromLTRB(0, 2, 0, 2),
+      padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
+      decoration: LightBorderDecoration(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            data.name,
+            style: context.textTheme.bodyMedium,
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const IconBox(
+                tooltip: 'Wrap - Ctrl W',
+                icon: Icon(Icons.wrap_text),
+              ),
+              const Box.horizontal(15),
+              GestureDetector(
+                onTap: () {
+                  context
+                      .read<WidgetTreeBloc>()
+                      .add(AddWidgetEvent(data.id, FbContainer()));
+                },
+                child: const IconBox(
                   tooltip: 'Add - Ctrl A',
                   icon: Icon(Icons.add),
                 ),
-                Box.horizontal(15),
-                IconBox(
-                  filled: true,
-                  icon: Icon(Icons.more_horiz),
-                ),
-              ],
-            )
-          ],
-        ),
+              ),
+              const Box.horizontal(15),
+              const IconBox(
+                filled: true,
+                icon: Icon(Icons.more_horiz),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
