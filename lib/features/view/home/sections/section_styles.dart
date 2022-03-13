@@ -3,6 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/features/bloc/styles_input/styles_input_bloc.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
+import 'package:flutter_widget_builder/features/view/home/input_widgets/group_input.dart';
+import 'package:flutter_widget_builder/features/view/home/input_widgets/input_map.dart';
 import 'package:flutter_widget_builder/features/view/home/input_widgets/input_widget.dart';
 
 class SectionStyles extends StatelessWidget {
@@ -10,6 +14,9 @@ class SectionStyles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // BlocProvider.of<StylesInputBloc>(context)
+    //     .add(StylesGetInputsEvent(1647131181583));
+
     return BlocBuilder<StylesInputBloc, StylesInputState>(
       builder: (context, state) {
         return Container(
@@ -27,7 +34,10 @@ class SectionStyles extends StatelessWidget {
             ),
             child: ListView.builder(
               itemCount: state.allInput.length,
-              itemBuilder: (context, index) {},
+              itemBuilder: (context, index) {
+                var fbInputBase = state.allInput[index];
+                return FInputPad(fbInputBase: fbInputBase);
+              },
             ),
           ),
         );
@@ -37,19 +47,44 @@ class SectionStyles extends StatelessWidget {
 }
 
 class FInputPad extends StatelessWidget {
-  final Widget child;
-  const FInputPad({Key? key, required this.child}) : super(key: key);
+  final FbInputBase fbInputBase;
+
+  const FInputPad({
+    Key? key,
+    required this.fbInputBase,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 10, 13, 10),
-      child: child,
+      child: Builder(
+        builder: (context) {
+          if (fbInputBase.inputType == FbInputType.group) {
+            FbGroupInputBase groupData = fbInputBase as FbGroupInputBase;
+            var groupWidgetFunction = InputMap.group[groupData.groupType];
+            if (groupWidgetFunction == null) return const SizedBox();
+
+            return groupWidgetFunction(groupData);
+          }
+
+          var widgetFunction = InputMap.input[fbInputBase.inputType];
+          if (widgetFunction == null) return const SizedBox();
+
+          return widgetFunction(fbInputBase);
+        },
+      ),
     );
   }
 }
 
-var mapInput = {};
+
+
+
+
+
+
+
 
 // Column(
 //           children: [

@@ -3,10 +3,11 @@ import 'package:flutter_widget_builder/core/constant/colors.dart';
 
 ///Color is specified to default `AppColors.appGrey`
 class LightBorderDecoration extends BoxDecoration {
-  LightBorderDecoration({Color? color = AppColors.appGrey})
+  final Color? borderColor;
+  LightBorderDecoration({Color? color = AppColors.appGrey, this.borderColor})
       : super(
           color: color,
-          border: Border.all(color: AppColors.lightBorder),
+          border: Border.all(color: borderColor ?? AppColors.lightBorder),
           borderRadius: BorderRadius.circular(2),
         );
 }

@@ -13,6 +13,8 @@ class StylesInputBloc extends Bloc<StylesInputEvent, StylesInputState> {
 
   StylesInputBloc(FbInterfaceController fbController)
       : super(const StylesInputState([])) {
+    _fbController = fbController;
+
     on<StylesGetInputsEvent>(_getStyles);
   }
 

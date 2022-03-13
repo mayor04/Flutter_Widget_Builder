@@ -1,9 +1,15 @@
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 
-class FbGroup2Small extends FbGroupInput {
-  FbGroup2Small(
+///This groups two inputs together
+///For example this groups the height and width in the same row
+class FbGroupHWData extends FbGroupInputBase {
+  final FbInputDataSmall input1;
+  final FbInputDataSmall input2;
+
+  FbGroupHWData(
     String title, {
-    required FbInput input1,
-    required FbInput input2,
-  }) : super(title, [input1, input2], FbGroupType.small2);
+    required this.input1,
+    required this.input2,
+  }) : super(title, [input1, input2], FbGroupType.smallHW);
 }

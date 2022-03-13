@@ -6,11 +6,11 @@ import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.da
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
 
-class FbContainer extends FbWidget<FbContainerConfig> {
-  var heightInput = FbInputSmall<double>('Height', 50);
-  var widthInput = FbInputSmall<double>('Width', 50);
+class FbContainerConfig extends FbWidgetConfig<FbContainerData> {
+  var heightInput = FbInputDataSmall<double>('Height', 50);
+  var widthInput = FbInputDataSmall<double>('Width', 50);
 
-  FbContainer() : super(FbWidgetType.container, FbChildType.single);
+  FbContainerConfig() : super(FbWidgetType.container, FbChildType.single);
 
   @override
   String generateCode(String child) {
@@ -19,8 +19,8 @@ class FbContainer extends FbWidget<FbContainerConfig> {
   }
 
   @override
-  FbContainerConfig getWidgetConfig() {
-    return FbContainerConfig(
+  FbContainerData getWidgetConfig() {
+    return FbContainerData(
       id,
       widgetType,
       height: heightInput.value,
@@ -30,19 +30,19 @@ class FbContainer extends FbWidget<FbContainerConfig> {
   }
 
   @override
-  List<FbInput> getInputs() {
+  List<FbInputBase> getInputs() {
     return [
-      FbGroup2Small('', input1: heightInput, input2: widthInput),
+      FbGroupHWData('', input1: heightInput, input2: widthInput),
     ];
   }
 }
 
-class FbContainerConfig extends FbWidgetConfig {
+class FbContainerData extends FbWidgetData {
   final double height;
   final double width;
   // final Color color;
 
-  FbContainerConfig(
+  FbContainerData(
     int id,
     FbWidgetType widgetType, {
     required this.height,

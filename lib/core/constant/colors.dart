@@ -9,7 +9,7 @@ class AppColors {
   //Border
   static const Color lightBorder = Color(0xFF696969);
   static const Color darkBorder = Color(0xFF2C2C2C);
-  static const Color focusedBorder = Color(0xFF47E7FD);
+  static const Color focusedBorder = Color(0xFF7BBAAF);
 
   static const Color inputFill = Color(0xFF353535);
   static const Color inputBorder = Color(0xFF696969);

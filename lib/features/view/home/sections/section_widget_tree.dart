@@ -5,6 +5,7 @@ import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
+import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_data.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_column.dart';
@@ -85,6 +86,8 @@ class SectionWidgetTree extends StatelessWidget {
 }
 
 ///TODO: this might not be the best way to solve this
+///This is more like a nested widget that keeps
+///nesting children recurssively till they are none left
 class WidgetTypeItem extends StatelessWidget {
   final Map<int, FbData> fbDataMap;
   final FbData data;
@@ -172,46 +175,62 @@ class _FbWidgetBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 35,
-      margin: const EdgeInsets.fromLTRB(0, 2, 0, 2),
-      padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
-      decoration: LightBorderDecoration(),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            data.name,
-            style: context.textTheme.bodyMedium,
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const IconBox(
-                tooltip: 'Wrap - Ctrl W',
-                icon: Icon(Icons.wrap_text),
-              ),
-              const Box.horizontal(15),
-              GestureDetector(
-                onTap: () {
-                  context
-                      .read<WidgetTreeBloc>()
-                      .add(AddWidgetEvent(data.id, FbContainer()));
-                },
-                child: const IconBox(
-                  tooltip: 'Add - Ctrl A',
-                  icon: Icon(Icons.add),
+    return BlocSelector<NotifierCubit, NotifierState, NotifierSelected>(
+      selector: (state) {
+        return state as NotifierSelected;
+      },
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            context.read<NotifierCubit>().select(data.id);
+          },
+          child: Container(
+            height: 35,
+            margin: const EdgeInsets.fromLTRB(0, 2, 0, 2),
+            padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
+            decoration: LightBorderDecoration(
+              borderColor: state.id == data.id
+                  ? AppColors.focusedBorder
+                  : AppColors.lightBorder,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  data.name,
+                  style: context.textTheme.bodyMedium,
                 ),
-              ),
-              const Box.horizontal(15),
-              const IconBox(
-                filled: true,
-                icon: Icon(Icons.more_horiz),
-              ),
-            ],
-          )
-        ],
-      ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const IconBox(
+                      tooltip: 'Wrap - Ctrl W',
+                      icon: Icon(Icons.wrap_text),
+                    ),
+                    const Box.horizontal(15),
+                    GestureDetector(
+                      onTap: () {
+                        context
+                            .read<WidgetTreeBloc>()
+                            .add(AddWidgetEvent(data.id, FbContainerConfig()));
+                      },
+                      child: const IconBox(
+                        tooltip: 'Add - Ctrl A',
+                        icon: Icon(Icons.add),
+                      ),
+                    ),
+                    const Box.horizontal(15),
+                    const IconBox(
+                      filled: true,
+                      icon: Icon(Icons.more_horiz),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

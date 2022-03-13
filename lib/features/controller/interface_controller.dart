@@ -10,11 +10,11 @@ class FbInterfaceController {
   final log = AppLog('FbInterfaceController');
 
   final List<int> idList = [];
-  final Map<int, FbWidget> fbWidgetsMap = {};
+  final Map<int, FbWidgetConfig> fbWidgetsMap = {};
 
   ///Each of them hold the list of child/children
   final Map<int, FbData> fbDataMap = {};
-  final Map<int, FbWidgetConfig> widgetConfigMap = {};
+  final Map<int, FbWidgetData> widgetConfigMap = {};
 
   FbInterfaceController() {
     //The main data is used to know the starting point of the widget
@@ -35,13 +35,13 @@ class FbInterfaceController {
 
     if (idList.length == 1) {
       //Add Container if no widget has been created
-      addChildWidget(xMainId, FbContainer());
+      addChildWidget(xMainId, FbContainerConfig());
     }
     return fbDataMap;
   }
 
   ///throws `Exception('Parent not found')` when the parent id is not found
-  Map<int, FbData> addChildWidget(int parentId, FbWidget childWidget) {
+  Map<int, FbData> addChildWidget(int parentId, FbWidgetConfig childWidget) {
     final id = childWidget.id;
 
     //Add id to the Id list
@@ -68,7 +68,7 @@ class FbInterfaceController {
     return fbDataMap;
   }
 
-  List<FbInput> getWidgetInput(int id) {
+  List<FbInputBase> getWidgetInput(int id) {
     return fbWidgetsMap[id]?.getInputs() ?? [];
   }
 

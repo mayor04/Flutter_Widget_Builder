@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_builder/core/constant/dimension.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 class InputSmall extends StatelessWidget {
-  const InputSmall({Key? key}) : super(key: key);
+  final FbInputDataSmall smallInputData;
+  const InputSmall({
+    Key? key,
+    required this.smallInputData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,7 @@ class InputSmall extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Width',
+            smallInputData.title,
             style: context.textTheme.bodyMedium,
           ),
           const SizedBox(
@@ -29,7 +35,11 @@ class InputSmall extends StatelessWidget {
 }
 
 class InputLTRB extends StatelessWidget {
-  const InputLTRB({Key? key}) : super(key: key);
+  final FbInputDataLTRB ltrbInputData;
+  const InputLTRB({
+    Key? key,
+    required this.ltrbInputData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +49,7 @@ class InputLTRB extends StatelessWidget {
         Row(
           children: [
             Text(
-              'Style',
+              ltrbInputData.title,
               style: context.textTheme.bodyMedium,
             ),
           ],
@@ -65,7 +75,11 @@ class InputLTRB extends StatelessWidget {
 }
 
 class InputExpanded extends StatelessWidget {
-  const InputExpanded({Key? key}) : super(key: key);
+  final FbInputDataExpanded expandedInputData;
+  const InputExpanded({
+    Key? key,
+    required this.expandedInputData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +87,7 @@ class InputExpanded extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Style',
+          expandedInputData.title,
           style: context.textTheme.bodyMedium,
         ),
         const SizedBox(
@@ -82,6 +96,18 @@ class InputExpanded extends StatelessWidget {
           child: TextField(),
         ),
       ],
+    );
+  }
+}
+
+class _ErrorInputBox extends StatelessWidget {
+  const _ErrorInputBox({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'The wrong input type was received',
+      style: context.textTheme.bodyMedium,
     );
   }
 }

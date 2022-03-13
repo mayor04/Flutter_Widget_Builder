@@ -13,7 +13,7 @@ void main() {
 
   //Test if widget is added successfully
   test('Adding Widget of widget type single success', () {
-    var childWidget = FbContainer();
+    var childWidget = FbContainerConfig();
     interfaceController.addChildWidget(111, childWidget);
 
     expect(
@@ -27,7 +27,7 @@ void main() {
   });
 
   test('Adding Widget of widget type multiple success', () {
-    var parentWidget = FbColumn();
+    var parentWidget = FbColumnConfig();
     interfaceController.addChildWidget(111, parentWidget);
 
     expect(
@@ -44,9 +44,9 @@ void main() {
     var isChildInParent = containsChild(111, parentWidget.id);
     expect(isChildInParent, true);
 
-    var firstChild = FbContainer();
+    var firstChild = FbContainerConfig();
     interfaceController.addChildWidget(parentWidget.id, firstChild);
-    var secondChild = FbContainer();
+    var secondChild = FbContainerConfig();
     interfaceController.addChildWidget(parentWidget.id, secondChild);
 
     var canAcceptMultipleChild =

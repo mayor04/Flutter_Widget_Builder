@@ -8,9 +8,7 @@ import 'package:flutter_widget_builder/features/view/home/home_view.dart';
 import 'package:flutter_widget_builder/features/view/playground.dart';
 
 void main() {
-  runApp(
-    MyApp(
-      fbController: FbInterfaceController(),
-    ),
-  );
+  runApp(MyApp(
+    fbController: FbInterfaceController(),
+  ));
 }

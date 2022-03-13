@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/config/theme.dart';
+import 'package:flutter_widget_builder/core/constant/constant.dart';
+import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
+import 'package:flutter_widget_builder/features/bloc/styles_input/styles_input_bloc.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/view/home/home_view.dart';
@@ -20,6 +23,9 @@ class MyApp extends StatelessWidget {
           create: (_) =>
               WidgetTreeBloc(fbController)..add(InitialWidgetTreeEvent()),
         ),
+        BlocProvider<StylesInputBloc>(
+            create: (_) => StylesInputBloc(fbController)),
+        BlocProvider<NotifierCubit>(create: (_) => NotifierCubit()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
