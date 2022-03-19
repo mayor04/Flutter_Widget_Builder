@@ -14,7 +14,7 @@ class FbColumnConfig extends FbWidgetConfig<FbColumnData> {
   }
 
   @override
-  FbColumnData getWidgetConfig() {
+  FbColumnData getWidgetData() {
     return FbColumnData(
       id,
       widgetType,

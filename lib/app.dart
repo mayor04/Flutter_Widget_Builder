@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<StylesInputBloc>(
             create: (_) => StylesInputBloc(fbController)),
         BlocProvider<NotifierCubit>(create: (_) => NotifierCubit()),
+        
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

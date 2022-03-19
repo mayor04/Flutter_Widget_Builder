@@ -17,7 +17,7 @@ abstract class FbWidgetConfig<T extends FbWidgetData> {
 
   String generateCode(String child);
 
-  T getWidgetConfig();
+  T getWidgetData();
 
   List<FbInputBase> getInputs();
 }

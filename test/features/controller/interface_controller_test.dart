@@ -21,8 +21,8 @@ void main() {
       true,
     );
 
-    var isChildInParent =
-        interfaceController.fbDataMap[111]?.children.contains(childWidget.id);
+    var isChildInParent = interfaceController.fbDetailsMap[111]?.children
+        .contains(childWidget.id);
     expect(isChildInParent, true);
   });
 
@@ -36,7 +36,7 @@ void main() {
     );
 
     bool containsChild(parentId, childId) {
-      return interfaceController.fbDataMap[parentId]?.children
+      return interfaceController.fbDetailsMap[parentId]?.children
               .contains(childId) ??
           false;
     }
@@ -58,8 +58,8 @@ void main() {
 }
 
 bool isChildPresent(id, FbInterfaceController fbControl) {
-  return fbControl.fbDataMap.containsKey(id) &&
+  return fbControl.fbDetailsMap.containsKey(id) &&
       fbControl.idList.contains(id) &&
       fbControl.fbWidgetsMap.containsKey(id) &&
-      fbControl.widgetConfigMap.containsKey(id);
+      fbControl.widgetDataCallbackMap.containsKey(id);
 }

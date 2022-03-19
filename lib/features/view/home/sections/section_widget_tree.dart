@@ -89,8 +89,8 @@ class SectionWidgetTree extends StatelessWidget {
 ///This is more like a nested widget that keeps
 ///nesting children recurssively till they are none left
 class WidgetTypeItem extends StatelessWidget {
-  final Map<int, FbData> fbDataMap;
-  final FbData data;
+  final Map<int, FbWidgetDetails> fbDataMap;
+  final FbWidgetDetails data;
 
   const WidgetTypeItem({
     Key? key,
@@ -107,7 +107,7 @@ class WidgetTypeItem extends StatelessWidget {
       if (childData == null) {
         AppLog.info(
           'WidgetTypeItem',
-          'Child index $i is not present in $FbData',
+          'Child index $i is not present in $FbWidgetDetails',
         );
         continue;
       }
@@ -161,13 +161,13 @@ class WidgetTypeItem extends StatelessWidget {
     );
   }
 
-  FbData? getChildData(int index) {
+  FbWidgetDetails? getChildData(int index) {
     return fbDataMap[data.children[index]];
   }
 }
 
 class _FbWidgetBox extends StatelessWidget {
-  final FbData data;
+  final FbWidgetDetails data;
   const _FbWidgetBox({
     Key? key,
     required this.data,
@@ -175,11 +175,19 @@ class _FbWidgetBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<NotifierCubit, NotifierState, NotifierSelected>(
-      selector: (state) {
-        return state as NotifierSelected;
+    return BlocBuilder<NotifierCubit, NotifierState>(
+      buildWhen: (prev, current) {
+        return current is NotifierSelected;
       },
       builder: (context, state) {
+        Color? borderColor = AppColors.lightBorder;
+
+        if (state is NotifierSelected) {
+          if (state.id == data.id) {
+            borderColor = AppColors.focusedBorder;
+          }
+        }
+
         return GestureDetector(
           onTap: () {
             context.read<NotifierCubit>().select(data.id);
@@ -189,9 +197,7 @@ class _FbWidgetBox extends StatelessWidget {
             margin: const EdgeInsets.fromLTRB(0, 2, 0, 2),
             padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
             decoration: LightBorderDecoration(
-              borderColor: state.id == data.id
-                  ? AppColors.focusedBorder
-                  : AppColors.lightBorder,
+              borderColor: borderColor,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

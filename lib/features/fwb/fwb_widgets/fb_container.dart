@@ -19,7 +19,7 @@ class FbContainerConfig extends FbWidgetConfig<FbContainerData> {
   }
 
   @override
-  FbContainerData getWidgetConfig() {
+  FbContainerData getWidgetData() {
     return FbContainerData(
       id,
       widgetType,
@@ -37,6 +37,7 @@ class FbContainerConfig extends FbWidgetConfig<FbContainerData> {
   }
 }
 
+///Contains styles of the container, ussualy used to style the widget
 class FbContainerData extends FbWidgetData {
   final double height;
   final double width;

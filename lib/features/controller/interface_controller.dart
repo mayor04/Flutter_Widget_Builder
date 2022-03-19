@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_widget_builder/core/constant/constant.dart';
 import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_data.dar
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container.dart';
 
+typedef FbWidgetDataCallback = FbWidgetData Function();
+
 class FbInterfaceController {
   final log = AppLog('FbInterfaceController');
 
@@ -13,14 +16,14 @@ class FbInterfaceController {
   final Map<int, FbWidgetConfig> fbWidgetsMap = {};
 
   ///Each of them hold the list of child/children
-  final Map<int, FbData> fbDataMap = {};
-  final Map<int, FbWidgetData> widgetConfigMap = {};
+  final Map<int, FbWidgetDetails> fbDetailsMap = {};
+  final Map<int, FbWidgetDataCallback> widgetDataCallbackMap = {};
 
   FbInterfaceController() {
     //The main data is used to know the starting point of the widget
 
     idList.add(xMainId);
-    fbDataMap[xMainId] = FbData(
+    fbDetailsMap[xMainId] = FbWidgetDetails(
       id: xMainId,
       widgetType: FbWidgetType.main,
       levelInTree: 0,
@@ -29,7 +32,7 @@ class FbInterfaceController {
   }
 
   ///This is called first when the screen is loaded
-  Map<int, FbData> initialLoad() {
+  Map<int, FbWidgetDetails> initialLoad() {
     ///Since no data is saved locally for now the initial load
     ///is always 1 for now
 
@@ -37,35 +40,37 @@ class FbInterfaceController {
       //Add Container if no widget has been created
       addChildWidget(xMainId, FbContainerConfig());
     }
-    return fbDataMap;
+    return fbDetailsMap;
   }
 
   ///throws `Exception('Parent not found')` when the parent id is not found
-  Map<int, FbData> addChildWidget(int parentId, FbWidgetConfig childWidget) {
+  Map<int, FbWidgetDetails> addChildWidget(
+      int parentId, FbWidgetConfig childWidget) {
     final id = childWidget.id;
 
     //Add id to the Id list
     idList.add(id);
     fbWidgetsMap[id] = childWidget;
-    widgetConfigMap[id] = childWidget.getWidgetConfig();
+    widgetDataCallbackMap[id] = childWidget.getWidgetData;
 
-    var parentData = fbDataMap[parentId];
+    var parentData = fbDetailsMap[parentId];
 
     if (parentData == null) {
       throw Exception('Parent not found');
     }
 
-    fbDataMap[id] = FbData(
+    fbDetailsMap[id] = FbWidgetDetails(
       id: id,
       childType: childWidget.childType,
       widgetType: childWidget.widgetType,
       levelInTree: parentData.levelInTree + 1,
+      widgetDataCallback: childWidget.getWidgetData,
       children: [],
     );
 
     //add widget to parent list
     parentData.addWidget(id);
-    return fbDataMap;
+    return fbDetailsMap;
   }
 
   List<FbInputBase> getWidgetInput(int id) {
@@ -73,13 +78,13 @@ class FbInterfaceController {
   }
 
   void _refreshWidgetConfig(int id) {
-    var config = fbWidgetsMap[id]?.getWidgetConfig();
+    var config = fbWidgetsMap[id]?.getWidgetData;
     if (config == null) {
       log.error(
           'refreshWidgetConfig($id)', 'Found no config data while refreshing');
       throw (Exception('Config Data not found while refreshing'));
     } else {
-      widgetConfigMap[id] = config;
+      widgetDataCallbackMap[id] = config;
     }
   }
 }

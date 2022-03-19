@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
+import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/styles_input/styles_input_bloc.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
@@ -17,31 +18,38 @@ class SectionStyles extends StatelessWidget {
     // BlocProvider.of<StylesInputBloc>(context)
     //     .add(StylesGetInputsEvent(1647131181583));
 
-    return BlocBuilder<StylesInputBloc, StylesInputState>(
-      builder: (context, state) {
-        return Container(
-          width: 300,
-          margin: const EdgeInsets.fromLTRB(0, 120, 0, 70),
-          decoration: RadiusDecoration(
-            color: AppColors.appDark,
-            radius: 10,
-          ),
-          child: Container(
-            margin: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+    return BlocListener<NotifierCubit, NotifierState>(
+      listener: (context, state) {
+        if (state is NotifierSelected) {
+          context.read<StylesInputBloc>().add(StylesGetInputsEvent(state.id));
+        }
+      },
+      child: BlocBuilder<StylesInputBloc, StylesInputState>(
+        builder: (context, state) {
+          return Container(
+            width: 300,
+            margin: const EdgeInsets.fromLTRB(0, 120, 0, 70),
             decoration: RadiusDecoration(
+              color: AppColors.appDark,
               radius: 10,
             ),
-            child: ListView.builder(
-              itemCount: state.allInput.length,
-              itemBuilder: (context, index) {
-                var fbInputBase = state.allInput[index];
-                return FInputPad(fbInputBase: fbInputBase);
-              },
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              decoration: RadiusDecoration(
+                radius: 10,
+              ),
+              child: ListView.builder(
+                itemCount: state.allInput.length,
+                itemBuilder: (context, index) {
+                  var fbInputBase = state.allInput[index];
+                  return FInputPad(fbInputBase: fbInputBase);
+                },
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
