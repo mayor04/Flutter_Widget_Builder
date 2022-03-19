@@ -7,7 +7,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_data.dar
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container.dart';
 
-typedef FbWidgetDataCallback = FbWidgetData Function();
+typedef FbWidgetStylesCallback = FbWidgetStyles Function();
 
 class FbInterfaceController {
   final log = AppLog('FbInterfaceController');
@@ -17,7 +17,7 @@ class FbInterfaceController {
 
   ///Each of them hold the list of child/children
   final Map<int, FbWidgetDetails> fbDetailsMap = {};
-  final Map<int, FbWidgetDataCallback> widgetDataCallbackMap = {};
+  final Map<int, FbWidgetStylesCallback> widgetStylesCallbackMap = {};
 
   FbInterfaceController() {
     //The main data is used to know the starting point of the widget
@@ -51,7 +51,7 @@ class FbInterfaceController {
     //Add id to the Id list
     idList.add(id);
     fbWidgetsMap[id] = childWidget;
-    widgetDataCallbackMap[id] = childWidget.getWidgetData;
+    widgetStylesCallbackMap[id] = childWidget.getWidgetStyles;
 
     var parentData = fbDetailsMap[parentId];
 
@@ -64,7 +64,7 @@ class FbInterfaceController {
       childType: childWidget.childType,
       widgetType: childWidget.widgetType,
       levelInTree: parentData.levelInTree + 1,
-      widgetDataCallback: childWidget.getWidgetData,
+      widgetStylesCallback: childWidget.getWidgetStyles,
       children: [],
     );
 
@@ -78,13 +78,13 @@ class FbInterfaceController {
   }
 
   void _refreshWidgetConfig(int id) {
-    var config = fbWidgetsMap[id]?.getWidgetData;
+    var config = fbWidgetsMap[id]?.getWidgetStyles;
     if (config == null) {
       log.error(
           'refreshWidgetConfig($id)', 'Found no config data while refreshing');
       throw (Exception('Config Data not found while refreshing'));
     } else {
-      widgetDataCallbackMap[id] = config;
+      widgetStylesCallbackMap[id] = config;
     }
   }
 }

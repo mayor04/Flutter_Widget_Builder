@@ -61,5 +61,5 @@ bool isChildPresent(id, FbInterfaceController fbControl) {
   return fbControl.fbDetailsMap.containsKey(id) &&
       fbControl.idList.contains(id) &&
       fbControl.fbWidgetsMap.containsKey(id) &&
-      fbControl.widgetDataCallbackMap.containsKey(id);
+      fbControl.widgetStylesCallbackMap.containsKey(id);
 }

@@ -11,7 +11,7 @@ class FbWidgetDetails {
   final List<int> children;
 
   ///Widget Data holds the style of the widget
-  final FbWidgetDataCallback widgetDataCallback;
+  final FbWidgetStylesCallback? widgetStylesCallback;
 
   /// Represent the how the widget is in the tree.
   /// The topmost widget is `0` and child `1` any subsequent child added
@@ -28,7 +28,7 @@ class FbWidgetDetails {
     required this.widgetType,
     required this.children,
     required this.levelInTree,
-    required this.widgetDataCallback,
+    this.widgetStylesCallback,
     this.childType = FbChildType.single,
   });
 

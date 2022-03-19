@@ -1,16 +1,16 @@
 part of 'widget_tree_bloc.dart';
 
 class WidgetTreeState {
-  final Map<int, FbWidgetDetails> fbDataMap;
+  final Map<int, FbWidgetDetails> fbDetailsMap;
 
-  const WidgetTreeState(this.fbDataMap);
+  const WidgetTreeState(this.fbDetailsMap);
 
   ///Return the first widget in the tree
-  FbWidgetDetails? get firstWidgetData {
-    var firstWidgetId = fbDataMap[xMainId]?.children[0];
-    var firstWidgetData = fbDataMap[firstWidgetId];
+  FbWidgetDetails? get firstWidgetDetails {
+    var firstWidgetId = fbDetailsMap[xMainId]?.children[0];
+    var firstWidgetData = fbDetailsMap[firstWidgetId];
 
-    if (firstWidgetData == null && fbDataMap.length > 1) {
+    if (firstWidgetData == null && fbDetailsMap.length > 1) {
       AppLog.warn('get firstWidgetData', 'Could not get first widget in list');
     }
 

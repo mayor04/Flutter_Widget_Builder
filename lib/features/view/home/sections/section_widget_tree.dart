@@ -65,15 +65,15 @@ class SectionWidgetTree extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(9, 30, 9, 100),
               child: BlocBuilder<WidgetTreeBloc, WidgetTreeState>(
                 builder: (context, state) {
-                  var parentFbData = state.firstWidgetData;
+                  var parentFbData = state.firstWidgetDetails;
                   if (parentFbData == null) {
                     //You can return an add buttom first
                     return Container();
                   }
 
                   return WidgetTypeItem(
-                    fbDataMap: state.fbDataMap,
-                    data: parentFbData,
+                    fbDataMap: state.fbDetailsMap,
+                    widgetDetails: parentFbData,
                   );
                 },
               ),
@@ -90,19 +90,19 @@ class SectionWidgetTree extends StatelessWidget {
 ///nesting children recurssively till they are none left
 class WidgetTypeItem extends StatelessWidget {
   final Map<int, FbWidgetDetails> fbDataMap;
-  final FbWidgetDetails data;
+  final FbWidgetDetails widgetDetails;
 
   const WidgetTypeItem({
     Key? key,
     required this.fbDataMap,
-    required this.data,
+    required this.widgetDetails,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];
 
-    for (int i = 0; i < data.children.length; i++) {
+    for (int i = 0; i < widgetDetails.children.length; i++) {
       var childData = getChildData(i);
       if (childData == null) {
         AppLog.info(
@@ -115,7 +115,7 @@ class WidgetTypeItem extends StatelessWidget {
       children.add(
         WidgetTypeItem(
           fbDataMap: fbDataMap,
-          data: childData,
+          widgetDetails: childData,
         ),
       );
     }
@@ -125,8 +125,8 @@ class WidgetTypeItem extends StatelessWidget {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _FbWidgetBox(data: data),
-            if (data.children.isEmpty)
+            _FbWidgetBox(details: widgetDetails),
+            if (widgetDetails.children.isEmpty)
               Container()
             else
               Padding(
@@ -147,7 +147,7 @@ class WidgetTypeItem extends StatelessWidget {
             color: AppColors.lightBorder,
           ),
         ),
-        if (data.childType == FbChildType.multiple)
+        if (widgetDetails.childType == FbChildType.multiple)
           Positioned(
             left: 3,
             right: 0,
@@ -162,15 +162,15 @@ class WidgetTypeItem extends StatelessWidget {
   }
 
   FbWidgetDetails? getChildData(int index) {
-    return fbDataMap[data.children[index]];
+    return fbDataMap[widgetDetails.children[index]];
   }
 }
 
 class _FbWidgetBox extends StatelessWidget {
-  final FbWidgetDetails data;
+  final FbWidgetDetails details;
   const _FbWidgetBox({
     Key? key,
-    required this.data,
+    required this.details,
   }) : super(key: key);
 
   @override
@@ -183,14 +183,14 @@ class _FbWidgetBox extends StatelessWidget {
         Color? borderColor = AppColors.lightBorder;
 
         if (state is NotifierSelected) {
-          if (state.id == data.id) {
+          if (state.id == details.id) {
             borderColor = AppColors.focusedBorder;
           }
         }
 
         return GestureDetector(
           onTap: () {
-            context.read<NotifierCubit>().select(data.id);
+            context.read<NotifierCubit>().select(details.id);
           },
           child: Container(
             height: 35,
@@ -203,7 +203,7 @@ class _FbWidgetBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  data.name,
+                  details.name,
                   style: context.textTheme.bodyMedium,
                 ),
                 Row(
@@ -216,9 +216,8 @@ class _FbWidgetBox extends StatelessWidget {
                     const Box.horizontal(15),
                     GestureDetector(
                       onTap: () {
-                        context
-                            .read<WidgetTreeBloc>()
-                            .add(AddWidgetEvent(data.id, FbContainerConfig()));
+                        context.read<WidgetTreeBloc>().add(
+                            AddWidgetEvent(details.id, FbContainerConfig()));
                       },
                       child: const IconBox(
                         tooltip: 'Add - Ctrl A',

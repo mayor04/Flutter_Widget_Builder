@@ -5,6 +5,13 @@ class SectionDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        height: 300,
+        width: 300,
+        color: Colors.white,
+      ),
+    );
   }
 }

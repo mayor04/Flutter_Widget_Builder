@@ -13,16 +13,27 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.appBg,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(23, 15, 23, 15),
-        child: Row(
-          children: const [
-            SectionWidgetTree(),
-            Box.horizontal(15),
-            SectionStyles(),
-            Expanded(child: SectionDisplay()),
-          ],
-        ),
+      body: Column(
+        children: [
+          Container(
+            height: 30,
+            width: double.infinity,
+            color: AppColors.appDarker,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(23, 15, 23, 15),
+              child: Row(
+                children: const [
+                  SectionWidgetTree(),
+                  Box.horizontal(15),
+                  SectionStyles(),
+                  Expanded(child: SectionDisplay()),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

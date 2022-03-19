@@ -6,7 +6,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.da
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
 
-class FbContainerConfig extends FbWidgetConfig<FbContainerData> {
+class FbContainerConfig extends FbWidgetConfig<FbContainerStyles> {
   var heightInput = FbInputDataSmall<double>('Height', 50);
   var widthInput = FbInputDataSmall<double>('Width', 50);
 
@@ -19,8 +19,8 @@ class FbContainerConfig extends FbWidgetConfig<FbContainerData> {
   }
 
   @override
-  FbContainerData getWidgetData() {
-    return FbContainerData(
+  FbContainerStyles getWidgetStyles() {
+    return FbContainerStyles(
       id,
       widgetType,
       height: heightInput.value,
@@ -38,12 +38,12 @@ class FbContainerConfig extends FbWidgetConfig<FbContainerData> {
 }
 
 ///Contains styles of the container, ussualy used to style the widget
-class FbContainerData extends FbWidgetData {
+class FbContainerStyles extends FbWidgetStyles {
   final double height;
   final double width;
   // final Color color;
 
-  FbContainerData(
+  FbContainerStyles(
     int id,
     FbWidgetType widgetType, {
     required this.height,

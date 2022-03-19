@@ -4,7 +4,7 @@ import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
 
-class FbColumnConfig extends FbWidgetConfig<FbColumnData> {
+class FbColumnConfig extends FbWidgetConfig<FbColumnStyles> {
   FbColumnConfig() : super(FbWidgetType.column, FbChildType.multiple);
 
   @override
@@ -14,8 +14,8 @@ class FbColumnConfig extends FbWidgetConfig<FbColumnData> {
   }
 
   @override
-  FbColumnData getWidgetData() {
-    return FbColumnData(
+  FbColumnStyles getWidgetStyles() {
+    return FbColumnStyles(
       id,
       widgetType,
       height: 50,
@@ -31,12 +31,12 @@ class FbColumnConfig extends FbWidgetConfig<FbColumnData> {
   }
 }
 
-class FbColumnData extends FbWidgetData {
+class FbColumnStyles extends FbWidgetStyles {
   final int height;
   final int width;
   final Color color;
 
-  FbColumnData(
+  FbColumnStyles(
     int id,
     FbWidgetType widgetType, {
     required this.height,

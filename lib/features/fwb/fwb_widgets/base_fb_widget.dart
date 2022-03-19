@@ -5,7 +5,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 ///This abstract class is the base class for every widget
 ///Extends this class to add more functionality
 ///`FBcontainer extends FBwidget`
-abstract class FbWidgetConfig<T extends FbWidgetData> {
+abstract class FbWidgetConfig<T extends FbWidgetStyles> {
   final int id = DateTime.now().millisecondsSinceEpoch;
   final FbWidgetType widgetType;
   final FbChildType childType;
@@ -17,16 +17,16 @@ abstract class FbWidgetConfig<T extends FbWidgetData> {
 
   String generateCode(String child);
 
-  T getWidgetData();
+  T getWidgetStyles();
 
   List<FbInputBase> getInputs();
 }
 
 ///Each WidgetConfig contains a data, this data is used
 ///for displaying the Widget on the screen
-abstract class FbWidgetData {
+abstract class FbWidgetStyles {
   final int id;
   final FbWidgetType widgetType;
 
-  FbWidgetData(this.id, this.widgetType);
+  FbWidgetStyles(this.id, this.widgetType);
 }
