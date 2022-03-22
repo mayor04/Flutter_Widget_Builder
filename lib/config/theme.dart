@@ -36,7 +36,7 @@ class AppTheme {
         space: 1,
       ),
       tooltipTheme: TooltipThemeData(
-        decoration: RadiusDecoration(
+        decoration: AppDecoration.radius(
           color: Colors.black.withOpacity(0.5),
           radius: 3,
         ),

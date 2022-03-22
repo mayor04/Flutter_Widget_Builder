@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
-import 'package:flutter_widget_builder/features/bloc/styles_input/styles_input_bloc.dart';
+import 'package:flutter_widget_builder/features/bloc/styles_input/input_bloc.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/view/home/input_widgets/group_input.dart';
@@ -21,22 +21,23 @@ class SectionStyles extends StatelessWidget {
     return BlocListener<NotifierCubit, NotifierState>(
       listener: (context, state) {
         if (state is NotifierSelected) {
-          context.read<StylesInputBloc>().add(StylesGetInputsEvent(state.id));
+          context.read<InputBloc>().add(GetInputsEvent(state.id));
         }
       },
-      child: BlocBuilder<StylesInputBloc, StylesInputState>(
+      child: BlocBuilder<InputBloc, InputState>(
         builder: (context, state) {
           return Container(
             width: 300,
             margin: const EdgeInsets.fromLTRB(0, 120, 0, 70),
-            decoration: RadiusDecoration(
+            decoration: AppDecoration.radius(
               color: AppColors.appDark,
               radius: 10,
             ),
             child: Container(
               margin: const EdgeInsets.fromLTRB(10, 30, 10, 10),
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              decoration: RadiusDecoration(
+              decoration: AppDecoration.radius(
+                color: AppColors.appGrey,
                 radius: 10,
               ),
               child: ListView.builder(

@@ -1,4 +1,4 @@
-part of 'styles_input_bloc.dart';
+part of 'input_bloc.dart';
 
 class InputState extends Equatable {
   final List<FbInputBase> allInput;

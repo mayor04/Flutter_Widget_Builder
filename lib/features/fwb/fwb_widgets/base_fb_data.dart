@@ -2,6 +2,7 @@ import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
 
 class FbWidgetDetails {
   final log = AppLog('FBdata');
@@ -16,11 +17,16 @@ class FbWidgetDetails {
   /// Represent the how the widget is in the tree.
   /// The topmost widget is `0` and child `1` any subsequent child added
   /// Should increament the level
+  /// This
   final int levelInTree;
   final FbChildType childType;
 
   String get name {
     return widgetType.name.capitalizeFirst;
+  }
+
+  bool get hasChild {
+    return children.isNotEmpty;
   }
 
   FbWidgetDetails({
@@ -32,13 +38,16 @@ class FbWidgetDetails {
     this.childType = FbChildType.single,
   });
 
+  FbWidgetStyles get styles {
+    assert(widgetStylesCallback != null);
+
+    return widgetStylesCallback!();
+  }
+
   bool addWidget(id) {
-    assert(() {
-      if (childType == FbChildType.single && children.isNotEmpty) {
-        throw Exception('Single widget cant have multiple children');
-      }
-      return true;
-    }());
+    if (childType == FbChildType.single && children.isNotEmpty) {
+      throw Exception('Single widget cant have multiple children');
+    }
 
     children.add(id);
     return true;

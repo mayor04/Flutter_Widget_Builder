@@ -39,11 +39,12 @@ class _IconBoxState extends State<IconBox> {
       child: Tooltip(
         message: widget.tooltip,
         child: Container(
-          decoration:
-              widget.filled ? RadiusDecoration(color: AppColors.iconBox) : null,
+          decoration: widget.filled
+              ? AppDecoration.radius(color: AppColors.iconBox)
+              : null,
           child: Container(
             padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
-            decoration: RadiusDecoration(color: hoverColor),
+            decoration: AppDecoration.radius(color: hoverColor),
             child: widget.icon,
           ),
         ),

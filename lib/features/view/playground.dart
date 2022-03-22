@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
@@ -21,12 +22,14 @@ class Playground extends StatelessWidget {
             Container(
               height: 50,
               width: 100,
-              decoration: LightBorderDecoration(),
+              decoration: AppDecoration.lightBorder(
+                color: AppColors.appGrey,
+              ),
             ),
             Container(
               height: 50,
               width: 100,
-              decoration: DarkBorderDecoration(),
+              decoration: AppDecoration.darkBorder(color: AppColors.appGrey),
             ),
             SizedBox(
               width: 95,

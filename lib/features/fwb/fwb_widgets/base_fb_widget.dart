@@ -29,4 +29,12 @@ abstract class FbWidgetStyles {
   final FbWidgetType widgetType;
 
   FbWidgetStyles(this.id, this.widgetType);
+
+  A cast<A extends FbWidgetStyles>() {
+    if (this is A) {
+      return this as A;
+    }
+
+    throw Exception('Unable to cast $A to type FbInputData');
+  }
 }

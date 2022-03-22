@@ -4,8 +4,8 @@ import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 
-part 'styles_input_event.dart';
-part 'styles_input_state.dart';
+part 'input_event.dart';
+part 'input_state.dart';
 
 class InputBloc extends Bloc<InputEvent, InputState> {
   final log = AppLog('StylesInputBloc');

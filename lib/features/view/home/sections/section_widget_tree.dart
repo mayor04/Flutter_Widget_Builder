@@ -25,7 +25,7 @@ class SectionWidgetTree extends StatelessWidget {
         children: [
           Container(
             height: 80,
-            decoration: RadiusDecoration(),
+            decoration: AppDecoration.radius(color: AppColors.appGrey),
             child: Column(
               children: [
                 // >>>logo
@@ -37,7 +37,7 @@ class SectionWidgetTree extends StatelessWidget {
                       height: 23,
                       width: 60,
                       margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                      decoration: RadiusDecoration(
+                      decoration: AppDecoration.radius(
                         color: AppColors.appGrey,
                       ),
                     ),
@@ -72,7 +72,7 @@ class SectionWidgetTree extends StatelessWidget {
                   }
 
                   return WidgetTypeItem(
-                    fbDataMap: state.fbDetailsMap,
+                    allWidgetDetails: state.fbDetailsMap,
                     widgetDetails: parentFbData,
                   );
                 },
@@ -89,12 +89,12 @@ class SectionWidgetTree extends StatelessWidget {
 ///This is more like a nested widget that keeps
 ///nesting children recurssively till they are none left
 class WidgetTypeItem extends StatelessWidget {
-  final Map<int, FbWidgetDetails> fbDataMap;
+  final Map<int, FbWidgetDetails> allWidgetDetails;
   final FbWidgetDetails widgetDetails;
 
   const WidgetTypeItem({
     Key? key,
-    required this.fbDataMap,
+    required this.allWidgetDetails,
     required this.widgetDetails,
   }) : super(key: key);
 
@@ -103,7 +103,7 @@ class WidgetTypeItem extends StatelessWidget {
     List<Widget> children = [];
 
     for (int i = 0; i < widgetDetails.children.length; i++) {
-      var childData = getChildData(i);
+      var childData = getChildDetails(i);
       if (childData == null) {
         AppLog.info(
           'WidgetTypeItem',
@@ -114,7 +114,7 @@ class WidgetTypeItem extends StatelessWidget {
 
       children.add(
         WidgetTypeItem(
-          fbDataMap: fbDataMap,
+          allWidgetDetails: allWidgetDetails,
           widgetDetails: childData,
         ),
       );
@@ -141,7 +141,7 @@ class WidgetTypeItem extends StatelessWidget {
         Positioned(
           left: 3,
           top: 37,
-          bottom: 2,
+          bottom: 1.5,
           child: Container(
             width: 1,
             color: AppColors.lightBorder,
@@ -161,8 +161,8 @@ class WidgetTypeItem extends StatelessWidget {
     );
   }
 
-  FbWidgetDetails? getChildData(int index) {
-    return fbDataMap[widgetDetails.children[index]];
+  FbWidgetDetails? getChildDetails(int index) {
+    return allWidgetDetails[widgetDetails.children[index]];
   }
 }
 
@@ -196,7 +196,8 @@ class _FbWidgetBox extends StatelessWidget {
             height: 35,
             margin: const EdgeInsets.fromLTRB(0, 2, 0, 2),
             padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
-            decoration: LightBorderDecoration(
+            decoration: AppDecoration.lightBorder(
+              color: AppColors.appGrey,
               borderColor: borderColor,
             ),
             child: Row(
