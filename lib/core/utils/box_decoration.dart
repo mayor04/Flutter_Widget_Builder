@@ -3,7 +3,7 @@ import 'package:flutter_widget_builder/core/constant/colors.dart';
 
 class AppDecoration {
   static BoxDecoration radius({
-    Color? color = AppColors.appGrey,
+    Color? color,
     double? radius = 2.0,
   }) {
     return CustomDecoration(
@@ -13,7 +13,7 @@ class AppDecoration {
   }
 
   static BoxDecoration lightBorder({
-    Color? color = AppColors.appGrey,
+    Color? color,
     Color? borderColor = AppColors.lightBorder,
     double? radius = 2.0,
     double? borderWidth = 1.0,
@@ -27,7 +27,7 @@ class AppDecoration {
   }
 
   static BoxDecoration darkBorder({
-    Color? color = AppColors.appGrey,
+    Color? color,
     Color borderColor = AppColors.darkBorder,
     double? radius = 2.0,
     double? borderWidth = 1.0,

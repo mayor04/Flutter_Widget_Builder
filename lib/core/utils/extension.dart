@@ -34,6 +34,16 @@ extension Theming on BuildContext {
   }
 }
 
+extension MediaQueryExt on BuildContext {
+  double get screenHeight {
+    return MediaQuery.of(this).size.height;
+  }
+
+  double get screenWidth {
+    return MediaQuery.of(this).size.width;
+  }
+}
+
 extension Blocs on BuildContext {
   InputBloc get inputBloc {
     return BlocProvider.of<InputBloc>(this);

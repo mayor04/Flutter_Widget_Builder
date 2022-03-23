@@ -2,7 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_widget_builder/core/constant/colors.dart';
+import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
+import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
+import 'package:flutter_widget_builder/features/view/overlay.dart/add_widget_overlay.dart';
 
 class AppOverlayListener extends StatefulWidget {
   final Widget child;
@@ -21,6 +25,10 @@ class _AppOverlayListenerState extends State<AppOverlayListener> {
       listener: (context, state) {
         if (state is AppOverlayAddState) {
           showAddWidgetOverlay(state);
+        }
+
+        if (state is RemoveAppOverlay) {
+          removeAddEntry();
         }
       },
       child: widget.child,
@@ -42,12 +50,27 @@ class _AppOverlayListenerState extends State<AppOverlayListener> {
           child: Stack(
             children: [
               Positioned(
-                top: 0,
-                left: 0,
+                top: state.position.dy - 3,
+                left: state.position.dx + 20,
                 child: Container(
-                  height: 100,
-                  width: 100,
-                  color: Colors.yellow,
+                  height: 30,
+                  width: 30,
+                  color: AppColors.appDark,
+                ),
+              ),
+              Positioned(
+                top: 0,
+                bottom: 0,
+                left: state.position.dx + 35,
+                child: Align(
+                  alignment: Alignment(
+                    0,
+                    state.position.dy / context.screenHeight,
+                  ),
+                  child: AddWidgetOverlay(
+                    parentType: state.parentType,
+                    parentId: state.parentId,
+                  ),
                 ),
               ),
             ],
@@ -59,9 +82,8 @@ class _AppOverlayListenerState extends State<AppOverlayListener> {
     Overlay.of(context)?.insert(addWidgetEntry!);
   }
 
-  removePreviousEntry(OverlayEntry? entry) {
-    entry?.remove();
-    entry = null;
-    log('');
+  removeAddEntry() {
+    addWidgetEntry?.remove();
+    addWidgetEntry = null;
   }
 }

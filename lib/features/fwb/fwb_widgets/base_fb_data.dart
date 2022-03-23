@@ -1,4 +1,4 @@
-import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
-import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
@@ -131,7 +131,7 @@ class _SelectBorderState extends State<_SelectBorder> {
         }
 
         return Container(
-          margin: const EdgeInsets.all(17),
+          // margin: const EdgeInsets.all(17),
           decoration: CustomDecoration(
             borderColor: isSelected ? Color.fromARGB(255, 1, 233, 183) : null,
             borderWidth: isSelected ? 2 : null,

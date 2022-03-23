@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
-import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
@@ -123,6 +123,21 @@ class WidgetTypeItem extends StatelessWidget {
 
     return Stack(
       children: [
+        Positioned(
+          left: 3,
+          right: 0,
+          bottom: 1.5,
+          top: 4,
+          child: Container(
+            // height: 1,
+            decoration: AppDecoration.radius(
+              color: (widgetDetails.childType != FbChildType.multiple)
+                  ? AppColors.appGrey.withOpacity(0.6)
+                  : AppColors.appDark,
+              radius: 1,
+            ),
+          ),
+        ),
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -217,16 +232,14 @@ class _FbWidgetBox extends StatelessWidget {
                     ),
                     const Box.horizontal(15),
                     GestureDetector(
-                      // onTap: () {
-                      //   context.read<WidgetTreeBloc>().add(
-                      //       AddWidgetEvent(details.id, FbContainerConfig()));
-                      // },
                       onTapUp: (tapDetails) {
                         context
                             .read<AppOverlayCubit>()
                             .showAddWidgetListOverlay(
-                              position: tapDetails.globalPosition,
+                              position: tapDetails.globalPosition -
+                                  tapDetails.localPosition,
                               parentType: details.widgetType,
+                              parentId: details.id,
                             );
                       },
                       child: const IconBox(

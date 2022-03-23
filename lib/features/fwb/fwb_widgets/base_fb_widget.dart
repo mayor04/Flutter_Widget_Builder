@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_builder/core/enum/fb_enum.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 
 ///This abstract class is the base class for every widget
 ///Extends this class to add more functionality
-///`FBcontainer extends FBwidget`
+///`FBcontainerConfig extends FBwidgetConfig`
 abstract class FbWidgetConfig<T extends FbWidgetStyles> {
   final int id = DateTime.now().millisecondsSinceEpoch;
   final FbWidgetType widgetType;
