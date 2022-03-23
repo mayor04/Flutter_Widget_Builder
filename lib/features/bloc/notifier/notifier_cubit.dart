@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_widget_builder/core/utils/logg.dart';
 
 part 'notifier_state.dart';
 
 class NotifierCubit extends Cubit<NotifierState> {
+  final log = AppLog('NotifierCubit');
   NotifierCubit() : super(NotifierInitial());
 
   void select(int id) {
@@ -12,5 +16,11 @@ class NotifierCubit extends Cubit<NotifierState> {
 
   void styleChanged(int id) {
     emit(NotifierStyleChanged(id));
+  }
+
+  @override
+  void onChange(Change<NotifierState> change) {
+    super.onChange(change);
+    log.out('onChange()', change);
   }
 }

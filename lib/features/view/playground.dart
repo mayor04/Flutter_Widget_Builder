@@ -49,17 +49,20 @@ class Playground extends StatelessWidget {
             ),
             InputSmall(
               smallInputData: FbInputDataSmall('he', 2),
+              onEditComplete: () {},
             ),
             SizedBox(
               width: 275,
               child: InputExpanded(
                 expandedInputData: FbInputDataExpanded('he', 2),
+                onEditComplete: () {},
               ),
             ),
             SizedBox(
               width: 275,
               child: InputLTRB(
                 ltrbInputData: FbInputDataLTRB('he', [0, 0, 0, 0]),
+                onEditComplete: () {},
               ),
             ),
             const SizedBox(

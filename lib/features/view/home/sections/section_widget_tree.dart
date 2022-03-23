@@ -6,6 +6,7 @@ import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
+import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_data.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_column.dart';
@@ -216,9 +217,17 @@ class _FbWidgetBox extends StatelessWidget {
                     ),
                     const Box.horizontal(15),
                     GestureDetector(
-                      onTap: () {
-                        context.read<WidgetTreeBloc>().add(
-                            AddWidgetEvent(details.id, FbContainerConfig()));
+                      // onTap: () {
+                      //   context.read<WidgetTreeBloc>().add(
+                      //       AddWidgetEvent(details.id, FbContainerConfig()));
+                      // },
+                      onTapUp: (tapDetails) {
+                        context
+                            .read<AppOverlayCubit>()
+                            .showAddWidgetListOverlay(
+                              position: tapDetails.globalPosition,
+                              parentType: details.widgetType,
+                            );
                       },
                       child: const IconBox(
                         tooltip: 'Add - Ctrl A',

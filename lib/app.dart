@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/config/theme.dart';
 import 'package:flutter_widget_builder/core/constant/constant.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
+import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/styles_input/input_bloc.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<InputBloc>(create: (_) => InputBloc(fbController)),
         BlocProvider<NotifierCubit>(create: (_) => NotifierCubit()),
+        BlocProvider<AppOverlayCubit>(create: (_) => AppOverlayCubit()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

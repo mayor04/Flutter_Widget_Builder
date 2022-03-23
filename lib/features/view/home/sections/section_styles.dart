@@ -27,24 +27,27 @@ class SectionStyles extends StatelessWidget {
       child: BlocBuilder<InputBloc, InputState>(
         builder: (context, state) {
           return Container(
-            width: 300,
-            margin: const EdgeInsets.fromLTRB(0, 120, 0, 70),
+            width: 270,
+            margin: const EdgeInsets.fromLTRB(0, 110, 0, 60),
             decoration: AppDecoration.radius(
               color: AppColors.appDark,
-              radius: 10,
+              radius: 5,
             ),
             child: Container(
               margin: const EdgeInsets.fromLTRB(10, 30, 10, 10),
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               decoration: AppDecoration.radius(
                 color: AppColors.appGrey,
-                radius: 10,
+                radius: 5,
               ),
               child: ListView.builder(
                 itemCount: state.allInput.length,
                 itemBuilder: (context, index) {
                   var fbInputBase = state.allInput[index];
-                  return FInputPad(fbInputBase: fbInputBase);
+                  return FInputPad(
+                    fbInputBase: fbInputBase,
+                    widgetId: state.widgetId,
+                  );
                 },
               ),
             ),
@@ -57,33 +60,53 @@ class SectionStyles extends StatelessWidget {
 
 class FInputPad extends StatelessWidget {
   final FbInputBase fbInputBase;
+  final int widgetId;
 
   const FInputPad({
     Key? key,
     required this.fbInputBase,
+    required this.widgetId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 10, 13, 10),
-      child: Builder(
-        builder: (context) {
-          if (fbInputBase.inputType == FbInputType.group) {
-            FbGroupInputBase groupData = fbInputBase as FbGroupInputBase;
-            var groupWidgetFunction = InputMap.group[groupData.groupType];
-            if (groupWidgetFunction == null) return const SizedBox();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 10, 13, 15),
+          child: Builder(
+            builder: (context) {
+              if (fbInputBase.inputType == FbInputType.group) {
+                FbGroupInputBase groupData = fbInputBase as FbGroupInputBase;
+                var groupWidgetFunction = InputMap.group[groupData.groupType];
+                if (groupWidgetFunction == null) return const SizedBox();
 
-            return groupWidgetFunction(groupData);
-          }
+                return groupWidgetFunction(
+                  groupData,
+                  onEditComplete(context),
+                );
+              }
 
-          var widgetFunction = InputMap.input[fbInputBase.inputType];
-          if (widgetFunction == null) return const SizedBox();
+              var widgetFunction = InputMap.input[fbInputBase.inputType];
+              if (widgetFunction == null) return const SizedBox();
 
-          return widgetFunction(fbInputBase);
-        },
-      ),
+              return widgetFunction(
+                fbInputBase,
+                onEditComplete(context),
+              );
+            },
+          ),
+        ),
+        const Divider(),
+      ],
     );
+  }
+
+  VoidCallback onEditComplete(BuildContext context) {
+    return () {
+      context.read<NotifierCubit>().styleChanged(widgetId);
+    };
   }
 }
 

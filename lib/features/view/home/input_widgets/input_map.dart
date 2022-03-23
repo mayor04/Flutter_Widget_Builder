@@ -5,16 +5,24 @@ import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/view/home/input_widgets/group_input.dart';
 import 'package:flutter_widget_builder/features/view/home/input_widgets/input_widget.dart';
 
+typedef InputMapCallback = Widget Function(FbInputBase, VoidCallback);
+typedef GroupInputMapCallback = Widget Function(FbGroupInputBase, VoidCallback);
+
 class InputMap {
-  static final Map<FbInputType, Widget Function(FbInputBase)> input = {
-    FbInputType.small: (FbInputBase inputData) => InputSmall(
+  static final Map<FbInputType, InputMapCallback> input = {
+    FbInputType.small: (FbInputBase inputData, VoidCallback onEditComplete) =>
+        InputSmall(
           smallInputData: inputData.cast<FbInputDataSmall>(),
+          onEditComplete: onEditComplete,
         ),
   };
 
-  static final Map<FbGroupType, Widget Function(FbGroupInputBase)> group = {
-    FbGroupType.smallHW: (FbGroupInputBase fbInputGroup) => GroupInputHW(
-          fbGroupData: fbInputGroup.cast<FbGroupHWData>(),
-        ),
+  static final Map<FbGroupType, GroupInputMapCallback> group = {
+    FbGroupType.smallHW:
+        (FbGroupInputBase fbInputGroup, VoidCallback onEditComplete) =>
+            GroupInputHW(
+              fbGroupData: fbInputGroup.cast<FbGroupHWData>(),
+              onEditComplete: onEditComplete,
+            ),
   };
 }

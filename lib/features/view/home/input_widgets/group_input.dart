@@ -6,15 +6,26 @@ import 'package:flutter_widget_builder/features/view/home/input_widgets/input_wi
 
 class GroupInputHW extends StatelessWidget {
   final FbGroupHWData fbGroupData;
-  const GroupInputHW({Key? key, required this.fbGroupData}) : super(key: key);
+  final VoidCallback onEditComplete;
+  const GroupInputHW({
+    Key? key,
+    required this.fbGroupData,
+    required this.onEditComplete,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InputSmall(smallInputData: fbGroupData.input1),
-        InputSmall(smallInputData: fbGroupData.input2),
+        InputSmall(
+          smallInputData: fbGroupData.input1,
+          onEditComplete: onEditComplete,
+        ),
+        InputSmall(
+          smallInputData: fbGroupData.input2,
+          onEditComplete: onEditComplete,
+        ),
       ],
     );
   }

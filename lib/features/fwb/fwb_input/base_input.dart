@@ -1,6 +1,6 @@
 abstract class FbInputBase<T> {
   final String title;
-  final T value;
+  T value;
   final FbInputType inputType;
 
   FbInputBase(this.title, this.value, this.inputType);

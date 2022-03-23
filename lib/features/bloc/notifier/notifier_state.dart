@@ -20,4 +20,10 @@ class NotifierSelected extends NotifierState {
 class NotifierStyleChanged extends NotifierState {
   final int id;
   const NotifierStyleChanged(this.id);
+
+  @override
+  bool operator ==(Object other) => false;
+
+  @override
+  int get hashCode => runtimeType.hashCode;
 }

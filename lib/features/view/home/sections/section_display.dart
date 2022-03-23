@@ -19,8 +19,8 @@ class SectionDisplay extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        height: 300,
-        width: 300,
+        height: 370,
+        width: 400,
         color: Colors.white,
         alignment: Alignment.center,
         child: BlocBuilder<WidgetTreeBloc, WidgetTreeState>(
