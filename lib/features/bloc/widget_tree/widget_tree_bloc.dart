@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_widget_builder/core/constant/constant.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_data.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_details.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 part 'widget_tree_event.dart';
 part 'widget_tree_state.dart';

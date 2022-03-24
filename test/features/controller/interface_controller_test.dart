@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_widget_builder/core/constant/constant.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_column.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_column_config.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container_config.dart';
 import 'package:mockito/mockito.dart';
 
 void main() {

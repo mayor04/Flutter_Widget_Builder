@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_widget_builder/core/constant/constant.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_details.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_data.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container_config.dart';
 
 typedef FbWidgetStylesCallback = FbWidgetStyles Function();
 

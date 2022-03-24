@@ -2,7 +2,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbWidgetDetails {
   final log = AppLog('FBdata');

@@ -6,7 +6,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_widget.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbContainerConfig extends FbWidgetConfig<FbContainerStyles> {
   var heightInput = FbInputDataSmall<double>('Height', 150);
