@@ -5,6 +5,7 @@ import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/view/home/input_widgets/input_widget.dart';
+import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 ///This is where all widget appearance are being tested
 class Playground extends StatelessWidget {
@@ -19,59 +20,125 @@ class Playground extends StatelessWidget {
           spacing: 15,
           runSpacing: 15,
           children: [
-            Container(
-              height: 50,
-              width: 100,
-              decoration: AppDecoration.lightBorder(
-                color: AppColors.appGrey,
+            _PlayBorder(
+              child: Container(
+                height: 50,
+                width: 100,
+                decoration: AppDecoration.lightBorder(
+                  color: AppColors.appGrey,
+                ),
               ),
             ),
-            Container(
-              height: 50,
-              width: 100,
-              decoration: AppDecoration.darkBorder(color: AppColors.appGrey),
-            ),
-            SizedBox(
-              width: 95,
-              child: Row(
-                children: [
-                  Text(
-                    'Width',
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                    width: 45,
-                    child: TextField(),
-                  ),
-                ],
+            _PlayBorder(
+              child: Container(
+                height: 50,
+                width: 100,
+                decoration: AppDecoration.darkBorder(color: AppColors.appGrey),
               ),
             ),
-            InputSmall(
-              smallInputData: FbInputDataSmall('he', 2),
-              onEditComplete: () {},
+            _PlayBorder(
+              child: SizedBox(
+                width: 95,
+                child: Row(
+                  children: [
+                    Text(
+                      'Width',
+                      style: context.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                      width: 45,
+                      child: TextField(),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            SizedBox(
-              width: 275,
-              child: InputExpanded(
-                expandedInputData: FbInputDataExpanded('he', 2),
+            _PlayBorder(
+              title: 'Small input',
+              child: InputSmall(
+                smallInputData: FbInputDataSmall('width', 2),
                 onEditComplete: () {},
               ),
             ),
-            SizedBox(
-              width: 275,
-              child: InputLTRB(
-                ltrbInputData: FbInputDataLTRB('he', [0, 0, 0, 0]),
-                onEditComplete: () {},
+            _PlayBorder(
+              title: 'Expanded input',
+              child: SizedBox(
+                width: 275,
+                child: InputExpanded(
+                  expandedInputData: FbInputDataExpanded('name', 2),
+                  onEditComplete: () {},
+                ),
               ),
             ),
-            const SizedBox(
-              height: 30,
-              width: 100,
-              child: Icon(Icons.add),
-            )
+            _PlayBorder(
+              title: 'LTRB input',
+              child: SizedBox(
+                width: 275,
+                child: InputLTRB(
+                  ltrbInputData: FbInputDataLTRB('margin', [0, 0, 0, 0]),
+                  onEditComplete: () {},
+                ),
+              ),
+            ),
+            const _PlayBorder(
+              title: 'icon',
+              child: SizedBox(
+                height: 30,
+                width: 100,
+                child: Icon(Icons.add),
+              ),
+            ),
+            _PlayBorder(
+              title: 'parse color',
+              child: Container(
+                height: 50,
+                width: 50,
+                // color: Colors.white,
+                color: () {
+                  int value = int.parse('0xFF7BBAAF');
+                  var l = Color(value).toString();
+                  return Color(value);
+                }(),
+              ),
+            ),
+            _PlayBorder(
+              child: SizedBox(
+                width: 275,
+                child: InputColor(
+                  colorInputData: FbInputDataColor('color', 0xFFC4C4C4),
+                  onEditComplete: () {},
+                ),
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _PlayBorder extends StatelessWidget {
+  final Widget child;
+  final String? title;
+  const _PlayBorder({Key? key, required this.child, this.title})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: AppDecoration.lightBorder(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title ?? 'No title',
+            style: context.textTheme.bodyMedium,
+          ),
+          const Box.vertical(10),
+          child,
+        ],
       ),
     );
   }

@@ -38,7 +38,7 @@ class FbWidgetDetails {
     this.childType = FbChildType.single,
   });
 
-  FbWidgetStyles get styles {
+  BaseFbStyles get styles {
     assert(widgetStylesCallback != null);
 
     return widgetStylesCallback!();

@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_widget_builder/core/constant/constant.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_column_config.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container_config.dart';
 import 'package:mockito/mockito.dart';
@@ -68,7 +69,26 @@ void main() {
     var input1 = inputGroupData.input1;
     input1.value = 100.0;
 
-    expect(inputList[0].value[0].value, 100);
+    expect(childWidget.getWidgetStyles().height, 100);
+  });
+
+  test('Verify if Color is changed', () {
+    var childWidget = FbContainerConfig();
+    var childWidget2 = FbContainerConfig();
+
+    int parentColor = childWidget.getWidgetStyles().colorValue;
+
+    interfaceController.addChildWidget(xMainId, childWidget);
+    interfaceController.addChildWidget(childWidget.id, childWidget2);
+
+    var inputList = interfaceController.getWidgetInput(childWidget2.id);
+    var inputGroupData = inputList[1] as FbInputDataColor;
+
+    inputGroupData.value = int.parse('0xFFFFFFFF');
+
+    expect(childWidget2.getWidgetStyles().colorValue, int.parse('0xFFFFFFFF'));
+    //Parent color doesn't change
+    expect(childWidget.getWidgetStyles().colorValue, parentColor);
   });
 }
 

@@ -16,9 +16,24 @@ class FbInputDataExpanded<T extends Comparable?> extends FbInputBase<T> {
 }
 
 ///This defines the style of the input that should be displayed
-///`FbInputDataExpanded<T>` tells the ui to fill the all the space horizontally
+///`FbInputDataLTRB<T>` tells the ui to fill the all the space horizontally
 ///and mostly used for item like `padding`, `margin`, `border radius`
 class FbInputDataLTRB<T extends List?> extends FbInputBase<T> {
   FbInputDataLTRB(String title, T value)
       : super(title, value, FbInputType.ltrb);
+}
+
+///This defines the style of inputs that allows color selection
+///`FbInputDataColor<T>` tells the ui to fill the all the space horizontally
+class FbInputDataColor extends FbInputBase {
+  FbInputDataColor(String title, int value)
+      : super(title, value, FbInputType.color);
+}
+
+///This defines the style of the input that should be displayed
+///`FbInputDataDropdown<T>` tells the ui to fill the all the space horizontally
+///and mostly used for item that have multiple options to select from
+class FbInputDataDropdown<T extends List?> extends FbInputBase<T> {
+  FbInputDataDropdown(String title, T value)
+      : super(title, value, FbInputType.dropdown);
 }

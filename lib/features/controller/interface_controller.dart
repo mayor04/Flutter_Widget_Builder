@@ -7,13 +7,13 @@ import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container_config.dart';
 
-typedef FbWidgetStylesCallback = FbWidgetStyles Function();
+typedef FbWidgetStylesCallback = BaseFbStyles Function();
 
 class FbInterfaceController {
   final log = AppLog('FbInterfaceController');
 
   final List<int> idList = [];
-  final Map<int, FbWidgetConfig> fbWidgetsMap = {};
+  final Map<int, BaseFbConfig> fbWidgetsMap = {};
 
   ///Each of them hold the list of child/children
   final Map<int, FbWidgetDetails> fbDetailsMap = {};
@@ -45,7 +45,7 @@ class FbInterfaceController {
 
   ///throws `Exception('Parent not found')` when the parent id is not found
   Map<int, FbWidgetDetails> addChildWidget(
-      int parentId, FbWidgetConfig childWidget) {
+      int parentId, BaseFbConfig childWidget) {
     final id = childWidget.id;
 
     //Add id to the Id list

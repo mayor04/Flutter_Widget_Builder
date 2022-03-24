@@ -11,7 +11,7 @@ class InitialWidgetTreeEvent extends WidgetTreeEvent {}
 
 class AddWidgetEvent extends WidgetTreeEvent {
   final int parentId;
-  final FbWidgetConfig fbWidget;
+  final BaseFbConfig fbWidget;
 
   const AddWidgetEvent(this.parentId, this.fbWidget);
 }

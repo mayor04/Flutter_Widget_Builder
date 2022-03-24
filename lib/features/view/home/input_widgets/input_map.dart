@@ -15,6 +15,11 @@ class InputMap {
           smallInputData: inputData.cast<FbInputDataSmall>(),
           onEditComplete: onEditComplete,
         ),
+    FbInputType.color: (FbInputBase inputData, VoidCallback onEditComplete) =>
+        InputColor(
+          colorInputData: inputData.cast<FbInputDataColor>(),
+          onEditComplete: onEditComplete,
+        ),
   };
 
   static final Map<FbGroupType, GroupInputMapCallback> group = {

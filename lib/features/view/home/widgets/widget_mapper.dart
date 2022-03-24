@@ -12,7 +12,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container_con
 ///multiple children see `MultipleChildWidgetWrapper`
 class SingleChildWidgetMapper extends StatelessWidget {
   final Widget child;
-  final FbWidgetStyles widgetStyles;
+  final BaseFbStyles widgetStyles;
 
   const SingleChildWidgetMapper({
     Key? key,
@@ -37,7 +37,7 @@ class SingleChildWidgetMapper extends StatelessWidget {
 ///single children see `SingleChildWidgetWrapper`
 class MultipleChildWidgetMapper extends StatelessWidget {
   final List<Widget> children;
-  final FbWidgetStyles widgetStyles;
+  final BaseFbStyles widgetStyles;
 
   const MultipleChildWidgetMapper({
     Key? key,
@@ -55,11 +55,10 @@ class MultipleChildWidgetMapper extends StatelessWidget {
   }
 }
 
-typedef _SingleWidgetMapFunction = Widget Function(
-    FbWidgetStyles, Widget child);
+typedef _SingleWidgetMapFunction = Widget Function(BaseFbStyles, Widget child);
 
 typedef _MultipleWidgetMapFunction = Widget Function(
-    FbWidgetStyles, List<Widget> child);
+    BaseFbStyles, List<Widget> child);
 
 class _WidgetMap {
   static final Map<FbWidgetType, _SingleWidgetMapFunction> single = {
@@ -69,7 +68,7 @@ class _WidgetMap {
       return Container(
         height: containerStyles.height,
         width: containerStyles.width,
-        color: containerStyles.color,
+        color: Color(containerStyles.colorValue),
         child: child,
       );
     },

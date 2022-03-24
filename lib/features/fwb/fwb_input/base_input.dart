@@ -25,7 +25,7 @@ abstract class FbGroupInputBase<T> extends FbInputBase<T> {
 
 ///If the type is group we should display
 ///the children based on the `FbGroupType`
-enum FbInputType { small, expnaded, ltrb, group }
+enum FbInputType { small, expnaded, ltrb, group, color, dropdown }
 
 enum FbGroupType {
   smallHW,

@@ -4,7 +4,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
-class FbColumnConfig extends FbWidgetConfig<FbColumnStyles> {
+class FbColumnConfig extends BaseFbConfig<FbColumnStyles> {
   FbColumnConfig() : super(FbWidgetType.column, FbChildType.multiple);
 
   @override
@@ -18,9 +18,6 @@ class FbColumnConfig extends FbWidgetConfig<FbColumnStyles> {
     return FbColumnStyles(
       id,
       widgetType,
-      height: 50,
-      width: 50,
-      color: Colors.red,
     );
   }
 
@@ -31,16 +28,6 @@ class FbColumnConfig extends FbWidgetConfig<FbColumnStyles> {
   }
 }
 
-class FbColumnStyles extends FbWidgetStyles {
-  final int height;
-  final int width;
-  final Color color;
-
-  FbColumnStyles(
-    int id,
-    FbWidgetType widgetType, {
-    required this.height,
-    required this.width,
-    required this.color,
-  }) : super(id, widgetType);
+class FbColumnStyles extends BaseFbStyles {
+  FbColumnStyles(int id, FbWidgetType widgetType) : super(id, widgetType);
 }
