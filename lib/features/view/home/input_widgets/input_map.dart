@@ -21,6 +21,11 @@ class InputItemBox {
           colorInputData: inputData.cast<FbInputDataColor>(),
           onEditComplete: onEditComplete,
         );
+      case FbInputType.dropdown:
+        return InputDropdown(
+          dropDownInputData: inputData.cast<FbInputDataDropdown>(),
+          onEditComplete: onEditComplete,
+        );
       default:
         return const SizedBox();
     }

@@ -35,9 +35,10 @@ class FbInputDataColor extends FbInputBase {
 ///and mostly used for item that have multiple options to select from
 class FbInputDataDropdown extends FbInputBase<String> {
   final List<String> list;
+  final String defaultString;
   FbInputDataDropdown(
     String title, {
     required this.list,
-    String defaultString = 'none',
+    this.defaultString = 'none',
   }) : super(title, defaultString, FbInputType.dropdown);
 }

@@ -7,13 +7,13 @@ import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.d
 
 class FbColumnConfig extends BaseFbConfig<FbColumnStyles> {
   var mainAxisInput = FbInputDataDropdown(
-    'MainAxisAlignment',
+    'MainAxisAlign',
     defaultString: MainAxisAlignment.start.name,
     list: MainAxisAlignment.values.map((e) => e.name).toList(),
   );
 
   var crossAxisInput = FbInputDataDropdown(
-    'CrossAxisAlignment',
+    'CrossAxisAlign',
     defaultString: CrossAxisAlignment.center.name,
     list: CrossAxisAlignment.values.map((e) => e.name).toList(),
   );

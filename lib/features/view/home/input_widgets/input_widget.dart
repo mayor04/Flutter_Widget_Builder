@@ -281,9 +281,9 @@ class _InputDropdownState extends State<InputDropdown> {
               items: widget.dropDownInputData.list
                   .map((element) => DropdownMenuItem<String>(
                         value: element,
-                        child: Text(
+                        child: menuItem(
                           element,
-                          style: context.textTheme.bodyMedium,
+                          inputData.defaultString,
                         ),
                       ))
                   .toList(),
@@ -291,6 +291,38 @@ class _InputDropdownState extends State<InputDropdown> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget menuItem(itemString, defaultString) {
+    if (itemString == defaultString) {
+      return Row(
+        children: [
+          Text(
+            itemString,
+            style: context.textTheme.bodyMedium,
+          ),
+          const Box.horizontal(6),
+          Container(
+            padding: const EdgeInsets.fromLTRB(3, 1, 3, 1),
+            decoration: AppDecoration.radius(
+              color: AppColors.focusedBorder.withOpacity(0.3),
+              radius: 2,
+            ),
+            child: Text(
+              'd',
+              style: context.textTheme.labelSmall?.copyWith(
+                fontSize: 8,
+              ),
+            ),
+          )
+        ],
+      );
+    }
+
+    return Text(
+      itemString,
+      style: context.textTheme.bodyMedium,
     );
   }
 }
