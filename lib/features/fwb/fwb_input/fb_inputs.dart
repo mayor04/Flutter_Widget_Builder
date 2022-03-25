@@ -33,7 +33,11 @@ class FbInputDataColor extends FbInputBase {
 ///This defines the style of the input that should be displayed
 ///`FbInputDataDropdown<T>` tells the ui to fill the all the space horizontally
 ///and mostly used for item that have multiple options to select from
-class FbInputDataDropdown<T extends List?> extends FbInputBase<T> {
-  FbInputDataDropdown(String title, T value)
-      : super(title, value, FbInputType.dropdown);
+class FbInputDataDropdown extends FbInputBase<String> {
+  final List<String> list;
+  FbInputDataDropdown(
+    String title, {
+    required this.list,
+    String defaultString = 'none',
+  }) : super(title, defaultString, FbInputType.dropdown);
 }

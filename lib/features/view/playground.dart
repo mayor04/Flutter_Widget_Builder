@@ -111,6 +111,19 @@ class Playground extends StatelessWidget {
                 ),
               ),
             ),
+            _PlayBorder(
+              child: SizedBox(
+                width: 275,
+                child: InputDropdown(
+                  dropDownInputData: FbInputDataDropdown(
+                    'color',
+                    defaultString: 'spaceBetween',
+                    list: MainAxisAlignment.values.map((e) => e.name).toList(),
+                  ),
+                  onEditComplete: () {},
+                ),
+              ),
+            ),
           ],
         ),
       ),

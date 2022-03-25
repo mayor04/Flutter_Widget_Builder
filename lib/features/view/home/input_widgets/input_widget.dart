@@ -235,28 +235,60 @@ class _InputColorState extends State<InputColor> {
   }
 }
 
-class InputDropdown extends StatelessWidget {
-  final FbInputDataDropdown expandedInputData;
+class InputDropdown extends StatefulWidget {
+  final FbInputDataDropdown dropDownInputData;
   final VoidCallback onEditComplete;
   const InputDropdown({
     Key? key,
-    required this.expandedInputData,
+    required this.dropDownInputData,
     required this.onEditComplete,
   }) : super(key: key);
 
   @override
+  State<InputDropdown> createState() => _InputDropdownState();
+}
+
+class _InputDropdownState extends State<InputDropdown> {
+  late FbInputDataDropdown inputData;
+
+  @override
   Widget build(BuildContext context) {
+    inputData = widget.dropDownInputData;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          expandedInputData.title,
+          inputData.title,
           style: context.textTheme.bodyMedium,
         ),
-        const SizedBox(
+        Container(
           height: AppDimen.inputHeight,
-          width: AppDimen.expandedInputWidth,
-          child: TextField(),
+          width: AppDimen.dropDownInputWidth,
+          decoration: AppDecoration.lightBorder(
+            color: AppColors.appDark.withOpacity(0.7),
+          ),
+          padding: const EdgeInsets.fromLTRB(6, 0, 3, 0),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              isExpanded: true,
+              value: inputData.value,
+              onChanged: (text) {
+                inputData.value = text ?? '';
+                setState(() {});
+              },
+              focusColor: Colors.transparent,
+              items: widget.dropDownInputData.list
+                  .map((element) => DropdownMenuItem<String>(
+                        value: element,
+                        child: Text(
+                          element,
+                          style: context.textTheme.bodyMedium,
+                        ),
+                      ))
+                  .toList(),
+            ),
+          ),
         ),
       ],
     );

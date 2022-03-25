@@ -8,4 +8,5 @@ class AppDimen {
   static const double inputHeight = 25;
   static const double smallInputWidth = 45;
   static const double expandedInputWidth = 100;
+  static const double dropDownInputWidth = 130;
 }

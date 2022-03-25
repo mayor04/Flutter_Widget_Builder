@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: AppTheme.darkTheme,
-        home: const Playground(),
-        // home: const HomeView(),
+        // home: const Playground(),
+        home: const HomeView(),
       ),
     );
   }

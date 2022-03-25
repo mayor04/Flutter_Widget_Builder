@@ -79,21 +79,21 @@ class FInputPad extends StatelessWidget {
             builder: (context) {
               if (fbInputBase.inputType == FbInputType.group) {
                 FbGroupInputBase groupData = fbInputBase as FbGroupInputBase;
-                var groupWidgetFunction = InputMap.group[groupData.groupType];
-                if (groupWidgetFunction == null) return const SizedBox();
+                // var groupWidgetFunction = InputMap.group[groupData.groupType];
+                // if (groupWidgetFunction == null) return const SizedBox();
 
-                return groupWidgetFunction(
-                  groupData,
-                  onEditComplete(context),
+                return InputItemBox.getGroupInput(
+                  inputGroup: groupData,
+                  onEditComplete: onEditComplete(context),
                 );
               }
 
-              var widgetFunction = InputMap.input[fbInputBase.inputType];
-              if (widgetFunction == null) return const SizedBox();
+              // var widgetFunction = InputMap.input[fbInputBase.inputType];
+              // if (widgetFunction == null) return const SizedBox();
 
-              return widgetFunction(
-                fbInputBase,
-                onEditComplete(context),
+              return InputItemBox.getInput(
+                inputData: fbInputBase,
+                onEditComplete: onEditComplete(context),
               );
             },
           ),
