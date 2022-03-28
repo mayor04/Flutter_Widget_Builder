@@ -6,22 +6,22 @@ import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbColumnConfig extends BaseFbConfig<FbColumnStyles> {
-  var mainAxisInput = FbInputDataDropdown(
+  var mainAxisInput = FbInputDataDropdown<MainAxisAlignment>(
     'MainAxisAlign',
-    defaultString: MainAxisAlignment.start.name,
-    list: MainAxisAlignment.values.map((e) => e.name).toList(),
+    defaultEnum: MainAxisAlignment.start,
+    list: MainAxisAlignment.values,
   );
 
   var crossAxisInput = FbInputDataDropdown(
     'CrossAxisAlign',
-    defaultString: CrossAxisAlignment.center.name,
-    list: CrossAxisAlignment.values.map((e) => e.name).toList(),
+    defaultEnum: CrossAxisAlignment.center,
+    list: CrossAxisAlignment.values,
   );
 
   var mainAxisSizeInput = FbInputDataDropdown(
     'MainAxisSize',
-    defaultString: MainAxisSize.max.name,
-    list: MainAxisSize.values.map((e) => e.name).toList(),
+    defaultEnum: MainAxisSize.max,
+    list: MainAxisSize.values,
   );
 
   FbColumnConfig() : super(FbWidgetType.column, FbChildType.multiple);
@@ -37,7 +37,7 @@ class FbColumnConfig extends BaseFbConfig<FbColumnStyles> {
     return FbColumnStyles(
       id,
       widgetType,
-      mainAlignment: mainAxisSizeInput.value,
+      mainAlignment: mainAxisInput.value,
       crossAlignment: crossAxisInput.value,
       axisSize: mainAxisSizeInput.value,
     );
@@ -54,9 +54,9 @@ class FbColumnConfig extends BaseFbConfig<FbColumnStyles> {
 }
 
 class FbColumnStyles extends BaseFbStyles {
-  String mainAlignment;
-  String crossAlignment;
-  String axisSize;
+  MainAxisAlignment mainAlignment;
+  CrossAxisAlignment crossAlignment;
+  MainAxisSize axisSize;
 
   FbColumnStyles(
     int id,

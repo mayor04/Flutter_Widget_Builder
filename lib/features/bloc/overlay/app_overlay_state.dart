@@ -18,4 +18,18 @@ class AppOverlayAddState extends AppOverlayState {
   });
 }
 
+class AppOverlaySelection extends AppOverlayState {
+  final Offset position;
+  final FbWidgetType widgetType;
+  final Size size;
+  final int parentId;
+
+  const AppOverlaySelection({
+    required this.position,
+    required this.widgetType,
+    required this.parentId,
+    required this.size,
+  });
+}
+
 class RemoveAppOverlay extends AppOverlayState {}

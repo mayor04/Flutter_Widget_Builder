@@ -1,3 +1,5 @@
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
+
 abstract class FbInputBase<T> {
   final String title;
   T value;
@@ -21,12 +23,4 @@ abstract class FbGroupInputBase<T> extends FbInputBase<T> {
 
   FbGroupInputBase(String title, T value, this.groupType)
       : super(title, value, FbInputType.group);
-}
-
-///If the type is group we should display
-///the children based on the `FbGroupType`
-enum FbInputType { small, expnaded, ltrb, group, color, dropdown }
-
-enum FbGroupType {
-  smallHW,
 }

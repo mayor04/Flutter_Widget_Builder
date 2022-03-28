@@ -59,3 +59,25 @@ extension StringExtension on String {
     return '${this[0].toUpperCase()}${substring(1)}';
   }
 }
+
+extension KeyRect on BuildContext {
+  RenderBox? get renderBox {
+    return findRenderObject() as RenderBox?;
+  }
+
+  Offset get position {
+    return renderBox?.localToGlobal(Offset.zero) ?? const Offset(0, 0);
+  }
+
+  double get dy {
+    return position.dy;
+  }
+
+  double get dx {
+    return position.dx;
+  }
+
+  Size get widgetSize {
+    return renderBox?.hasSize == true ? renderBox!.size : const Size(0, 0);
+  }
+}

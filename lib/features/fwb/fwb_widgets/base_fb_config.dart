@@ -38,3 +38,42 @@ abstract class BaseFbStyles {
     throw Exception('Unable to cast $A to type FbInputData');
   }
 }
+
+
+
+
+///@Temolate; replace all '#' with name of the widget config
+///Do a vscode search
+/*
+import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
+
+class Fb#Config extends BaseFbConfig<Fb#Styles>{
+  Fb#Config() : super(FbWidgetType., FbChildType.single);
+
+  @override
+  String generateCode(String child) {
+    // TODO: implement generateCode
+    throw UnimplementedError();
+  }
+
+  @override
+  List<FbInputBase> getInputs() {
+    // TODO: implement getInputs
+    throw UnimplementedError();
+  }
+
+  @override
+  getWidgetStyles() {
+    // TODO: implement getWidgetStyles
+    throw UnimplementedError();
+  }
+
+}
+
+class Fb#Styles extends BaseFbStyles {
+  Fb#Styles(int id, FbWidgetType widgetType) : super(id, widgetType);
+
+}
+*/

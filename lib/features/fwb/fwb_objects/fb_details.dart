@@ -29,6 +29,10 @@ class FbWidgetDetails {
     return children.isNotEmpty;
   }
 
+  int? childAt(index) {
+    return children.itemAt(index);
+  }
+
   FbWidgetDetails({
     required this.id,
     required this.widgetType,

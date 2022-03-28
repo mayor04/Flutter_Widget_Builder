@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
+import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
-import 'package:flutter_widget_builder/features/view/home/input_widgets/input_widget.dart';
+import 'package:flutter_widget_builder/features/view/create_page/input_widgets/input_widget.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 ///This is where all widget appearance are being tested
@@ -117,16 +119,57 @@ class Playground extends StatelessWidget {
                 child: InputDropdown(
                   dropDownInputData: FbInputDataDropdown(
                     'color',
-                    defaultString: 'spaceBetween',
-                    list: MainAxisAlignment.values.map((e) => e.name).toList(),
+                    defaultEnum: MainAxisAlignment.center,
+                    list: MainAxisAlignment.values,
                   ),
                   onEditComplete: () {},
+                ),
+              ),
+            ),
+            _PlayBorder(
+              child: SizedBox(
+                width: 275,
+                height: 150,
+                child: Container(
+                  alignment: Alignment.center,
+                  color: Colors.red,
+                  child: Container(
+                    color: Colors.white,
+                    // alignment: Alignment.topLeft,
+                    child: Container(
+                      color: Colors.blue,
+                      child: Text('This is a text'),
+                    ),
+                  ),
                 ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class GestWr extends StatefulWidget {
+  final Widget child;
+
+  const GestWr({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  State<GestWr> createState() => _GestWrState();
+}
+
+class _GestWrState extends State<GestWr> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NotifierCubit, NotifierState>(
+      builder: (context, state) {
+        return widget.child;
+      },
     );
   }
 }
