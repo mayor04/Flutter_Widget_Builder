@@ -6,7 +6,7 @@ import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
-import 'package:flutter_widget_builder/features/view/overlay.dart/add_widget_overlay.dart';
+import 'package:flutter_widget_builder/features/view/overlay/add_widget_overlay.dart';
 
 class AppOverlayListener extends StatefulWidget {
   final Widget child;
@@ -18,6 +18,7 @@ class AppOverlayListener extends StatefulWidget {
 
 class _AppOverlayListenerState extends State<AppOverlayListener> {
   OverlayEntry? addWidgetEntry;
+  OverlayEntry? selectionWidgetEntry;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +28,40 @@ class _AppOverlayListenerState extends State<AppOverlayListener> {
           showAddWidgetOverlay(state);
         }
 
+        if (state is AppOverlaySelection) {
+          showSelectionOverlay(state);
+        }
+
         if (state is RemoveAppOverlay) {
           removeAddEntry();
         }
       },
       child: widget.child,
     );
+  }
+
+  showSelectionOverlay(AppOverlaySelection state) {
+    selectionWidgetEntry?.remove();
+    selectionWidgetEntry = null;
+
+    selectionWidgetEntry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          top: state.position.dy,
+          left: state.position.dx,
+          child: Container(
+            height: state.size.height,
+            width: state.size.width,
+            decoration: AppDecoration.lightBorder(
+              borderColor: AppColors.focusedBorder,
+              borderWidth: 2,
+            ),
+          ),
+        );
+      },
+    );
+
+    Overlay.of(context)?.insert(selectionWidgetEntry!);
   }
 
   showAddWidgetOverlay(AppOverlayAddState state) {

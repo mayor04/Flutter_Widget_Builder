@@ -7,7 +7,7 @@ import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.d
 import 'package:flutter_widget_builder/features/bloc/styles_input/input_bloc.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
-import 'package:flutter_widget_builder/features/view/create_page/home_view.dart';
+import 'package:flutter_widget_builder/features/view/create_page/create_page.dart';
 import 'package:flutter_widget_builder/features/view/playground.dart';
 
 class MyApp extends StatelessWidget {
