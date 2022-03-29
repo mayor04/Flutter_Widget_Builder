@@ -130,17 +130,22 @@ class Playground extends StatelessWidget {
               child: SizedBox(
                 width: 275,
                 height: 150,
-                child: Container(
-                  alignment: Alignment.center,
-                  color: Colors.red,
-                  child: Container(
-                    color: Colors.white,
-                    // alignment: Alignment.topLeft,
-                    child: Container(
-                      color: Colors.blue,
-                      child: Text('This is a text'),
+                child: Column(
+                  children: [
+                    GestWr(
+                      child: Expanded(
+                        child: Container(
+                          color: Colors.white,
+                          // alignment: Alignment.topLeft,
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      height: 20,
+                      alignment: Alignment.center,
+                      color: Colors.red,
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -13,6 +13,24 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
   var widthInput = FbInputDataSmall<double>('Width', 150);
   var colorInput = FbInputDataColor('Color', int.parse('0xFFC4C4C5'));
 
+  var alignInput = FbInputDataDropdownMap(
+    'Alignment',
+    defaultValue: FbContainerStyles.defaultAlign,
+    map: FbContainerStyles.alignmentMap,
+  );
+
+  var paddingInput = FbInputDataLTRB<List<double>>('Padding', [0, 0, 0, 0]);
+  var marginInput = FbInputDataLTRB<List<double>>('Margin', [0, 0, 0, 0]);
+
+  var borderInput = FbGroupMultiple('Border', fbInputs: [
+    FbGroupHWData(
+      '',
+      input1: FbInputDataSmall<double>('radius', 0),
+      input2: FbInputDataSmall<double>('size', 0),
+    ),
+    FbInputDataColor('color', Colors.transparent.value),
+  ]);
+
   FbContainerConfig() : super(FbWidgetType.container, FbChildType.single);
 
   @override
@@ -21,28 +39,21 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
     throw UnimplementedError();
   }
 
-  var colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.yellow,
-    Color.fromARGB(255, 194, 151, 139),
-    Color.fromARGB(255, 158, 180, 228),
-    Color.fromARGB(255, 10, 51, 85),
-    Color.fromARGB(255, 235, 226, 146),
-    Color.fromARGB(255, 230, 155, 132),
-  ];
-  Color? mcolor;
-
   @override
   FbContainerStyles getWidgetStyles() {
-    mcolor ??= colors[Random().nextInt(4)];
-
     return FbContainerStyles(
       id,
       widgetType,
       height: heightInput.value,
       width: widthInput.value,
       colorValue: colorInput.value,
+      pad: paddingInput.value,
+      marg: marginInput.value,
+      alignment: alignInput.mapValue,
+      radius: (borderInput.inputAt(0) as FbGroupHWData).input1.value as double,
+      borderSize:
+          (borderInput.inputAt(0) as FbGroupHWData).input2.value as double,
+      borderColor: borderInput.inputAt(1).value,
     );
   }
 
@@ -51,6 +62,10 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
     return [
       FbGroupHWData('', input1: heightInput, input2: widthInput),
       colorInput,
+      alignInput,
+      paddingInput,
+      marginInput,
+      borderInput,
     ];
   }
 }
@@ -60,6 +75,20 @@ class FbContainerStyles extends BaseFbStyles {
   final double height;
   final double width;
   final int colorValue;
+  final Alignment? alignment;
+  late final EdgeInsetsGeometry padding;
+  late final EdgeInsetsGeometry margin;
+  late final BorderRadiusGeometry borderRadius;
+  late final BoxBorder? border;
+  late final List<BoxShadow>? boxShadow;
+
+  //radius
+  //border width
+  //border color
+  //spread radius
+  //x and y
+  //blur radius
+  //color
 
   FbContainerStyles(
     int id,
@@ -67,5 +96,58 @@ class FbContainerStyles extends BaseFbStyles {
     required this.height,
     required this.width,
     required this.colorValue,
-  }) : super(id, widgetType);
+    required this.alignment,
+    required List<double> pad,
+    required List<double> marg,
+    required double radius,
+    required double borderSize,
+    required int borderColor,
+    // required bool showShadow,
+    // required double offsetX,
+    // required double offsetY,
+    // required int shadowColor,
+    // required double blurRadius,
+    // required double spreadRadius,
+  }) : super(id, widgetType) {
+    padding = EdgeInsets.fromLTRB(pad[0], pad[1], pad[2], pad[3]);
+    margin = EdgeInsets.fromLTRB(marg[0], marg[1], marg[2], marg[3]);
+
+    borderRadius = BorderRadius.circular(radius);
+
+    if (borderSize != 0) {
+      border = Border.all(
+        color: Color(borderColor),
+        width: borderSize,
+      );
+    } else {
+      border = null;
+    }
+
+    // if (showShadow) {
+    //   boxShadow = [];
+    //   boxShadow?.add(
+    //     BoxShadow(
+    //       blurRadius: blurRadius,
+    //       color: Color(shadowColor),
+    //       offset: Offset(offsetX, offsetY),
+    //       spreadRadius: spreadRadius,
+    //     ),
+    //   );
+    // }
+  }
+
+  static String defaultAlign = 'none';
+
+  static Map<String, Alignment?> alignmentMap = {
+    'none': null,
+    'bottomCenter': Alignment.bottomCenter,
+    'bottomLeft': Alignment.bottomLeft,
+    'bottomRight': Alignment.bottomRight,
+    'center': Alignment.center,
+    'centerLeft': Alignment.centerLeft,
+    'centerRight': Alignment.centerRight,
+    'topCenter': Alignment.topCenter,
+    'topLeft': Alignment.topLeft,
+    'topRight': Alignment.topRight,
+  };
 }

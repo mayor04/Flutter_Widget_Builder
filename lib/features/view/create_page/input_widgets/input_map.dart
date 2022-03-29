@@ -17,7 +17,7 @@ class InputItemBox {
           smallInputData: inputData.cast<FbInputDataSmall>(),
           onEditComplete: onEditComplete,
         );
-      case FbInputType.expnaded:
+      case FbInputType.expanded:
         return InputExpanded(
           expandedInputData: inputData.cast<FbInputDataExpanded>(),
           onEditComplete: onEditComplete,
@@ -27,9 +27,24 @@ class InputItemBox {
           colorInputData: inputData.cast<FbInputDataColor>(),
           onEditComplete: onEditComplete,
         );
-      case FbInputType.dropdown:
+      case FbInputType.dropDownEnum:
         return InputDropdown(
-          dropDownInputData: inputData.cast<FbInputDataDropdown>(),
+          dropDownInputData: inputData.cast<FbInputDataDropdown<Enum>>(),
+          onEditComplete: onEditComplete,
+        );
+      case FbInputType.dropDownMap:
+        return InputDropdownMap(
+          dropDownMap: inputData.cast<FbInputDataDropdownMap>(),
+          onEditComplete: onEditComplete,
+        );
+      case FbInputType.ltrb:
+        return InputLTRB(
+          ltrbInputData: inputData.cast<FbInputDataLTRB>(),
+          onEditComplete: onEditComplete,
+        );
+      case FbInputType.text:
+        return InputText(
+          textInputData: inputData.cast<FbInputDataText>(),
           onEditComplete: onEditComplete,
         );
       default:
@@ -45,6 +60,11 @@ class InputItemBox {
       case FbGroupType.smallHW:
         return GroupInputHW(
           fbGroupData: inputGroup.cast<FbGroupHWData>(),
+          onEditComplete: onEditComplete,
+        );
+      case FbGroupType.multiple:
+        return GroupInputMultiple(
+          fbGroupData: inputGroup.cast<FbGroupMultiple>(),
           onEditComplete: onEditComplete,
         );
       default:

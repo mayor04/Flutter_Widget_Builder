@@ -5,14 +5,14 @@ import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbTextConfig extends BaseFbConfig<FbTextStyles> {
-  var textInput = FbInputDataExpanded<String>('Text', '');
+  var textInput = FbInputDataText('Text', '');
   var fontSizeInput = FbInputDataExpanded<double>('Font Size', 10);
   var colorInput = FbInputDataColor('Color', int.parse('0xFF000000'));
-  // var fontWeightInput = FbInputDataDropdown(
-  //   'Font weight',
-  //   defaultEnum: FontWeight.w500,
-  //   list: FontWeight.values,
-  // );
+  var fontWeightInput = FbInputDataDropdownMap(
+    'Font weight',
+    defaultValue: FbTextStyles.defaultWeight,
+    map: FbTextStyles.fontWeightMap,
+  );
 
   FbTextConfig() : super(FbWidgetType.text, FbChildType.none);
 
@@ -24,11 +24,7 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> {
 
   @override
   List<FbInputBase> getInputs() {
-    return [
-      textInput,
-      fontSizeInput,
-      colorInput,
-    ];
+    return [textInput, fontSizeInput, colorInput, fontWeightInput];
   }
 
   @override
@@ -39,6 +35,7 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> {
       text: textInput.value,
       fontSize: fontSizeInput.value,
       colorValue: colorInput.value,
+      fontWeight: fontWeightInput.mapValue,
     );
   }
 }
@@ -57,4 +54,17 @@ class FbTextStyles extends BaseFbStyles {
     this.fontWeight,
     this.fontSize,
   }) : super(id, widgetType);
+
+  static String defaultWeight = 'none';
+
+  static Map<String, FontWeight?> fontWeightMap = () {
+    Map<String, FontWeight?> weightMap = {'none': null};
+
+    for (var weight in FontWeight.values) {
+      String key = weight.toString().split('.')[1];
+      weightMap[key] = weight;
+    }
+
+    return weightMap;
+  }();
 }

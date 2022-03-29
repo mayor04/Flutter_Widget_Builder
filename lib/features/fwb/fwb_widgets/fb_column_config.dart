@@ -6,7 +6,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbColumnConfig extends BaseFbConfig<FbColumnStyles> {
-  var mainAxisInput = FbInputDataDropdown<MainAxisAlignment>(
+  var mainAxisInput = FbInputDataDropdown(
     'MainAxisAlign',
     defaultEnum: MainAxisAlignment.start,
     list: MainAxisAlignment.values,

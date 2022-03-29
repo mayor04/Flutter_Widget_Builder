@@ -63,6 +63,7 @@ class SectionWidgetTree extends StatelessWidget {
           ),
           Expanded(
             child: SingleChildScrollView(
+              primary: false,
               padding: const EdgeInsets.fromLTRB(9, 30, 9, 100),
               child: BlocBuilder<WidgetTreeBloc, WidgetTreeState>(
                 builder: (context, state) {

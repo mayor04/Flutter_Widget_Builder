@@ -8,15 +8,15 @@ import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/view/overlay/add_widget_overlay.dart';
 
-class AppOverlayListener extends StatefulWidget {
+class AppOverlayView extends StatefulWidget {
   final Widget child;
-  const AppOverlayListener({Key? key, required this.child}) : super(key: key);
+  const AppOverlayView({Key? key, required this.child}) : super(key: key);
 
   @override
-  State<AppOverlayListener> createState() => _AppOverlayListenerState();
+  State<AppOverlayView> createState() => _AppOverlayViewState();
 }
 
-class _AppOverlayListenerState extends State<AppOverlayListener> {
+class _AppOverlayViewState extends State<AppOverlayView> {
   OverlayEntry? addWidgetEntry;
   OverlayEntry? selectionWidgetEntry;
 
@@ -49,12 +49,14 @@ class _AppOverlayListenerState extends State<AppOverlayListener> {
         return Positioned(
           top: state.position.dy,
           left: state.position.dx,
-          child: Container(
-            height: state.size.height,
-            width: state.size.width,
-            decoration: AppDecoration.lightBorder(
-              borderColor: AppColors.focusedBorder,
-              borderWidth: 2,
+          child: IgnorePointer(
+            child: Container(
+              height: state.size.height,
+              width: state.size.width,
+              decoration: AppDecoration.lightBorder(
+                borderColor: AppColors.focusedBorder,
+                borderWidth: 2,
+              ),
             ),
           ),
         );

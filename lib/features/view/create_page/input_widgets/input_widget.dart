@@ -27,7 +27,8 @@ class InputSmall extends StatelessWidget {
         children: [
           Text(
             smallInputData.title,
-            style: context.textTheme.bodyMedium,
+            style: context.textTheme.bodyMedium
+                ?.copyWith(color: AppColors.stylesInputTitle),
           ),
           SizedBox(
             height: AppDimen.inputHeight,
@@ -58,14 +59,11 @@ class InputSmall extends StatelessWidget {
   }
 
   String get valueText {
-    if (smallInputData.value is String) {
-      return smallInputData.value as String;
-    }
     if (smallInputData.value == null) {
       return '';
     }
 
-    var value = (smallInputData.value as num?) ?? 0;
+    var value = smallInputData.value ?? 0;
 
     ///Check if double is a whole number
     if ((value % 1) == 0) {
@@ -73,48 +71,6 @@ class InputSmall extends StatelessWidget {
     }
 
     return value.toString();
-  }
-}
-
-class InputLTRB extends StatelessWidget {
-  final FbInputDataLTRB ltrbInputData;
-  final VoidCallback onEditComplete;
-  const InputLTRB({
-    Key? key,
-    required this.ltrbInputData,
-    required this.onEditComplete,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          children: [
-            Text(
-              ltrbInputData.title,
-              style: context.textTheme.bodyMedium,
-            ),
-          ],
-        ),
-        const Box.vertical(10),
-        Row(
-          children: ['L', 'T', 'R', 'B'].map((e) {
-            return const Expanded(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                child: SizedBox(
-                  height: AppDimen.inputHeight,
-                  width: AppDimen.smallInputWidth,
-                  child: TextField(),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
-    );
   }
 }
 
@@ -145,11 +101,6 @@ class InputExpanded extends StatelessWidget {
             ),
             onSubmitted: (text) {
               try {
-                if (expandedInputData.value is String) {
-                  expandedInputData.value = text;
-                  return;
-                }
-
                 if (text == '') {
                   expandedInputData.value = null;
                 }
@@ -169,11 +120,134 @@ class InputExpanded extends StatelessWidget {
   }
 
   String get valueText {
-    if (expandedInputData.value is String) {
-      return expandedInputData.value as String;
+    var value = expandedInputData.value ?? 0;
+
+    ///Check if double is a whole number
+    if ((value % 1) == 0) {
+      return value.toInt().toString();
     }
 
-    var value = (expandedInputData.value as num?) ?? 0;
+    return value.toString();
+  }
+}
+
+class InputText extends StatelessWidget {
+  final FbInputDataText textInputData;
+  final VoidCallback onEditComplete;
+  const InputText({
+    Key? key,
+    required this.textInputData,
+    required this.onEditComplete,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          textInputData.title,
+          style: context.textTheme.bodyMedium,
+        ),
+        SizedBox(
+          width: AppDimen.dropDownInputWidth,
+          child: TextField(
+            maxLines: 3,
+            controller: TextEditingController(
+              text: valueText,
+            ),
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.all(10),
+            ),
+            onChanged: (text) {
+              try {
+                textInputData.value = text;
+              } catch (e) {
+                AppLog.warn(
+                    'InputExpanded > onSubmitted', 'Incorrect input type  $e');
+                return;
+              }
+              onEditComplete();
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  String get valueText {
+    return textInputData.value;
+  }
+}
+
+class InputLTRB extends StatelessWidget {
+  final FbInputDataLTRB ltrbInputData;
+  final VoidCallback onEditComplete;
+  const InputLTRB({
+    Key? key,
+    required this.ltrbInputData,
+    required this.onEditComplete,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> lt = ['L', 'T', 'R', 'B'];
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            Text(
+              ltrbInputData.title,
+              style: context.textTheme.bodyMedium,
+            ),
+          ],
+        ),
+        const Box.vertical(15),
+        SizedBox(
+          width: double.infinity,
+          child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            children: List.generate(lt.length, (i) {
+              return SizedBox(
+                height: AppDimen.inputHeight,
+                width: AppDimen.smallInputWidth,
+                child: TextField(
+                  controller: TextEditingController(
+                    text: valueAt(i),
+                  ),
+                  decoration: InputDecoration(
+                    hintText: lt[i],
+                  ),
+                  onSubmitted: (text) {
+                    try {
+                      if (text == '') {
+                        ltrbInputData.value?[i] = 0;
+                      }
+
+                      ltrbInputData.value?[i] = double.parse(text);
+                    } catch (e) {
+                      AppLog.warn('InputSmall > onSubmitted',
+                          'Incorrect input type  $e');
+                      return;
+                    }
+                    onEditComplete();
+                  },
+                ),
+              );
+            }),
+          ),
+        ),
+      ],
+    );
+  }
+
+  String valueAt(int i) {
+    if (ltrbInputData.value == null) {
+      return '';
+    }
+
+    var value = (ltrbInputData.value?.itemAt(i) as num?) ?? 0;
 
     ///Check if double is a whole number
     if ((value % 1) == 0) {
@@ -234,6 +308,7 @@ class _InputColorState extends State<InputColor> {
               decoration: AppDecoration.darkBorder(
                 color: Color(colorInputData.value),
                 radius: 4,
+                borderColor: Colors.white70,
               ),
             ),
             const Box.horizontal(6),
@@ -291,7 +366,7 @@ class _InputColorState extends State<InputColor> {
 }
 
 class InputDropdown extends StatefulWidget {
-  final FbInputDataDropdown dropDownInputData;
+  final FbInputDataDropdown<Enum> dropDownInputData;
   final VoidCallback onEditComplete;
   const InputDropdown({
     Key? key,
@@ -304,60 +379,105 @@ class InputDropdown extends StatefulWidget {
 }
 
 class _InputDropdownState extends State<InputDropdown> {
-  late FbInputDataDropdown inputData;
+  late FbInputDataDropdown<Enum> inputData;
 
   @override
   Widget build(BuildContext context) {
     inputData = widget.dropDownInputData;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          inputData.title,
-          style: context.textTheme.bodyMedium
-              ?.copyWith(color: AppColors.focusedBorder),
-        ),
-        Container(
-          height: AppDimen.inputHeight,
-          width: AppDimen.dropDownInputWidth,
-          decoration: AppDecoration.lightBorder(
-            color: AppColors.appDark.withOpacity(0.7),
-          ),
-          padding: const EdgeInsets.fromLTRB(6, 0, 3, 0),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<Enum>(
-              isExpanded: true,
-              value: inputData.value,
-              onChanged: (text) {
-                inputData.value = text!;
+    return _DropWrapper(
+      inputData: inputData,
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<Enum>(
+          isExpanded: true,
+          value: inputData.value,
+          onChanged: (text) {
+            inputData.value = text!;
 
-                setState(() {});
-                widget.onEditComplete();
-              },
-              focusColor: Colors.transparent,
-              items: widget.dropDownInputData.list
-                  .map((element) => DropdownMenuItem<Enum>(
-                        value: element,
-                        child: menuItem(
-                          element,
-                          inputData.defaultEnum,
-                        ),
-                      ))
-                  .toList(),
-            ),
-          ),
+            setState(() {});
+            widget.onEditComplete();
+          },
+          focusColor: Colors.transparent,
+          items: widget.dropDownInputData.list
+              .map((element) => DropdownMenuItem<Enum>(
+                    value: element,
+                    child: _DropItem(
+                      itemEnum: element.name,
+                      defaultEnum: inputData.defaultEnum.name,
+                    ),
+                  ))
+              .toList(),
         ),
-      ],
+      ),
     );
   }
+}
 
-  Widget menuItem(Enum itemEnum, Enum defaultEnum) {
+class InputDropdownMap extends StatefulWidget {
+  final FbInputDataDropdownMap dropDownMap;
+  final VoidCallback onEditComplete;
+  const InputDropdownMap({
+    Key? key,
+    required this.dropDownMap,
+    required this.onEditComplete,
+  }) : super(key: key);
+
+  @override
+  State<InputDropdownMap> createState() => _InputDropdownMapState();
+}
+
+class _InputDropdownMapState extends State<InputDropdownMap> {
+  late FbInputDataDropdownMap inputData;
+
+  @override
+  Widget build(BuildContext context) {
+    inputData = widget.dropDownMap;
+
+    return _DropWrapper(
+      inputData: inputData,
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          isExpanded: true,
+          value: inputData.value,
+          onChanged: (text) {
+            inputData.value = text!;
+
+            setState(() {});
+            widget.onEditComplete();
+          },
+          focusColor: Colors.transparent,
+          items: inputData.map.keys
+              .map((element) => DropdownMenuItem<String>(
+                    value: element,
+                    child: _DropItem(
+                      itemEnum: element,
+                      defaultEnum: inputData.defaultValue,
+                    ),
+                  ))
+              .toList(),
+        ),
+      ),
+    );
+  }
+}
+
+class _DropItem extends StatelessWidget {
+  const _DropItem({
+    Key? key,
+    required this.itemEnum,
+    required this.defaultEnum,
+  }) : super(key: key);
+
+  final String itemEnum;
+  final String defaultEnum;
+
+  @override
+  Widget build(BuildContext context) {
     if (itemEnum == defaultEnum) {
       return Row(
         children: [
           Text(
-            itemEnum.name,
+            itemEnum,
             style: context.textTheme.bodyMedium,
           ),
           const Box.horizontal(6),
@@ -379,8 +499,42 @@ class _InputDropdownState extends State<InputDropdown> {
     }
 
     return Text(
-      itemEnum.name,
+      itemEnum,
       style: context.textTheme.bodyMedium,
+    );
+  }
+}
+
+class _DropWrapper extends StatelessWidget {
+  const _DropWrapper({
+    Key? key,
+    required this.inputData,
+    required this.child,
+  }) : super(key: key);
+
+  final FbInputBase inputData;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          inputData.title,
+          style: context.textTheme.bodyMedium
+              ?.copyWith(color: AppColors.focusedBorder),
+        ),
+        Container(
+          height: AppDimen.inputHeight,
+          width: AppDimen.dropDownInputWidth,
+          decoration: AppDecoration.lightBorder(
+            color: AppColors.appDark.withOpacity(0.7),
+          ),
+          padding: const EdgeInsets.fromLTRB(6, 0, 3, 0),
+          child: child,
+        ),
+      ],
     );
   }
 }

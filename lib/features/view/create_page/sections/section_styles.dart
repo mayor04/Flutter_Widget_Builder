@@ -5,6 +5,7 @@ import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/styles_input/input_bloc.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/view/create_page/input_widgets/input_map.dart';
 
@@ -26,7 +27,7 @@ class SectionStyles extends StatelessWidget {
         builder: (context, state) {
           return Container(
             width: 270,
-            margin: const EdgeInsets.fromLTRB(0, 110, 0, 60),
+            margin: const EdgeInsets.fromLTRB(0, 100, 0, 60),
             decoration: AppDecoration.radius(
               color: AppColors.appDark,
               radius: 5,
@@ -39,6 +40,7 @@ class SectionStyles extends StatelessWidget {
                 radius: 5,
               ),
               child: ListView.builder(
+                primary: false,
                 itemCount: state.allInput.length,
                 itemBuilder: (context, index) {
                   var fbInputBase = state.allInput[index];
@@ -68,26 +70,27 @@ class FInputPad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var padding = const EdgeInsets.fromLTRB(13, 15, 13, 15);
+
+    if (fbInputBase is FbGroupMultiple) {
+      padding = const EdgeInsets.fromLTRB(6, 15, 6, 15);
+    }
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(15, 10, 13, 15),
+          padding: padding,
           child: Builder(
             builder: (context) {
               if (fbInputBase.inputType == FbInputType.group) {
                 FbGroupInputBase groupData = fbInputBase as FbGroupInputBase;
-                // var groupWidgetFunction = InputMap.group[groupData.groupType];
-                // if (groupWidgetFunction == null) return const SizedBox();
 
                 return InputItemBox.getGroupInput(
                   inputGroup: groupData,
                   onEditComplete: onEditComplete(context),
                 );
               }
-
-              // var widgetFunction = InputMap.input[fbInputBase.inputType];
-              // if (widgetFunction == null) return const SizedBox();
 
               return InputItemBox.getInput(
                 inputData: fbInputBase,

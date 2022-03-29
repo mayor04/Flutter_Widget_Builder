@@ -8,6 +8,11 @@ class AppColors {
   static const Color appDarker = Color.fromARGB(255, 33, 33, 33);
   static const Color appBg = Color(0xFF474747);
 
+  // styles
+  static const Color stylesSectionBg = Color(0xFF404040);
+  static const Color groupBg = Color(0xFF4A4A4A);
+  static const Color stylesInputTitle = Color(0xFF7BBAAF);
+
   //Border
   static const Color lightBorder = Color(0xFF626161);
   static const Color darkBorder = Color(0xFF2C2C2C);

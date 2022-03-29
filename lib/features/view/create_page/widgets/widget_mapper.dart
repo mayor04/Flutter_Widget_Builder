@@ -124,10 +124,11 @@ class _WidgetMap {
       var textStyles = styles.cast<FbTextStyles>();
 
       return Text(
-        textStyles.text,
+        textStyles.text == '' ? 'Enter Text' : textStyles.text,
         style: TextStyle(
           fontSize: textStyles.fontSize,
           color: Color(textStyles.colorValue),
+          fontWeight: textStyles.fontWeight,
         ),
       );
     },
@@ -138,9 +139,16 @@ class _WidgetMap {
       var containerStyles = styles.cast<FbContainerStyles>();
 
       return Container(
+        padding: containerStyles.padding,
+        margin: containerStyles.margin,
         height: containerStyles.height,
         width: containerStyles.width,
-        color: Color(containerStyles.colorValue),
+        alignment: containerStyles.alignment,
+        decoration: BoxDecoration(
+          color: Color(containerStyles.colorValue),
+          borderRadius: containerStyles.borderRadius,
+          border: containerStyles.border,
+        ),
         child: child,
       );
     },
