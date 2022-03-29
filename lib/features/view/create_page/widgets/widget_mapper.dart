@@ -139,6 +139,7 @@ class _WidgetMap {
       var containerStyles = styles.cast<FbContainerStyles>();
 
       return Container(
+        key: ValueKey('display_${containerStyles.id}'),
         padding: containerStyles.padding,
         margin: containerStyles.margin,
         height: containerStyles.height,

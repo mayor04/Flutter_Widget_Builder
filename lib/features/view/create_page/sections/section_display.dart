@@ -32,7 +32,7 @@ class SectionDisplay extends StatelessWidget {
               return Container();
             }
 
-            return _SelectBorder(
+            return _ChildWidgetBuilder(
               details: firstWidgetDetails,
               allWidgetDetails: state.fbDetailsMap,
             );
@@ -45,21 +45,21 @@ class SectionDisplay extends StatelessWidget {
 
 ///Adds a border to every widget that is selected
 ///Also rebuilds child widget when the input changes
-class _SelectBorder extends StatefulWidget {
+class _ChildWidgetBuilder extends StatefulWidget {
   final Map<int, FbWidgetDetails> allWidgetDetails;
   final FbWidgetDetails? details;
 
-  const _SelectBorder({
+  const _ChildWidgetBuilder({
     Key? key,
     required this.allWidgetDetails,
     required this.details,
   }) : super(key: key);
 
   @override
-  State<_SelectBorder> createState() => _SelectBorderState();
+  State<_ChildWidgetBuilder> createState() => _ChildWidgetBuilderState();
 }
 
-class _SelectBorderState extends State<_SelectBorder> {
+class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
   late final FbWidgetDetails? details;
   late final Map<int, FbWidgetDetails> allWidgetDetails;
 
@@ -127,14 +127,14 @@ class _SelectBorderState extends State<_SelectBorder> {
               return PositionedChildWidgetMapper(
                 widgetStyle: childDetails!.styles,
                 parentStyle: details.styles,
-                child: _SelectBorder(
+                child: _ChildWidgetBuilder(
                   allWidgetDetails: allWidgetDetails,
                   details: allWidgetDetails[childDetails.childAt(0)],
                 ),
               );
             }
 
-            return _SelectBorder(
+            return _ChildWidgetBuilder(
               allWidgetDetails: allWidgetDetails,
               details: childDetails!,
             );
@@ -152,7 +152,7 @@ class _SelectBorderState extends State<_SelectBorder> {
 
         return SingleChildWidgetMapper(
           child: details.hasChild
-              ? _SelectBorder(
+              ? _ChildWidgetBuilder(
                   allWidgetDetails: allWidgetDetails,
                   details: childDetails!,
                 )
@@ -172,5 +172,3 @@ class _SelectBorderState extends State<_SelectBorder> {
     return allWidgetDetails[details!.children[index]];
   }
 }
-
-class _WidgetCoordinates {}
