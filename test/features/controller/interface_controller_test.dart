@@ -30,6 +30,7 @@ void main() {
 
   test('Adding Widget of widget type multiple success', () {
     var parentWidget = FbColumnConfig();
+    wait();
     interfaceController.addChildWidget(xMainId, parentWidget);
 
     expect(
@@ -46,8 +47,11 @@ void main() {
     var isChildInParent = containsChild(xMainId, parentWidget.id);
     expect(isChildInParent, true);
 
+    wait();
     var firstChild = FbContainerConfig();
     interfaceController.addChildWidget(parentWidget.id, firstChild);
+
+    wait();
     var secondChild = FbContainerConfig();
     interfaceController.addChildWidget(parentWidget.id, secondChild);
 
@@ -89,6 +93,13 @@ void main() {
     //Parent color doesn't change
     expect(childWidget.getWidgetStyles().colorValue, parentColor);
   });
+}
+
+///Wait so the id will be different
+///Test is so fast that the id for different
+///widget which is milliseconds can be the same
+Future wait() {
+  return Future.delayed(const Duration(milliseconds: 4));
 }
 
 bool isChildPresent(id, FbInterfaceController fbControl) {
