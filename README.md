@@ -52,11 +52,10 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#upcoming-features">Upcoming Features</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -85,52 +84,57 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisite
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- Available for only windows and web
+- Have a basic knowledge of flutter and widget
+- Install flutter and any preffered code editor
+- Visit www.flutterwidgetbuilder.web.app to use demo (Not live currently)
+- For windows either download from the releases or clone and build for developers
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/mayor04/Flutter_Widget_Builder
    ```
-3. Install NPM packages
+3. Install all the packages
    ```sh
-   npm install
+   flutter clean
+   flutter pub get 
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+4. Build for windows and web
+   ```sh
+   flutter run -d windows
+   ``` 
+5. Run in profile mode to inspect performance
+   ```sh
+   flutter run --profile
    ```
    
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+If you are super familiar with building widgets in flutter you would find it quite easy to use, if you are still on a basic level you might want to check out the [demo videos](https://example.com)_
 
 
 
-<!-- ROADMAP -->
-## Roadmap
+<!-- Features -->
+## Upcoming Features
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Reusable widget
+- [ ] Convert to code
+- [ ] Animation
+- [ ] Design system creating
+- [ ] Catalog for list of widget and sharing widget
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/mayor04/Flutter_Widget_Builder/issues) for a full list of proposed features (and known issues).
 
 
 
 <!-- CONTRIBUTING -->
 ## Contributing
+
+Before contributing check out the [Architecture.md](https://github.com/mayor04/Flutter_Widget_Builder/blob/master/Architecture.md) file for better understanding of the code structure and design patterns
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -148,27 +152,16 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the Apache License 2.0. See `LICENSE.txt` for more information.
 
 
 
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Samuel Mayowa - [@twitter_handle](https://twitter.com/dev_mayor4) - devmayor4@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+Project Link: [https://github.com/mayor04/Flutter_Widget_Builder](https://github.com/mayor04/Flutter_Widget_Builder)
 
 
 
