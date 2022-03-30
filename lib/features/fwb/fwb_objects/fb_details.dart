@@ -1,7 +1,7 @@
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbWidgetDetails {
@@ -21,18 +21,6 @@ class FbWidgetDetails {
   final int levelInTree;
   final FbChildType childType;
 
-  String get name {
-    return widgetType.name.capitalizeFirst;
-  }
-
-  bool get hasChild {
-    return children.isNotEmpty;
-  }
-
-  int? childAt(index) {
-    return children.itemAt(index);
-  }
-
   FbWidgetDetails({
     required this.id,
     required this.widgetType,
@@ -42,6 +30,14 @@ class FbWidgetDetails {
     this.childType = FbChildType.single,
   });
 
+  bool get hasChild {
+    return children.isNotEmpty;
+  }
+
+  String get name {
+    return widgetType.name.capitalizeFirst;
+  }
+
   BaseFbStyles get styles {
     assert(widgetStylesCallback != null);
 
@@ -49,11 +45,19 @@ class FbWidgetDetails {
   }
 
   bool addWidget(id) {
+    if (childType == FbChildType.none) {
+      throw Exception('No child widget cant have children');
+    }
+
     if (childType == FbChildType.single && children.isNotEmpty) {
       throw Exception('Single widget cant have multiple children');
     }
 
     children.add(id);
     return true;
+  }
+
+  int? childAt(index) {
+    return children.itemAt(index);
   }
 }
