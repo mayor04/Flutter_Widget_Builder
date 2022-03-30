@@ -19,7 +19,7 @@
 <h3 align="center">FLUTTER WIDGET BUILDER</h3>
 
   <p align="center">
-    project_description
+    A widget builder for flutter
     <br />
     <a href="https://github.com/mayor04/Flutter_Widget_Builder/blob/master/README.md"><strong>Explore the docs »</strong></a>
     <br />
