@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_details.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_column_config.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container_config.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_details.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/view/create_page/widgets/icon_box.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 

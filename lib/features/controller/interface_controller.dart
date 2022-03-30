@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_widget_builder/core/constant/constant.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_details.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_details.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container_config.dart';
 
@@ -29,18 +28,6 @@ class FbInterfaceController {
       levelInTree: 0,
       children: [],
     );
-  }
-
-  ///This is called first when the screen is loaded
-  Map<int, FbWidgetDetails> initialLoad() {
-    ///Since no data is saved locally for now the initial load
-    ///is always 1 for now
-
-    if (idList.length == 1) {
-      //Add Container if no widget has been created
-      addChildWidget(xMainId, FbContainerConfig());
-    }
-    return fbDetailsMap;
   }
 
   ///throws `Exception('Parent not found')` when the parent id is not found
@@ -77,6 +64,19 @@ class FbInterfaceController {
     return fbWidgetsMap[id]?.getInputs() ?? [];
   }
 
+  ///This is called first when the screen is loaded
+  Map<int, FbWidgetDetails> initialLoad() {
+    ///Since no data is saved locally for now the initial load
+    ///is always 1 for now
+
+    if (idList.length == 1) {
+      //Add Container if no widget has been created
+      addChildWidget(xMainId, FbContainerConfig());
+    }
+    return fbDetailsMap;
+  }
+
+  // ignore: unused_element
   void _refreshWidgetConfig(int id) {
     var config = fbWidgetsMap[id]?.getWidgetStyles;
     if (config == null) {

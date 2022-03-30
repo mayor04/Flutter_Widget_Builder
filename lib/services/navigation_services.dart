@@ -1,15 +1,17 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 
 class NavigationService {
   static final NavigationService _instance = NavigationService._();
+
+  final navigatorKey = GlobalKey<NavigatorState>();
 
   factory NavigationService() {
     return _instance;
   }
 
   NavigationService._();
-
-  final navigatorKey = GlobalKey<NavigatorState>();
 
   //View navigation
   Future<T?>? _navigateTo<T>(Route<T> route) {

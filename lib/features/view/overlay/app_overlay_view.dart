@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
@@ -40,30 +38,9 @@ class _AppOverlayViewState extends State<AppOverlayView> {
     );
   }
 
-  showSelectionOverlay(AppOverlaySelection state) {
-    selectionWidgetEntry?.remove();
-    selectionWidgetEntry = null;
-
-    selectionWidgetEntry = OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          top: state.position.dy,
-          left: state.position.dx,
-          child: IgnorePointer(
-            child: Container(
-              height: state.size.height,
-              width: state.size.width,
-              decoration: AppDecoration.lightBorder(
-                borderColor: AppColors.focusedBorder,
-                borderWidth: 2,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-
-    Overlay.of(context)?.insert(selectionWidgetEntry!);
+  removeAddEntry() {
+    addWidgetEntry?.remove();
+    addWidgetEntry = null;
   }
 
   showAddWidgetOverlay(AppOverlayAddState state) {
@@ -113,8 +90,29 @@ class _AppOverlayViewState extends State<AppOverlayView> {
     Overlay.of(context)?.insert(addWidgetEntry!);
   }
 
-  removeAddEntry() {
-    addWidgetEntry?.remove();
-    addWidgetEntry = null;
+  showSelectionOverlay(AppOverlaySelection state) {
+    selectionWidgetEntry?.remove();
+    selectionWidgetEntry = null;
+
+    selectionWidgetEntry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          top: state.position.dy,
+          left: state.position.dx,
+          child: IgnorePointer(
+            child: Container(
+              height: state.size.height,
+              width: state.size.width,
+              decoration: AppDecoration.lightBorder(
+                borderColor: AppColors.focusedBorder,
+                borderWidth: 2,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    Overlay.of(context)?.insert(selectionWidgetEntry!);
   }
 }

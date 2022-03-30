@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
@@ -40,6 +37,18 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
   }
 
   @override
+  List<FbInputBase> getInputs() {
+    return [
+      FbGroupHWData('', input1: heightInput, input2: widthInput),
+      colorInput,
+      alignInput,
+      paddingInput,
+      marginInput,
+      borderInput,
+    ];
+  }
+
+  @override
   FbContainerStyles getWidgetStyles() {
     return FbContainerStyles(
       id,
@@ -56,22 +65,23 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
       borderColor: borderInput.inputAt(1).value,
     );
   }
-
-  @override
-  List<FbInputBase> getInputs() {
-    return [
-      FbGroupHWData('', input1: heightInput, input2: widthInput),
-      colorInput,
-      alignInput,
-      paddingInput,
-      marginInput,
-      borderInput,
-    ];
-  }
 }
 
 ///Contains styles of the container, ussualy used to style the widget
 class FbContainerStyles extends BaseFbStyles {
+  static String defaultAlign = 'none';
+  static Map<String, Alignment?> alignmentMap = {
+    'none': null,
+    'bottomCenter': Alignment.bottomCenter,
+    'bottomLeft': Alignment.bottomLeft,
+    'bottomRight': Alignment.bottomRight,
+    'center': Alignment.center,
+    'centerLeft': Alignment.centerLeft,
+    'centerRight': Alignment.centerRight,
+    'topCenter': Alignment.topCenter,
+    'topLeft': Alignment.topLeft,
+    'topRight': Alignment.topRight,
+  };
   final double height;
   final double width;
   final int colorValue;
@@ -79,7 +89,9 @@ class FbContainerStyles extends BaseFbStyles {
   late final EdgeInsetsGeometry padding;
   late final EdgeInsetsGeometry margin;
   late final BorderRadiusGeometry borderRadius;
+
   late final BoxBorder? border;
+
   late final List<BoxShadow>? boxShadow;
 
   //radius
@@ -135,19 +147,4 @@ class FbContainerStyles extends BaseFbStyles {
     //   );
     // }
   }
-
-  static String defaultAlign = 'none';
-
-  static Map<String, Alignment?> alignmentMap = {
-    'none': null,
-    'bottomCenter': Alignment.bottomCenter,
-    'bottomLeft': Alignment.bottomLeft,
-    'bottomRight': Alignment.bottomRight,
-    'center': Alignment.center,
-    'centerLeft': Alignment.centerLeft,
-    'centerRight': Alignment.centerRight,
-    'topCenter': Alignment.topCenter,
-    'topLeft': Alignment.topLeft,
-    'topRight': Alignment.topRight,
-  };
 }

@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
@@ -9,6 +8,16 @@ part 'app_overlay_state.dart';
 class AppOverlayCubit extends Cubit<AppOverlayState> {
   final log = AppLog('NotifierCubit');
   AppOverlayCubit() : super(AppOverlayInitial());
+
+  @override
+  void onChange(Change<AppOverlayState> change) {
+    super.onChange(change);
+    log.out('onChange()', change);
+  }
+
+  removeOverlay() {
+    emit(RemoveAppOverlay());
+  }
 
   showAddWidgetListOverlay({
     required Offset position,
@@ -34,15 +43,5 @@ class AppOverlayCubit extends Cubit<AppOverlayState> {
       size: size,
       parentId: parentId,
     ));
-  }
-
-  removeOverlay() {
-    emit(RemoveAppOverlay());
-  }
-
-  @override
-  void onChange(Change<AppOverlayState> change) {
-    super.onChange(change);
-    log.out('onChange()', change);
   }
 }

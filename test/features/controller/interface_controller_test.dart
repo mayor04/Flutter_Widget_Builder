@@ -5,7 +5,6 @@ import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.da
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_column_config.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/fb_container_config.dart';
-import 'package:mockito/mockito.dart';
 
 void main() {
   late FbInterfaceController interfaceController;

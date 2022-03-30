@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_widget_builder/app.dart';
-import 'package:flutter_widget_builder/config/theme.dart';
-import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/all.dart';
 import 'package:flutter_widget_builder/features/view/create_page/widgets/widget_mapper.dart';
-
-import 'package:flutter_widget_builder/main.dart';
 
 void main() {
   testWidgets('Test if container is rendered correctly',

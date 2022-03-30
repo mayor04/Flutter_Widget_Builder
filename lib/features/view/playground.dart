@@ -4,10 +4,21 @@ import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/view/create_page/input_widgets/input_widget.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
+
+class GestWr extends StatefulWidget {
+  final Widget child;
+
+  const GestWr({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  State<GestWr> createState() => _GestWrState();
+}
 
 ///This is where all widget appearance are being tested
 class Playground extends StatelessWidget {
@@ -99,7 +110,7 @@ class Playground extends StatelessWidget {
                 // color: Colors.white,
                 color: () {
                   int value = int.parse('0xFF7BBAAF');
-                  var l = Color(value).toString();
+                  // var l = Color(value).toString();
                   return Color(value);
                 }(),
               ),
@@ -154,18 +165,6 @@ class Playground extends StatelessWidget {
       ),
     );
   }
-}
-
-class GestWr extends StatefulWidget {
-  final Widget child;
-
-  const GestWr({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  State<GestWr> createState() => _GestWrState();
 }
 
 class _GestWrState extends State<GestWr> {
