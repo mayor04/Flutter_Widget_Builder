@@ -12,8 +12,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/mayor04/Flutter_Widget_Builder">
+    <img src="https://github.com/mayor04/Flutter_Widget_Builder/raw/master/assets/logo/demo_logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">FLUTTER WIDGET BUILDER</h3>
@@ -21,14 +21,14 @@
   <p align="center">
     project_description
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/mayor04/Flutter_Widget_Builder/blob/master/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/mayor04/Flutter_Widget_Builder/blob/master/demo/demo_v1.mp4">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/mayor04/Flutter_Widget_Builder/issues/new">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/mayor04/Flutter_Widget_Builder/issues/new">Request Feature</a>
   </p>
 </div>
 
@@ -64,8 +64,11 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+The aim of this project isto develop simple reusable widget that developers can be easily converted to code and used in their application. The plan is to make widget creation as easy, responsive and proffesional, so developers can focus on more important parts of the app like the bussiness logic and overall architecture.
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Flutter widget builder would serve as a catalog for devs to save and share widget across the commuinity, it would also assist in the create a custom design system with custom widget
+
+<img src="https://github.com/mayor04/Flutter_Widget_Builder/raw/master/assets/logo/demo_logo.png" alt="Logo" width="80" height="80">
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 

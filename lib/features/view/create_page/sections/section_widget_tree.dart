@@ -63,7 +63,14 @@ class SectionWidgetTree extends StatelessWidget {
             child: SingleChildScrollView(
               primary: false,
               padding: const EdgeInsets.fromLTRB(9, 30, 9, 100),
-              child: BlocBuilder<WidgetTreeBloc, WidgetTreeState>(
+              child: BlocConsumer<WidgetTreeBloc, WidgetTreeState>(
+                listener: (context, state) async {
+                  await Future.delayed(Duration.zero);
+
+                  if (state.action == WidgetTreeAction.add) {
+                    context.read<NotifierCubit>().select(state.widgetId ?? 0);
+                  }
+                },
                 builder: (context, state) {
                   var parentFbData = state.firstWidgetDetails;
                   if (parentFbData == null) {

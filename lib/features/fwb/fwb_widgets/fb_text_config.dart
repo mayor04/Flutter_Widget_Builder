@@ -6,7 +6,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.d
 
 class FbTextConfig extends BaseFbConfig<FbTextStyles> {
   var textInput = FbInputDataText('Text', '');
-  var fontSizeInput = FbInputDataExpanded<double>('Font Size', 10);
+  var fontSizeInput = FbInputDataExpanded<double>('Font Size', 13);
   var colorInput = FbInputDataColor('Color', int.parse('0xFF000000'));
   var fontWeightInput = FbInputDataDropdownMap(
     'Font weight',

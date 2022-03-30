@@ -1,9 +1,19 @@
 part of 'widget_tree_bloc.dart';
 
+enum WidgetTreeAction { none, add, remove, wrap, delete }
+
 class WidgetTreeState {
   final Map<int, FbWidgetDetails> fbDetailsMap;
+  final WidgetTreeAction? action;
+  final int? widgetId;
+  final int? parentId;
 
-  const WidgetTreeState(this.fbDetailsMap);
+  WidgetTreeState({
+    required this.fbDetailsMap,
+    this.action = WidgetTreeAction.none,
+    this.widgetId,
+    this.parentId,
+  });
 
   ///Return the first widget in the tree
   FbWidgetDetails? get firstWidgetDetails {

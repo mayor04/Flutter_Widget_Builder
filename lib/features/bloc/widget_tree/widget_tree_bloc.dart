@@ -14,7 +14,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
   late final FbInterfaceController _fbController;
 
   WidgetTreeBloc(FbInterfaceController fbController)
-      : super(const WidgetTreeState({})) {
+      : super(WidgetTreeState(fbDetailsMap: {})) {
     _fbController = fbController;
 
     on<InitialWidgetTreeEvent>(_initialEvent);
@@ -28,7 +28,10 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     Emitter<WidgetTreeState> emit,
   ) async {
     var fbDataMap = _fbController.initialLoad();
-    emit(WidgetTreeState(fbDataMap));
+    emit(WidgetTreeState(
+      fbDetailsMap: fbDataMap,
+      action: WidgetTreeAction.add,
+    ));
   }
 
   Future<void> _addEvent(
@@ -41,7 +44,11 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
         event.fbWidget,
       );
 
-      emit(WidgetTreeState(fbDataMap));
+      emit(WidgetTreeState(
+          fbDetailsMap: fbDataMap,
+          action: WidgetTreeAction.add,
+          widgetId: event.fbWidget.id,
+          parentId: event.parentId));
     } catch (e) {
       log.error('addEvent()', e.toString());
     }

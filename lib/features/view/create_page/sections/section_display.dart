@@ -58,6 +58,14 @@ class _ChildWidgetBuilder extends StatefulWidget {
 class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
   late final FbWidgetDetails? details;
   late final Map<int, FbWidgetDetails> allWidgetDetails;
+  bool isSelected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    details = widget.details;
+    allWidgetDetails = widget.allWidgetDetails;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,21 +78,21 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
         return current is NotifierSelected;
       },
       listener: (context, state) {
-        if (state is NotifierSelected) {
-          if (state.id == details!.id) {
-            context.read<AppOverlayCubit>().showSelectionOverlay(
-                  position: context.position,
-                  size: context.widgetSize,
-                  widgetType: details!.widgetType,
-                  parentId: details!.id,
-                );
-          }
+        isSelected = false;
+
+        if (state is NotifierSelected && state.id == details!.id) {
+          isSelected = true;
+          showSelectedOverlay(context, details!);
         }
       },
       buildWhen: (prev, current) {
         return current is NotifierStyleChanged;
       },
       builder: (context, state) {
+        if (state is NotifierStyleChanged && state.id == details!.id) {
+          showSelectedOverlay(context, details!);
+        }
+
         return GestureDetector(
           onTap: () {
             context.read<NotifierCubit>().select(details!.id);
@@ -96,6 +104,18 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
         );
       },
     );
+  }
+
+  showSelectedOverlay(BuildContext context, FbWidgetDetails details) async {
+    //This should only be ran after rebuild else the context would
+    //Only have previous coordinate so add a delay to run after
+    await Future.delayed(Duration.zero);
+    context.read<AppOverlayCubit>().showSelectionOverlay(
+          position: context.position,
+          size: context.widgetSize,
+          widgetType: details.widgetType,
+          parentId: details.id,
+        );
   }
 
   FbWidgetDetails? getChildDetails(int index) {
@@ -157,14 +177,7 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
       default:
         return NoChildChildWidgetMapper(
           widgetStyles: details.styles,
-        ).debugBorder;
+        );
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    details = widget.details;
-    allWidgetDetails = widget.allWidgetDetails;
   }
 }

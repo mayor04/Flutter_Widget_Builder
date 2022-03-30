@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/utils/app_input_border.dart';
+import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
+import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_creator.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
-import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
-import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 class AddWidgetOverlay extends StatelessWidget {
@@ -65,7 +65,7 @@ class AddWidgetOverlay extends StatelessWidget {
               Wrap(
                 spacing: 17,
                 runSpacing: 22,
-                alignment: WrapAlignment.center,
+                alignment: WrapAlignment.start,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: List.generate(allWidgets.length, (index) {
                   return _WidgetItem(
