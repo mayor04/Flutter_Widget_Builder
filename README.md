@@ -63,7 +63,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-The aim of this project isto develop simple reusable widget that developers can be easily converted to code and used in their application. The plan is to make widget creation as easy, responsive and proffesional, so developers can focus on more important parts of the app like the bussiness logic and overall architecture.
+The aim of this project is to develop simple reusable widget that developers can easily convert to code and be used in their application. The plan is to make widget creation easy, responsive and proffesional, so developers can focus on more important parts of the app like the bussiness logic and overall architecture.
 
 Flutter widget builder would serve as a catalog for devs to save and share widget across the commuinity, it would also assist in the create a custom design system with custom widget
 
