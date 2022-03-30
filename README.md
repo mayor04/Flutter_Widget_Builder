@@ -88,7 +88,7 @@ To get a local copy up and running follow these simple example steps.
 - Have a basic knowledge of flutter and widget
 - Install flutter and any preffered code editor
 - Visit www.flutterwidgetbuilder.web.app to use demo (Not live currently)
-- For windows either download from the releases or clone and build for developers
+- For windows: you can either download from the releases or clone and build for developers
 
 ### Installation
 
