@@ -89,7 +89,9 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
         return current is NotifierStyleChanged;
       },
       builder: (context, state) {
-        if (state is NotifierStyleChanged && state.id == details!.id) {
+        if ((state is NotifierStyleChanged) && state.id == details!.id) {
+          showSelectedOverlay(context, details!);
+        } else if ((state is NotifierSelected && state.id == details!.id)) {
           showSelectedOverlay(context, details!);
         }
 

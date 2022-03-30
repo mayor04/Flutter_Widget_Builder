@@ -32,6 +32,7 @@ class _AppOverlayViewState extends State<AppOverlayView> {
 
         if (state is RemoveAppOverlay) {
           removeAddEntry();
+          removeSelectionEntry();
         }
       },
       child: widget.child,
@@ -41,6 +42,11 @@ class _AppOverlayViewState extends State<AppOverlayView> {
   removeAddEntry() {
     addWidgetEntry?.remove();
     addWidgetEntry = null;
+  }
+
+  removeSelectionEntry() {
+    selectionWidgetEntry?.remove();
+    selectionWidgetEntry = null;
   }
 
   showAddWidgetOverlay(AppOverlayAddState state) {
