@@ -68,10 +68,13 @@ The aim of this project isto develop simple reusable widget that developers can 
 
 Flutter widget builder would serve as a catalog for devs to save and share widget across the commuinity, it would also assist in the create a custom design system with custom widget
 
-<img src="https://github.com/mayor04/Flutter_Widget_Builder/raw/master/assets/logo/demo_logo.png" alt="Logo" width="80" height="80">
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 
+https://user-images.githubusercontent.com/67462604/160885714-5c840b6a-68ed-461d-b2b7-6f4b0b9762ab.mp4
+
+
+<br/>
+<!-- <img src="https://github.com/mayor04/Flutter_Widget_Builder/raw/master/md_assets/shot1.png" alt="FWB screenshot"> -->
 
 
 <!-- GETTING STARTED -->
