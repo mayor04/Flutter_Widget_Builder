@@ -9,6 +9,7 @@ import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_blo
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/view/create_page/create_page.dart';
 import 'package:flutter_widget_builder/features/view/home_page/home_page.dart';
+import 'package:flutter_widget_builder/features/view/playground.dart';
 import 'package:go_router/go_router.dart';
 
 class MyApp extends StatefulWidget {
@@ -48,13 +49,23 @@ class _MyAppState extends State<MyApp> {
   final _router = GoRouter(
     urlPathStrategy: UrlPathStrategy.path,
     debugLogDiagnostics: true,
-    initialLocation: '/create_page',
+    initialLocation: '/create_page/123',
+    // initialLocation: '/playground',
     routes: [
       GoRoute(
+        path: '/playground',
+        builder: (context, state) {
+          return const Playground();
+        },
+      ),
+      GoRoute(
         path: '/',
+        builder: (context, state) {
+          return Container();
+        },
         routes: [
           GoRoute(
-            path: 'create_page/:project-id',
+            path: 'create_page/:project_id',
             builder: (context, state) {
               return CreatePage(
                 key: state.pageKey,

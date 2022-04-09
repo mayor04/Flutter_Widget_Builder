@@ -31,6 +31,18 @@ class AppOverlayCubit extends Cubit<AppOverlayState> {
     ));
   }
 
+  showMenuOverlay({
+    required Offset position,
+    required FbWidgetType widgetType,
+    required int widgetId,
+  }) {
+    emit(AppOverlayMenu(
+      position: position,
+      widgetType: widgetType,
+      widgetId: widgetId,
+    ));
+  }
+
   showSelectionOverlay({
     required Offset position,
     required Size size,

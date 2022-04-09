@@ -5,6 +5,7 @@ import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/view/overlay/add_widget_overlay.dart';
+import 'package:flutter_widget_builder/features/view/overlay/menu_overlay.dart';
 
 class AppOverlayView extends StatefulWidget {
   final Widget child;
@@ -16,6 +17,7 @@ class AppOverlayView extends StatefulWidget {
 
 class _AppOverlayViewState extends State<AppOverlayView> {
   OverlayEntry? addWidgetEntry;
+  OverlayEntry? menuWidgetEntry;
   OverlayEntry? selectionWidgetEntry;
 
   @override
@@ -30,9 +32,14 @@ class _AppOverlayViewState extends State<AppOverlayView> {
           showSelectionOverlay(state);
         }
 
+        if (state is AppOverlayMenu) {
+          showMenuOverlay(state);
+        }
+
         if (state is RemoveAppOverlay) {
           removeAddEntry();
           removeSelectionEntry();
+          removeMenuEntry();
         }
       },
       child: widget.child,
@@ -49,46 +56,21 @@ class _AppOverlayViewState extends State<AppOverlayView> {
     selectionWidgetEntry = null;
   }
 
+  removeMenuEntry() {
+    menuWidgetEntry?.remove();
+    menuWidgetEntry = null;
+  }
+
   showAddWidgetOverlay(AppOverlayAddState state) {
-    addWidgetEntry?.remove();
-    addWidgetEntry = null;
+    removeAddEntry();
 
     addWidgetEntry = OverlayEntry(builder: (context) {
-      return GestureDetector(
-        onTap: () {
-          addWidgetEntry?.remove();
-          addWidgetEntry = null;
-        },
-        child: Container(
-          color: Colors.transparent,
-          child: Stack(
-            children: [
-              Positioned(
-                top: state.position.dy - 3,
-                left: state.position.dx + 20,
-                child: Container(
-                  height: 30,
-                  width: 30,
-                  color: AppColors.appDark,
-                ),
-              ),
-              Positioned(
-                top: 0,
-                bottom: 0,
-                left: state.position.dx + 35,
-                child: Align(
-                  alignment: Alignment(
-                    0,
-                    state.position.dy / context.screenHeight,
-                  ),
-                  child: AddWidgetOverlay(
-                    parentType: state.parentType,
-                    parentId: state.parentId,
-                  ),
-                ),
-              ),
-            ],
-          ),
+      return _DialogOverlay(
+        position: state.position,
+        onTap: removeAddEntry,
+        dialog: AddWidgetOverlay(
+          parentType: state.parentType,
+          parentId: state.parentId,
         ),
       );
     });
@@ -96,9 +78,22 @@ class _AppOverlayViewState extends State<AppOverlayView> {
     Overlay.of(context)?.insert(addWidgetEntry!);
   }
 
+  showMenuOverlay(AppOverlayMenu state) {
+    removeMenuEntry();
+
+    menuWidgetEntry = OverlayEntry(builder: (context) {
+      return _DialogOverlay(
+        position: state.position,
+        onTap: removeMenuEntry,
+        dialog: const MenuOverlay(),
+      );
+    });
+
+    Overlay.of(context)?.insert(menuWidgetEntry!);
+  }
+
   showSelectionOverlay(AppOverlaySelection state) {
-    selectionWidgetEntry?.remove();
-    selectionWidgetEntry = null;
+    removeSelectionEntry();
 
     selectionWidgetEntry = OverlayEntry(
       builder: (context) {
@@ -120,5 +115,62 @@ class _AppOverlayViewState extends State<AppOverlayView> {
     );
 
     Overlay.of(context)?.insert(selectionWidgetEntry!);
+  }
+}
+
+class _DialogOverlay extends StatelessWidget {
+  final VoidCallback onTap;
+  final Widget dialog;
+  final Offset position;
+
+  const _DialogOverlay({
+    Key? key,
+    required this.onTap,
+    required this.dialog,
+    required this.position,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        color: Colors.transparent,
+        child: Stack(
+          children: [
+            Positioned(
+              top: position.dy - 3,
+              left: position.dx + 20,
+              child: Container(
+                height: 30,
+                width: 30,
+                color: AppColors.appDark,
+              ),
+            ),
+            Positioned(
+              top: 0,
+              bottom: 0,
+              left: position.dx + 35,
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                alignment: Alignment(
+                  0,
+                  getYAxisAlign(context),
+                ),
+                child: dialog,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  double getYAxisAlign(BuildContext context) {
+    double align = (position.dy) / context.screenHeight;
+
+    //The align is from 0 - 1 so we need to convert to -1 to 1
+    double convertedAlign = (align - 0.5) * 2;
+    return convertedAlign;
   }
 }

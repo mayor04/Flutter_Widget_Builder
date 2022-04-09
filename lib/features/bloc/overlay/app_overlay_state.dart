@@ -18,6 +18,18 @@ class AppOverlayAddState extends AppOverlayState {
   });
 }
 
+class AppOverlayMenu extends AppOverlayState {
+  final Offset position;
+  final FbWidgetType widgetType;
+  final int widgetId;
+
+  const AppOverlayMenu({
+    required this.position,
+    required this.widgetType,
+    required this.widgetId,
+  });
+}
+
 class AppOverlaySelection extends AppOverlayState {
   final Offset position;
   final FbWidgetType widgetType;

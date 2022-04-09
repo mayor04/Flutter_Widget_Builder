@@ -9,7 +9,14 @@ class FbWidgetDetails {
 
   final int id;
   final FbWidgetType widgetType;
-  final List<int> children;
+
+  //Chilren is not made immutable to allow
+  List<int> _children;
+  List<int> get children => _children;
+
+  //For easy search when
+  int _parentId;
+  int get parentId => _parentId;
 
   ///Widget Data holds the style of the widget
   final FbWidgetStylesCallback? widgetStylesCallback;
@@ -17,18 +24,20 @@ class FbWidgetDetails {
   /// Represent the how the widget is in the tree.
   /// The topmost widget is `0` and child `1` any subsequent child added
   /// Should increament the level
-  /// This
+  /// TODO: when the remove method is called we might run into issues with level in tree
   final int levelInTree;
   final FbChildType childType;
 
   FbWidgetDetails({
     required this.id,
     required this.widgetType,
-    required this.children,
+    required List<int> children,
     required this.levelInTree,
+    required int parentId,
     this.widgetStylesCallback,
     this.childType = FbChildType.single,
-  });
+  })  : _children = children,
+        _parentId = parentId;
 
   bool get hasChild {
     return children.isNotEmpty;
@@ -42,6 +51,16 @@ class FbWidgetDetails {
     assert(widgetStylesCallback != null);
 
     return widgetStylesCallback!();
+  }
+
+  ///Change children is used only when there is a remove or wrap
+  void changeChildren(List<int> children) {
+    _children = children;
+  }
+
+  ///Change parent is used only when there is a remove or wrap
+  void changeParentId(int parentId) {
+    _parentId = parentId;
   }
 
   bool addWidget(id) {
@@ -59,5 +78,9 @@ class FbWidgetDetails {
 
   int? childAt(index) {
     return children.itemAt(index);
+  }
+
+  int? get firstChildId {
+    return childAt(0);
   }
 }

@@ -225,9 +225,20 @@ class _FbWidgetBox extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  details.name,
-                  style: context.textTheme.bodyMedium,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: 15,
+                      width: 15,
+                      child: Placeholder(),
+                    ),
+                    const Box.horizontal(10),
+                    Text(
+                      details.name,
+                      style: context.textTheme.bodyMedium,
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -254,9 +265,19 @@ class _FbWidgetBox extends StatelessWidget {
                       ),
                     ),
                     const Box.horizontal(20),
-                    const IconBox(
-                      filled: true,
-                      icon: Icon(Icons.more_horiz),
+                    GestureDetector(
+                      onTapUp: (tapDetails) {
+                        context.read<AppOverlayCubit>().showMenuOverlay(
+                              position: tapDetails.globalPosition -
+                                  tapDetails.localPosition,
+                              widgetType: details.widgetType,
+                              widgetId: details.id,
+                            );
+                      },
+                      child: const IconBox(
+                        filled: true,
+                        icon: Icon(Icons.more_horiz),
+                      ),
                     ),
                   ],
                 )
@@ -309,3 +330,28 @@ class _Tabs extends StatelessWidget {
 //     );
 //   }
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
