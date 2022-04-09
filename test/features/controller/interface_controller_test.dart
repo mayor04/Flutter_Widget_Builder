@@ -155,12 +155,25 @@ void main() {
 
     //add container1
     interfaceController.addChildWidget(xMainId, container1);
+    var fbDetails =
+        interfaceController.wrapWidget(container1.id, wrappedWidget);
 
-    // var result = in
     // check if  wrap widget was added
+    expect(fbDetails[wrappedWidget.id], isA<FbWidgetDetails>());
     // check if wrap widget first child is container1
+    expect(fbDetails[wrappedWidget.id]?.firstChildId, container1.id);
     // check if container1 parent is wrapped widget
+    expect(fbDetails[container1.id]?.parentId, wrappedWidget.id);
     // check if xmainId first child is wrapped widget
+    expect(fbDetails[xMainId]?.firstChildId, wrappedWidget.id);
+  });
+
+  test('Delete widget test', () {
+    var container1 = FbContainerConfig();
+    interfaceController.addChildWidget(xMainId, container1);
+
+    var fbDetails = interfaceController.deleteWidget(container1.id);
+    expect(fbDetails[container1.id], null);
   });
 
   test('If the input style is changed for container', () {

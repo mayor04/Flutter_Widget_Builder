@@ -108,18 +108,50 @@ class FbInterfaceController {
     //Finally remove the widget totally
     fbDetailsMap.remove(widgetId);
     fbWidgetsMap.remove(widgetId);
+    widgetStylesCallbackMap.remove(widgetId);
 
     return fbDetailsMap;
   }
 
-  // Map<int, FbWidgetDetails> wrapWidget(int childId, BaseFbConfig childWidget) {
-  //   //The aim of wrap is to insert a widget in between two widget
-  //   //What we would do first is attach childId to the new widget to be created
-  //   //and detach the childId from the previous parent.
+  Map<int, FbWidgetDetails> wrapWidget(int childId, BaseFbConfig wrapWidget) {
+    //The aim of wrap is to insert a widget in between two widget
+    //What we would do first is attach childId to the new widget to be created
+    //and detach the childId from the previous parent.
 
-  //   //Get child parent Id
-  //   //Add the child to the widget tree
-  // }
+    //Get child parent Id
+    var childDetails = fbDetailsMap[childId];
+    if (childDetails == null) {
+      throw Failure('The selected child doesn\'t exist');
+    }
+
+    var childsParentId = childDetails.parentId;
+    var childParentDetails = fbDetailsMap[childsParentId];
+
+    //To avoid error(type single widget error) we need to remove the children
+    childParentDetails?.changeChildren([]);
+
+    //Add the child to the widget tree
+    addChildWidget(childsParentId, wrapWidget);
+
+    //Change the child widget parent id to the wrap widget to detach it
+    childDetails.changeParentId(wrapWidget.id);
+    fbDetailsMap[wrapWidget.id]?.changeChildren([childId]);
+
+    return fbDetailsMap;
+  }
+
+  /// Delete removes the particular widdget from the details and doesn't remove
+  /// it children, but since removing the widget details disconnect the widget
+  /// from the widget tree the children appears to be deleted
+  ///
+  /// This pattern is used incase the user wants to undo his action
+  Map<int, FbWidgetDetails> deleteWidget(int widgetId) {
+    fbDetailsMap.remove(widgetId);
+    fbWidgetsMap.remove(widgetId);
+    widgetStylesCallbackMap.remove(widgetId);
+
+    return fbDetailsMap;
+  }
 
   List<FbInputBase> getWidgetInput(int id) {
     return fbWidgetsMap[id]?.getInputs() ?? [];
