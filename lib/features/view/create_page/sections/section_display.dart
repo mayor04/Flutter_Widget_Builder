@@ -56,8 +56,8 @@ class _ChildWidgetBuilder extends StatefulWidget {
 }
 
 class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
-  late final FbWidgetDetails? details;
-  late final Map<int, FbWidgetDetails> allWidgetDetails;
+  late FbWidgetDetails? details;
+  late Map<int, FbWidgetDetails> allWidgetDetails;
   bool isSelected = false;
 
   @override
@@ -69,6 +69,9 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
 
   @override
   Widget build(BuildContext context) {
+    details = widget.details;
+    allWidgetDetails = widget.allWidgetDetails;
+
     if (details == null) {
       return const SizedBox();
     }

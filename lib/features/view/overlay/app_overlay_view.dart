@@ -69,8 +69,9 @@ class _AppOverlayViewState extends State<AppOverlayView> {
         position: state.position,
         onTap: removeAddEntry,
         dialog: AddWidgetOverlay(
-          parentType: state.parentType,
-          parentId: state.parentId,
+          widgetType: state.widgetType,
+          widgetId: state.widgetId,
+          addOrWrap: state.addWidgetType,
         ),
       );
     });
@@ -85,7 +86,10 @@ class _AppOverlayViewState extends State<AppOverlayView> {
       return _DialogOverlay(
         position: state.position,
         onTap: removeMenuEntry,
-        dialog: const MenuOverlay(),
+        dialog: MenuOverlay(
+          widgetType: state.widgetType,
+          widgetId: state.widgetId,
+        ),
       );
     });
 

@@ -255,8 +255,8 @@ class _FbWidgetBox extends StatelessWidget {
                             .showAddWidgetListOverlay(
                               position: tapDetails.globalPosition -
                                   tapDetails.localPosition,
-                              parentType: details.widgetType,
-                              parentId: details.id,
+                              widgetType: details.widgetType,
+                              widgetId: details.id,
                             );
                       },
                       child: const IconBox(

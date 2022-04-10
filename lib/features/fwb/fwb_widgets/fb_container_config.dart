@@ -6,8 +6,8 @@ import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
-  var heightInput = FbInputDataSmall<double>('Height', 50);
-  var widthInput = FbInputDataSmall<double>('Width', 50);
+  var heightInput = FbInputDataSmall<double?>('Height', 50);
+  var widthInput = FbInputDataSmall<double?>('Width', 50);
   var colorInput = FbInputDataColor('Color', int.parse('0xFFE6E6D6'));
 
   var alignInput = FbInputDataDropdownMap(
@@ -82,8 +82,8 @@ class FbContainerStyles extends BaseFbStyles {
     'topLeft': Alignment.topLeft,
     'topRight': Alignment.topRight,
   };
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
   final int colorValue;
   final Alignment? alignment;
   late final EdgeInsetsGeometry padding;

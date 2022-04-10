@@ -11,12 +11,15 @@ import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 class AddWidgetOverlay extends StatelessWidget {
-  final FbWidgetType parentType;
-  final int parentId;
+  final FbWidgetType widgetType;
+  final int widgetId;
+  final AddWidgetType addOrWrap;
+
   const AddWidgetOverlay({
     Key? key,
-    required this.parentType,
-    required this.parentId,
+    required this.widgetType,
+    required this.widgetId,
+    required this.addOrWrap,
   }) : super(key: key);
 
   @override
@@ -69,8 +72,9 @@ class AddWidgetOverlay extends StatelessWidget {
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: List.generate(allWidgets.length, (index) {
                   return _WidgetItem(
-                    widgetType: allWidgets[index],
-                    parentId: parentId,
+                    type: allWidgets[index],
+                    parentId: widgetId,
+                    addOrWrap: addOrWrap,
                   );
                 }),
               ),
@@ -83,25 +87,32 @@ class AddWidgetOverlay extends StatelessWidget {
 }
 
 class _WidgetItem extends StatelessWidget {
-  final FbWidgetType widgetType;
+  final FbWidgetType type;
   final int parentId;
+  final AddWidgetType addOrWrap;
 
   const _WidgetItem({
     Key? key,
-    required this.widgetType,
+    required this.type,
     required this.parentId,
+    required this.addOrWrap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        var config = FbConfigCreator.createConfig(widgetType);
-
+        var config = FbConfigCreator.createConfig(type);
         context.read<AppOverlayCubit>().removeOverlay();
 
         //TODO: use transformers to prevent double click before close
-        context.read<WidgetTreeBloc>().add(AddWidgetEvent(parentId, config));
+        var treeBloc = context.read<WidgetTreeBloc>();
+
+        if (addOrWrap == AddWidgetType.add) {
+          treeBloc.add(AddWidgetEvent(parentId, config));
+        } else if (addOrWrap == AddWidgetType.wrap) {
+          treeBloc.add(WrapWidgetEvent(parentId, config));
+        }
       },
       child: Container(
         height: 90,
@@ -121,7 +132,7 @@ class _WidgetItem extends StatelessWidget {
             ),
             const Box.vertical(10),
             Text(
-              widgetType.name.capitalizeFirst,
+              type.name.capitalizeFirst,
               style: context.textTheme.labelMedium?.copyWith(
                 color: AppColors.focusedBorder,
                 fontWeight: FontWeight.w200,

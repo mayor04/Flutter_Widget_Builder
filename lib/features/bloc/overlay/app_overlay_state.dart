@@ -6,15 +6,19 @@ abstract class AppOverlayState {
 
 class AppOverlayInitial extends AppOverlayState {}
 
+enum AddWidgetType { add, wrap }
+
 class AppOverlayAddState extends AppOverlayState {
   final Offset position;
-  final FbWidgetType parentType;
-  final int parentId;
+  final FbWidgetType widgetType;
+  final int widgetId;
+  final AddWidgetType addWidgetType;
 
   const AppOverlayAddState({
     required this.position,
-    required this.parentType,
-    required this.parentId,
+    required this.widgetType,
+    required this.widgetId,
+    required this.addWidgetType,
   });
 }
 

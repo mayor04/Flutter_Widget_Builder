@@ -16,14 +16,21 @@ class AddWidgetEvent extends WidgetTreeEvent {
   const AddWidgetEvent(this.parentId, this.fbWidget);
 }
 
+class WrapWidgetEvent extends WidgetTreeEvent {
+  final int childId;
+  final BaseFbConfig fbWidget;
+
+  const WrapWidgetEvent(this.childId, this.fbWidget);
+}
+
 class RemoveWidgetEvent extends WidgetTreeEvent {
   final int id;
 
   const RemoveWidgetEvent(this.id);
 }
 
-class WrapWidgetEvent extends WidgetTreeEvent {
+class DeleteWidgetEvent extends WidgetTreeEvent {
   final int id;
 
-  const WrapWidgetEvent(this.id);
+  const DeleteWidgetEvent(this.id);
 }

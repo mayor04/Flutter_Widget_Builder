@@ -21,6 +21,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     on<AddWidgetEvent>(_addEvent);
     on<RemoveWidgetEvent>(_removeEvent);
     on<WrapWidgetEvent>(_wrapEvent);
+    on<DeleteWidgetEvent>(_deleteEvent);
   }
 
   Future<void> _initialEvent(
@@ -54,15 +55,59 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     }
   }
 
-  Future<void> _removeEvent(
-    RemoveWidgetEvent event,
-    Emitter<WidgetTreeState> emit,
-  ) async {}
-
   Future<void> _wrapEvent(
     WrapWidgetEvent event,
     Emitter<WidgetTreeState> emit,
-  ) async {}
+  ) async {
+    try {
+      var fbDataMap = _fbController.wrapWidget(
+        event.childId,
+        event.fbWidget,
+      );
+
+      emit(WidgetTreeState(
+        fbDetailsMap: fbDataMap,
+        action: WidgetTreeAction.wrap,
+        widgetId: event.fbWidget.id,
+      ));
+    } catch (e) {
+      log.error('wrapEvent()', e.toString());
+    }
+  }
+
+  Future<void> _removeEvent(
+    RemoveWidgetEvent event,
+    Emitter<WidgetTreeState> emit,
+  ) async {
+    try {
+      var fbDataMap = _fbController.removeWidget(event.id);
+
+      emit(WidgetTreeState(
+        fbDetailsMap: fbDataMap,
+        action: WidgetTreeAction.remove,
+        widgetId: event.id,
+      ));
+    } catch (e) {
+      log.error('wrapEvent()', e.toString());
+    }
+  }
+
+  Future<void> _deleteEvent(
+    DeleteWidgetEvent event,
+    Emitter<WidgetTreeState> emit,
+  ) async {
+    try {
+      var fbDataMap = _fbController.deleteWidget(event.id);
+
+      emit(WidgetTreeState(
+        fbDetailsMap: fbDataMap,
+        action: WidgetTreeAction.delete,
+        widgetId: event.id,
+      ));
+    } catch (e) {
+      log.error('wrapEvent()', e.toString());
+    }
+  }
 
   @override
   void onTransition(Transition<WidgetTreeEvent, WidgetTreeState> transition) {

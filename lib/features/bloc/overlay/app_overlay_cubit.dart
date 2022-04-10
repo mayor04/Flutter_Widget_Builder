@@ -19,15 +19,19 @@ class AppOverlayCubit extends Cubit<AppOverlayState> {
     emit(RemoveAppOverlay());
   }
 
+  /// This is the dialog shown when the use
+  /// wants to either add or wrap a widget
   showAddWidgetListOverlay({
     required Offset position,
-    required FbWidgetType parentType,
-    required int parentId,
+    required FbWidgetType widgetType,
+    required int widgetId,
+    AddWidgetType addWidgetType = AddWidgetType.add,
   }) {
     emit(AppOverlayAddState(
       position: position,
-      parentType: parentType,
-      parentId: parentId,
+      widgetType: widgetType,
+      widgetId: widgetId,
+      addWidgetType: addWidgetType,
     ));
   }
 

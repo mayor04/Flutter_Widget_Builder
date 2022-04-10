@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
+import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
+import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
+import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 
 class MenuOverlay extends StatelessWidget {
-  const MenuOverlay({Key? key}) : super(key: key);
+  final FbWidgetType widgetType;
+  final int widgetId;
+
+  const MenuOverlay({
+    Key? key,
+    required this.widgetType,
+    required this.widgetId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +30,56 @@ class MenuOverlay extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          _MenuItem(text: 'Wrap With'),
-          _MenuItem(text: 'Add'),
-          _MenuItem(text: 'Remove'),
-          Divider(color: Colors.white10, height: 15),
-          _MenuItem(text: 'Copy'),
-          _MenuItem(text: 'Cut'),
-          _MenuItem(text: 'Paste as Child'),
-          Divider(color: Colors.white10, height: 15),
-          _MenuItem(text: 'Delete'),
+        children: [
+          _MenuItem(
+            text: 'Wrap With',
+            onTap: (tapDetails) {
+              context.read<AppOverlayCubit>().showAddWidgetListOverlay(
+                  position:
+                      (tapDetails.globalPosition - tapDetails.localPosition) +
+                          const Offset(135, 5),
+                  widgetType: widgetType,
+                  widgetId: widgetId,
+                  addWidgetType: AddWidgetType.wrap);
+            },
+          ),
+          _MenuItem(
+            text: 'Add',
+            onTap: (tapDetails) {
+              context.read<AppOverlayCubit>().showAddWidgetListOverlay(
+                    position:
+                        (tapDetails.globalPosition - tapDetails.localPosition) +
+                            const Offset(135, 5),
+                    widgetType: widgetType,
+                    widgetId: widgetId,
+                  );
+            },
+          ),
+          _MenuItem(
+            text: 'Remove',
+            onTap: (tapDetails) {
+              context.read<AppOverlayCubit>().removeOverlay();
+              context.read<WidgetTreeBloc>().add(RemoveWidgetEvent(widgetId));
+            },
+          ),
+          const Divider(color: Colors.white10, height: 15),
+          _MenuItem(
+            text: 'Copy',
+            onTap: (tapDetails) {},
+          ),
+          _MenuItem(
+            text: 'Cut',
+            onTap: (tapDetails) {},
+          ),
+          _MenuItem(
+            text: 'Paste as Child',
+            onTap: (tapDetails) {},
+          ),
+          const Divider(color: Colors.white10, height: 15),
+          _MenuItem(
+            text: 'Delete',
+            onTap: (tapDetails) {},
+          ),
         ],
       ),
     );
@@ -37,7 +88,13 @@ class MenuOverlay extends StatelessWidget {
 
 class _MenuItem extends StatelessWidget {
   final String text;
-  const _MenuItem({Key? key, required this.text}) : super(key: key);
+  final Function(TapDownDetails details)? onTap;
+
+  const _MenuItem({
+    Key? key,
+    required this.text,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +103,7 @@ class _MenuItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(4),
       child: InkWell(
         onTap: () {},
+        onTapDown: onTap,
         hoverColor: Colors.white10,
         borderRadius: BorderRadius.circular(3),
         child: Container(
