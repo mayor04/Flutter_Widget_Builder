@@ -24,7 +24,7 @@ class MenuOverlay extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(13, 10, 13, 10),
       decoration: AppDecoration.darkBorder(
         color: AppColors.appGrey,
-        borderWidth: 3,
+        borderWidth: 2,
         radius: 3,
       ),
       child: Column(

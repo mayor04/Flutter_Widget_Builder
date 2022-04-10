@@ -56,9 +56,9 @@ class InputSmall extends StatelessWidget {
                 try {
                   if (text == '') {
                     smallInputData.value = null;
+                  } else {
+                    smallInputData.value = double.parse(text);
                   }
-
-                  smallInputData.value = double.parse(text);
                 } catch (e) {
                   AppLog.warn(
                       'InputSmall > onSubmitted', 'Incorrect input type  $e');
@@ -114,9 +114,9 @@ class InputExpanded extends StatelessWidget {
               try {
                 if (text == '') {
                   expandedInputData.value = null;
+                } else {
+                  expandedInputData.value = double.parse(text);
                 }
-
-                expandedInputData.value = double.parse(text);
               } catch (e) {
                 AppLog.warn(
                     'InputExpanded > onSubmitted', 'Incorrect input type  $e');
@@ -174,9 +174,9 @@ class InputLTRB extends StatelessWidget {
                     try {
                       if (text == '') {
                         ltrbInputData.value?[i] = 0;
+                      } else {
+                        ltrbInputData.value?[i] = double.parse(text);
                       }
-
-                      ltrbInputData.value?[i] = double.parse(text);
                     } catch (e) {
                       AppLog.warn('InputSmall > onSubmitted',
                           'Incorrect input type  $e');
