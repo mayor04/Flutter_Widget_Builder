@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/core/constant/colors.dart';
 import 'package:flutter_widget_builder/core/constant/dimension.dart';
 import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/core/utils/formatters.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
+import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
@@ -292,13 +294,18 @@ class _InputColorState extends State<InputColor> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: AppDimen.inputHeight,
-              height: AppDimen.inputHeight - 3,
-              decoration: AppDecoration.darkBorder(
-                color: Color(colorInputData.value),
-                radius: 4,
-                borderColor: Colors.white70,
+            GestureDetector(
+              onTapDown: (tapDetails) {
+                showColorPicker(context, tapDetails);
+              },
+              child: Container(
+                width: AppDimen.inputHeight,
+                height: AppDimen.inputHeight - 3,
+                decoration: AppDecoration.darkBorder(
+                  color: Color(colorInputData.value),
+                  radius: 4,
+                  borderColor: Colors.white70,
+                ),
               ),
             ),
             const Box.horizontal(6),
@@ -337,6 +344,19 @@ class _InputColorState extends State<InputColor> {
         ),
       ],
     );
+  }
+
+  showColorPicker(BuildContext context, TapDownDetails tapDetails) {
+    context.read<AppOverlayCubit>().showColorOverlay(
+          initialColor: Color(colorInputData.value),
+          position: tapDetails.globalPosition - tapDetails.localPosition,
+          onColorChanged: (Color color) {
+            colorInputData.value = color.value;
+            setState(() {});
+
+            widget.onEditComplete();
+          },
+        );
   }
 
   String getColorCode(int value) {

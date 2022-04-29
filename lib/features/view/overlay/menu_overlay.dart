@@ -78,7 +78,9 @@ class MenuOverlay extends StatelessWidget {
           const Divider(color: Colors.white10, height: 15),
           _MenuItem(
             text: 'Delete',
-            onTap: (tapDetails) {},
+            onTap: (tapDetails) {
+              context.read<WidgetTreeBloc>().add(DeleteWidgetEvent(widgetId));
+            },
           ),
         ],
       ),

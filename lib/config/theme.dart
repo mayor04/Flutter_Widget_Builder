@@ -53,14 +53,15 @@ class AppTheme {
         color: AppColors.iconColor,
         size: 23,
       ),
-      // cardTheme: CardTheme(
-      //   clipBehavior: Clip.hardEdge,
-      //   elevation: 7,
-      //   shadowColor: AppColors.shadowColor,
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(5),
-      //   ),
-      // ),
+      cardTheme: CardTheme(
+        clipBehavior: Clip.hardEdge,
+        elevation: 7,
+        color: AppColors.appGrey,
+        shadowColor: AppColors.shadowColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(3),
+        ),
+      ),
       // elevatedButtonTheme: ElevatedButtonThemeData(
       //   style: ElevatedButton.styleFrom(
       //     maximumSize: const Size.fromHeight(46),

@@ -7,6 +7,7 @@ import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dar
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/view/create_page/input_widgets/input_widget.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
+import 'package:flutter_widget_builder/widget/modified_color_picker/mod_color_picker.dart';
 
 ///This is where all widget appearance are being tested
 class Playground extends StatelessWidget {
@@ -127,26 +128,17 @@ class Playground extends StatelessWidget {
             ),
             _PlayBorder(
               child: Container(
-                width: 175,
+                width: 300,
                 padding: const EdgeInsets.fromLTRB(13, 10, 13, 10),
-                decoration: AppDecoration.radius(
-                  color: AppColors.appGrey,
-                  radius: 3,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    _MenuItem(text: 'Wrap With'),
-                    _MenuItem(text: 'Add'),
-                    _MenuItem(text: 'Remove'),
-                    Divider(color: Colors.white10, height: 15),
-                    _MenuItem(text: 'Copy'),
-                    _MenuItem(text: 'Cut'),
-                    _MenuItem(text: 'Paste as Child'),
-                    Divider(color: Colors.white10, height: 15),
-                    _MenuItem(text: 'Delete'),
-                  ],
+                child: Card(
+                  child: ModColorPicker(
+                    pickerColor: Colors.green,
+                    onColorChanged: (color) {},
+                    colorPickerWidth: 280,
+                    portraitOnly: true,
+                    hexInputBar: true,
+                    pickerAreaHeightPercent: 0.6,
+                  ),
                 ),
               ),
             ),

@@ -48,4 +48,16 @@ class AppOverlaySelection extends AppOverlayState {
   });
 }
 
+class AppOverlayColorPicker extends AppOverlayState {
+  final Offset position;
+  final Function(Color color) onColorChanged;
+  final Color initialColor;
+
+  const AppOverlayColorPicker({
+    required this.position,
+    required this.onColorChanged,
+    required this.initialColor,
+  });
+}
+
 class RemoveAppOverlay extends AppOverlayState {}

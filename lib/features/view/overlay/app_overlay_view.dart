@@ -6,6 +6,7 @@ import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/view/overlay/add_widget_overlay.dart';
 import 'package:flutter_widget_builder/features/view/overlay/menu_overlay.dart';
+import 'package:flutter_widget_builder/widget/modified_color_picker/mod_color_picker.dart';
 
 class AppOverlayView extends StatefulWidget {
   final Widget child;
@@ -19,6 +20,7 @@ class _AppOverlayViewState extends State<AppOverlayView> {
   OverlayEntry? addWidgetEntry;
   OverlayEntry? menuWidgetEntry;
   OverlayEntry? selectionWidgetEntry;
+  OverlayEntry? pickerWidgetEntry;
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +38,15 @@ class _AppOverlayViewState extends State<AppOverlayView> {
           showMenuOverlay(state);
         }
 
+        if (state is AppOverlayColorPicker) {
+          showColorPickerOverlay(state);
+        }
+
         if (state is RemoveAppOverlay) {
           removeAddEntry();
           removeSelectionEntry();
           removeMenuEntry();
+          removePickerEntry();
         }
       },
       child: widget.child,
@@ -59,6 +66,11 @@ class _AppOverlayViewState extends State<AppOverlayView> {
   removeMenuEntry() {
     menuWidgetEntry?.remove();
     menuWidgetEntry = null;
+  }
+
+  removePickerEntry() {
+    pickerWidgetEntry?.remove();
+    pickerWidgetEntry = null;
   }
 
   showAddWidgetOverlay(AppOverlayAddState state) {
@@ -119,6 +131,73 @@ class _AppOverlayViewState extends State<AppOverlayView> {
     );
 
     Overlay.of(context)?.insert(selectionWidgetEntry!);
+  }
+
+  showColorPickerOverlay(AppOverlayColorPicker state) {
+    removePickerEntry();
+
+    pickerWidgetEntry = OverlayEntry(builder: (context) {
+      return _DialogOverlay(
+        position: state.position,
+        onTap: removePickerEntry,
+        dialog: ColorPickerOverlay(
+          initialColor: state.initialColor,
+          onColorChanged: state.onColorChanged,
+        ),
+      );
+    });
+
+    Overlay.of(context)?.insert(pickerWidgetEntry!);
+  }
+}
+
+class ColorPickerOverlay extends StatefulWidget {
+  final Color initialColor;
+  final Function(Color color) onColorChanged;
+
+  const ColorPickerOverlay({
+    Key? key,
+    required this.initialColor,
+    required this.onColorChanged,
+  }) : super(key: key);
+
+  @override
+  State<ColorPickerOverlay> createState() => _ColorPickerOverlayState();
+}
+
+class _ColorPickerOverlayState extends State<ColorPickerOverlay> {
+  late Color initialColor;
+
+  @override
+  void initState() {
+    super.initState();
+    initialColor = widget.initialColor;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        //This detector is used to stop the color picker
+        //area from closing on tap
+      },
+      child: SizedBox(
+        width: 283,
+        child: Card(
+          child: ModColorPicker(
+            pickerColor: initialColor,
+            onColorChanged: (color) {
+              initialColor = color;
+              widget.onColorChanged(color);
+            },
+            colorPickerWidth: 280,
+            portraitOnly: true,
+            hexInputBar: true,
+            pickerAreaHeightPercent: 0.6,
+          ),
+        ),
+      ),
+    );
   }
 }
 

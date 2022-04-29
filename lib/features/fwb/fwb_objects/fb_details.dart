@@ -1,4 +1,5 @@
 import 'package:flutter_widget_builder/core/utils/extension.dart';
+import 'package:flutter_widget_builder/core/utils/failure.dart';
 import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
@@ -53,17 +54,17 @@ class FbWidgetDetails {
     return widgetStylesCallback!();
   }
 
-  ///Change children is used only when there is a remove or wrap
-  void changeChildren(List<int> children) {
-    _children = children;
-  }
+  // ///Change children is used only when there is a remove or wrap
+  // void changeChildren(List<int> children) {
+  //   _children = children;
+  // }
 
   ///Change parent is used only when there is a remove or wrap
   void changeParentId(int parentId) {
     _parentId = parentId;
   }
 
-  bool addWidget(id) {
+  bool addWidgetId(int id) {
     if (childType == FbChildType.none) {
       throw Exception('No child widget cant have children');
     }
@@ -74,6 +75,21 @@ class FbWidgetDetails {
 
     children.add(id);
     return true;
+  }
+
+  bool replaceWidgetId(int formerId, int newId) {
+    try {
+      var formerIndex = children.indexOf(formerId);
+      children[formerIndex] = newId;
+    } catch (e) {
+      throw Failure('Cannot replace child $formerId wih $newId');
+    }
+
+    return true;
+  }
+
+  bool removeWidgetId(int id) {
+    return children.remove(id);
   }
 
   int? childAt(index) {

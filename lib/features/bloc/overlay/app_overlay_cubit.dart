@@ -60,4 +60,16 @@ class AppOverlayCubit extends Cubit<AppOverlayState> {
       parentId: parentId,
     ));
   }
+
+  showColorOverlay({
+    required Offset position,
+    required Function(Color color) onColorChanged,
+    required Color initialColor,
+  }) {
+    emit(AppOverlayColorPicker(
+      initialColor: initialColor,
+      position: position,
+      onColorChanged: onColorChanged,
+    ));
+  }
 }

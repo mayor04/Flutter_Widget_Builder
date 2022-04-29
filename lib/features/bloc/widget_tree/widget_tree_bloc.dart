@@ -105,7 +105,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
         widgetId: event.id,
       ));
     } catch (e) {
-      log.error('wrapEvent()', e.toString());
+      log.error('deleteEvent()', e.toString());
     }
   }
 

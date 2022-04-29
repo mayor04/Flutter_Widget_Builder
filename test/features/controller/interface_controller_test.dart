@@ -71,6 +71,7 @@ void main() {
     late FbColumnConfig column1;
     late FbContainerConfig container2;
     late FbContainerConfig container3;
+    late FbContainerConfig container4;
 
     setUp(() {
       return Future(() async {
@@ -81,6 +82,8 @@ void main() {
         container2 = FbContainerConfig();
         await wait();
         container3 = FbContainerConfig();
+        await wait();
+        container4 = FbContainerConfig();
 
         //add container1
         interfaceController.addChildWidget(xMainId, container1);
@@ -93,6 +96,9 @@ void main() {
 
         //add container3
         interfaceController.addChildWidget(column1.id, container3);
+
+        //add container4 to container 3
+        interfaceController.addChildWidget(container3.id, container4);
 
         return Future.value(0);
       });
@@ -146,26 +152,79 @@ void main() {
         interfaceController.fbDetailsMap,
       );
     });
+
+    test('Can remove Children of multiple child widget', () {
+      var fbDetails = interfaceController.removeWidget(container3.id);
+
+      var columnChildren = fbDetails[column1.id]?.children;
+      expect(columnChildren?.length, 2);
+      expect(columnChildren?.contains(container4.id), true);
+    });
+
+    test('Children are still in order after remove', () {
+      interfaceController.addChildWidget(container2.id, FbContainerConfig());
+      var fbDetails = interfaceController.removeWidget(container2.id);
+
+      var columnChildren = fbDetails[column1.id]?.children;
+      expect(columnChildren?.length, 2);
+      expect(columnChildren?.contains(container4.id), false);
+      expect(columnChildren?.indexOf(container3.id), 1);
+    });
   });
 
-  test('Wrap widget test', () async {
-    var container1 = FbContainerConfig();
-    await wait();
-    var wrappedWidget = FbColumnConfig();
+  group('Wrap Widget', () {
+    test('Wrap widget test', () async {
+      var container1 = FbContainerConfig();
+      await wait();
+      var wrappedWidget = FbColumnConfig();
 
-    //add container1
-    interfaceController.addChildWidget(xMainId, container1);
-    var fbDetails =
-        interfaceController.wrapWidget(container1.id, wrappedWidget);
+      //add container1
+      interfaceController.addChildWidget(xMainId, container1);
+      var fbDetails =
+          interfaceController.wrapWidget(container1.id, wrappedWidget);
 
-    // check if  wrap widget was added
-    expect(fbDetails[wrappedWidget.id], isA<FbWidgetDetails>());
-    // check if wrap widget first child is container1
-    expect(fbDetails[wrappedWidget.id]?.firstChildId, container1.id);
-    // check if container1 parent is wrapped widget
-    expect(fbDetails[container1.id]?.parentId, wrappedWidget.id);
-    // check if xmainId first child is wrapped widget
-    expect(fbDetails[xMainId]?.firstChildId, wrappedWidget.id);
+      // check if  wrap widget was added
+      expect(fbDetails[wrappedWidget.id], isA<FbWidgetDetails>());
+      // check if wrap widget first child is container1
+      expect(fbDetails[wrappedWidget.id]?.firstChildId, container1.id);
+      // check if container1 parent is wrapped widget
+      expect(fbDetails[container1.id]?.parentId, wrappedWidget.id);
+      // check if xmainId first child is wrapped widget
+      expect(fbDetails[xMainId]?.firstChildId, wrappedWidget.id);
+    });
+
+    test('Wrap child of column success', () async {
+      var container1 = FbContainerConfig();
+      await wait();
+      var column1 = FbColumnConfig();
+      await wait();
+      var container2 = FbContainerConfig();
+      await wait();
+      var container3 = FbContainerConfig();
+
+      //add container1
+      interfaceController.addChildWidget(xMainId, container1);
+
+      //add column
+      interfaceController.addChildWidget(container1.id, column1);
+
+      //add container2
+      interfaceController.addChildWidget(column1.id, container2);
+
+      //add container3
+      interfaceController.addChildWidget(column1.id, container3);
+
+      await wait();
+      var wrappedWidget = FbColumnConfig();
+      var fbDetails =
+          interfaceController.wrapWidget(container2.id, wrappedWidget);
+
+      var columnChildren = fbDetails[column1.id]?.children;
+      expect(columnChildren?.length, 2);
+      expect(columnChildren?.contains(wrappedWidget.id), true);
+      expect(columnChildren?.contains(container2.id), false);
+      expect(columnChildren?.indexOf(container3.id), 1);
+    });
   });
 
   test('Delete widget test', () {
@@ -174,6 +233,7 @@ void main() {
 
     var fbDetails = interfaceController.deleteWidget(container1.id);
     expect(fbDetails[container1.id], null);
+    expect(fbDetails[xMainId]?.children.length, 0);
   });
 
   test('If the input style is changed for container', () {

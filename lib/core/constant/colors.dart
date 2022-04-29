@@ -24,6 +24,7 @@ class AppColors {
   static const Color iconColor = Color(0xFFA0A0A0);
   static const Color iconBox = Color(0xFF555555);
   static const Color appBlue = Color(0xFF7EA9D1);
+  static const Color shadowColor = Color.fromARGB(255, 33, 33, 33);
 }
 
 class AppGradient {
