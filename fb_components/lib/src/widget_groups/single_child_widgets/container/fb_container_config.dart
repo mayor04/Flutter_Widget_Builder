@@ -6,7 +6,7 @@ import 'package:fb_components/src/inputs/groups/multiple_inputs.dart';
 import 'package:fb_components/src/inputs/single/color_input.dart';
 import 'package:fb_components/src/inputs/single/dropdown_input.dart';
 import 'package:fb_components/src/inputs/single/ltrb_input.dart';
-import 'package:fb_components/src/inputs/single/small_input.dart';
+import 'package:fb_components/src/inputs/single/wrap_input.dart';
 import 'package:flutter/material.dart';
 
 class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
