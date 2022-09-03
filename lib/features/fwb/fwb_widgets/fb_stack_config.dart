@@ -26,7 +26,7 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> {
   }
 
   @override
-  List<FbInputBase> getInputs() {
+  List<BaseFbInput> getInputs() {
     return [
       fitInput,
     ];

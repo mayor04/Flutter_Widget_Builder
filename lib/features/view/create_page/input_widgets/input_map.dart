@@ -8,13 +8,13 @@ import 'package:flutter_widget_builder/features/view/create_page/input_widgets/i
 
 class InputItemBox {
   static Widget getInput({
-    required FbInputBase inputData,
+    required BaseFbInput inputData,
     required VoidCallback onEditComplete,
   }) {
     switch (inputData.inputType) {
       case FbInputType.small:
         return InputSmall(
-          smallInputData: inputData.cast<FbInputDataSmall>(),
+          smallInputData: inputData.cast<FbInputDataWrap>(),
           onEditComplete: onEditComplete,
         );
       case FbInputType.expanded:
@@ -53,18 +53,18 @@ class InputItemBox {
   }
 
   static Widget getGroupInput({
-    required FbGroupInputBase inputGroup,
+    required BaseFbGroupInput inputGroup,
     required VoidCallback onEditComplete,
   }) {
     switch (inputGroup.groupType) {
       case FbGroupType.smallHW:
         return GroupInputHW(
-          fbGroupData: inputGroup.cast<FbGroupHWData>(),
+          fbGroupData: inputGroup.cast<FbGroupDoubleInputs>(),
           onEditComplete: onEditComplete,
         );
       case FbGroupType.multiple:
         return GroupInputMultiple(
-          fbGroupData: inputGroup.cast<FbGroupMultiple>(),
+          fbGroupData: inputGroup.cast<FbGroupMultipleInputs>(),
           onEditComplete: onEditComplete,
         );
       default:

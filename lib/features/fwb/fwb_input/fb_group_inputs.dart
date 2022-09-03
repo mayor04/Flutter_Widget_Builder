@@ -5,11 +5,11 @@ import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 
 ///This groups two inputs together
 ///For example this groups the height and width in the same row
-class FbGroupHWData extends FbGroupInputBase {
-  final FbInputDataSmall input1;
-  final FbInputDataSmall input2;
+class FbGroupDoubleInputs extends BaseFbGroupInput {
+  final FbInputDataWrap input1;
+  final FbInputDataWrap input2;
 
-  FbGroupHWData(
+  FbGroupDoubleInputs(
     String title, {
     required this.input1,
     required this.input2,
@@ -17,20 +17,19 @@ class FbGroupHWData extends FbGroupInputBase {
 }
 
 ///This groups has multiple sub inputs
-class FbGroupMultiple extends FbGroupInputBase {
-  List<FbInputBase> fbInputs;
+class FbGroupMultipleInputs extends BaseFbGroupInput {
+  List<BaseFbInput> fbInputs;
 
-  FbGroupMultiple(
+  FbGroupMultipleInputs(
     String title, {
     required this.fbInputs,
   }) : super(title, fbInputs, FbGroupType.multiple);
 
-  FbInputBase inputAt(int index) {
+  BaseFbInput inputAt(int index) {
     var input = fbInputs.itemAt(index);
 
     if (input == null) {
-      throw (Exception(
-          'Range Error: Unable to get input at $index for fb multiple'));
+      throw (Exception('Range Error: Unable to get input at $index for fb multiple'));
     }
 
     return input;

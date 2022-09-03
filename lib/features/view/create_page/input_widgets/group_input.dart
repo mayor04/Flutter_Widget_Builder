@@ -9,7 +9,7 @@ import 'package:flutter_widget_builder/features/view/create_page/input_widgets/i
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 class GroupInputHW extends StatelessWidget {
-  final FbGroupHWData fbGroupData;
+  final FbGroupDoubleInputs fbGroupData;
   final VoidCallback onEditComplete;
   const GroupInputHW({
     Key? key,
@@ -36,7 +36,7 @@ class GroupInputHW extends StatelessWidget {
 }
 
 class GroupInputMultiple extends StatelessWidget {
-  final FbGroupMultiple fbGroupData;
+  final FbGroupMultipleInputs fbGroupData;
   final VoidCallback onEditComplete;
   const GroupInputMultiple({
     Key? key,
@@ -74,9 +74,9 @@ class GroupInputMultiple extends StatelessWidget {
     );
   }
 
-  List<Widget> allInputs(FbGroupMultiple fbGroupData) {
+  List<Widget> allInputs(FbGroupMultipleInputs fbGroupData) {
     return List.generate(fbGroupData.fbInputs.length, (index) {
-      FbInputBase fbInputBase = fbGroupData.fbInputs[index];
+      BaseFbInput fbInputBase = fbGroupData.fbInputs[index];
 
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -86,7 +86,7 @@ class GroupInputMultiple extends StatelessWidget {
             child: Builder(
               builder: (context) {
                 if (fbInputBase.inputType == FbInputType.group) {
-                  FbGroupInputBase groupData = fbInputBase as FbGroupInputBase;
+                  BaseFbGroupInput groupData = fbInputBase as BaseFbGroupInput;
 
                   return InputItemBox.getGroupInput(
                     inputGroup: groupData,

@@ -10,7 +10,7 @@ import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 class InputSmall extends StatelessWidget {
-  final FbInputDataSmall smallInputData;
+  final FbInputDataWrap smallInputData;
   final VoidCallback onEditComplete;
   const InputSmall({
     Key? key,
@@ -42,8 +42,7 @@ class InputSmall extends StatelessWidget {
         children: [
           Text(
             smallInputData.title,
-            style: context.textTheme.bodyMedium
-                ?.copyWith(color: AppColors.stylesInputTitle),
+            style: context.textTheme.bodyMedium?.copyWith(color: AppColors.stylesInputTitle),
           ),
           SizedBox(
             height: AppDimen.inputHeight,
@@ -60,8 +59,7 @@ class InputSmall extends StatelessWidget {
 
                   smallInputData.value = double.parse(text);
                 } catch (e) {
-                  AppLog.warn(
-                      'InputSmall > onSubmitted', 'Incorrect input type  $e');
+                  AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
                   return;
                 }
                 onEditComplete();
@@ -118,8 +116,7 @@ class InputExpanded extends StatelessWidget {
 
                 expandedInputData.value = double.parse(text);
               } catch (e) {
-                AppLog.warn(
-                    'InputExpanded > onSubmitted', 'Incorrect input type  $e');
+                AppLog.warn('InputExpanded > onSubmitted', 'Incorrect input type  $e');
                 return;
               }
               onEditComplete();
@@ -178,8 +175,7 @@ class InputLTRB extends StatelessWidget {
 
                       ltrbInputData.value?[i] = double.parse(text);
                     } catch (e) {
-                      AppLog.warn('InputSmall > onSubmitted',
-                          'Incorrect input type  $e');
+                      AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
                       return;
                     }
                     onEditComplete();
@@ -245,8 +241,7 @@ class InputText extends StatelessWidget {
               try {
                 textInputData.value = text;
               } catch (e) {
-                AppLog.warn(
-                    'InputExpanded > onSubmitted', 'Incorrect input type  $e');
+                AppLog.warn('InputExpanded > onSubmitted', 'Incorrect input type  $e');
                 return;
               }
               onEditComplete();
@@ -324,8 +319,7 @@ class _InputColorState extends State<InputColor> {
                     colorInputData.value = value;
                     setState(() {});
                   } catch (e) {
-                    AppLog.warn(
-                        'InputSmall > onSubmitted', 'Incorrect input type  $e');
+                    AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
                     return;
                   }
 
@@ -462,7 +456,7 @@ class _InputDropdownMapState extends State<InputDropdownMap> {
 }
 
 class _DropWrapper extends StatelessWidget {
-  final FbInputBase inputData;
+  final BaseFbInput inputData;
 
   final Widget child;
   const _DropWrapper({
@@ -478,8 +472,7 @@ class _DropWrapper extends StatelessWidget {
       children: [
         Text(
           inputData.title,
-          style: context.textTheme.bodyMedium
-              ?.copyWith(color: AppColors.focusedBorder),
+          style: context.textTheme.bodyMedium?.copyWith(color: AppColors.focusedBorder),
         ),
         Container(
           height: AppDimen.inputHeight,

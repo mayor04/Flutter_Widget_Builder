@@ -58,7 +58,7 @@ class Playground extends StatelessWidget {
             _PlayBorder(
               title: 'Small input',
               child: InputSmall(
-                smallInputData: FbInputDataSmall('width', 2),
+                smallInputData: FbInputDataWrap('width', 2),
                 onEditComplete: () {},
               ),
             ),
@@ -209,8 +209,7 @@ class _GestWrState extends State<GestWr> {
 class _PlayBorder extends StatelessWidget {
   final Widget child;
   final String? title;
-  const _PlayBorder({Key? key, required this.child, this.title})
-      : super(key: key);
+  const _PlayBorder({Key? key, required this.child, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

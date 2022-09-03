@@ -1,4 +1,4 @@
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
+import 'fb_enum.dart';
 
 abstract class BaseFbInput<T> {
   final String title;
@@ -16,8 +16,8 @@ abstract class BaseFbInput<T> {
   }
 }
 
-///Group two fbInput data together so the ui can display them
-///As one widget
+/// Group two fbInput data together so the ui can display them
+/// As one widget
 abstract class BaseFbGroupInput<T> extends BaseFbInput<T> {
   final FbGroupType groupType;
 

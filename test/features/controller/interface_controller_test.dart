@@ -27,8 +27,8 @@ void main() {
       true,
     );
 
-    var isChildInParent = interfaceController.fbDetailsMap[xMainId]?.children
-        .contains(childWidget.id);
+    var isChildInParent =
+        interfaceController.fbDetailsMap[xMainId]?.children.contains(childWidget.id);
     expect(isChildInParent, true);
   });
 
@@ -43,9 +43,7 @@ void main() {
     );
 
     bool containsChild(parentId, childId) {
-      return interfaceController.fbDetailsMap[parentId]?.children
-              .contains(childId) ??
-          false;
+      return interfaceController.fbDetailsMap[parentId]?.children.contains(childId) ?? false;
     }
 
     var isChildInParent = containsChild(xMainId, parentWidget.id);
@@ -59,9 +57,8 @@ void main() {
     var secondChild = FbContainerConfig();
     interfaceController.addChildWidget(parentWidget.id, secondChild);
 
-    var canAcceptMultipleChild =
-        containsChild(parentWidget.id, firstChild.id) &&
-            containsChild(parentWidget.id, secondChild.id);
+    var canAcceptMultipleChild = containsChild(parentWidget.id, firstChild.id) &&
+        containsChild(parentWidget.id, secondChild.id);
 
     expect(canAcceptMultipleChild, true);
   });
@@ -155,8 +152,7 @@ void main() {
 
     //add container1
     interfaceController.addChildWidget(xMainId, container1);
-    var fbDetails =
-        interfaceController.wrapWidget(container1.id, wrappedWidget);
+    var fbDetails = interfaceController.wrapWidget(container1.id, wrappedWidget);
 
     // check if  wrap widget was added
     expect(fbDetails[wrappedWidget.id], isA<FbWidgetDetails>());
@@ -181,7 +177,7 @@ void main() {
     interfaceController.addChildWidget(xMainId, childWidget);
 
     var inputList = interfaceController.getWidgetInput(childWidget.id);
-    var inputGroupData = inputList[0] as FbGroupHWData;
+    var inputGroupData = inputList[0] as FbGroupDoubleInputs;
 
     var input1 = inputGroupData.input1;
     input1.value = 100.0;
@@ -217,8 +213,7 @@ Future wait() {
   return Future.delayed(const Duration(milliseconds: 4));
 }
 
-FbWidgetDetails? getDetails(
-    FbInterfaceController interfaceController, int widgetId) {
+FbWidgetDetails? getDetails(FbInterfaceController interfaceController, int widgetId) {
   return interfaceController.fbDetailsMap[widgetId];
 }
 

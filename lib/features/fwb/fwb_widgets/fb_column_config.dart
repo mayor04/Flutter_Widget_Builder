@@ -32,7 +32,7 @@ class FbColumnConfig extends BaseFbConfig<FbColumnStyles> {
   }
 
   @override
-  List<FbInputBase> getInputs() {
+  List<BaseFbInput> getInputs() {
     return [
       mainAxisInput,
       crossAxisInput,

@@ -40,8 +40,7 @@ class FbInterfaceController {
 
   ///throws `Exception('Parent not found')` when the parent id is not found
   ///Add child widget to the `fbWidgetMap` and `idList`
-  Map<int, FbWidgetDetails> addChildWidget(
-      int parentId, BaseFbConfig childWidget) {
+  Map<int, FbWidgetDetails> addChildWidget(int parentId, BaseFbConfig childWidget) {
     final id = childWidget.id;
 
     //Add id to the Id list
@@ -153,7 +152,7 @@ class FbInterfaceController {
     return fbDetailsMap;
   }
 
-  List<FbInputBase> getWidgetInput(int id) {
+  List<BaseFbInput> getWidgetInput(int id) {
     return fbWidgetsMap[id]?.getInputs() ?? [];
   }
 
@@ -173,8 +172,7 @@ class FbInterfaceController {
   void _refreshWidgetConfig(int id) {
     var config = fbWidgetsMap[id]?.getWidgetStyles;
     if (config == null) {
-      log.error(
-          'refreshWidgetConfig($id)', 'Found no config data while refreshing');
+      log.error('refreshWidgetConfig($id)', 'Found no config data while refreshing');
       throw (Failure('Config Data not found while refreshing'));
     } else {
       widgetStylesCallbackMap[id] = config;

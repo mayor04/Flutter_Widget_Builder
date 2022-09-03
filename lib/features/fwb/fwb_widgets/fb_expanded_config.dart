@@ -15,7 +15,7 @@ class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> {
   }
 
   @override
-  List<FbInputBase> getInputs() {
+  List<BaseFbInput> getInputs() {
     return [flexInput];
   }
 

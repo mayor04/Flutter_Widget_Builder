@@ -23,7 +23,7 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> {
   }
 
   @override
-  List<FbInputBase> getInputs() {
+  List<BaseFbInput> getInputs() {
     return [textInput, fontSizeInput, colorInput, fontWeightInput];
   }
 

@@ -16,7 +16,7 @@ class FbSizedBoxConfig extends BaseFbConfig<FbSizedBoxStyles> {
   }
 
   @override
-  List<FbInputBase> getInputs() {
+  List<BaseFbInput> getInputs() {
     return [
       heightInput,
       widthInput,

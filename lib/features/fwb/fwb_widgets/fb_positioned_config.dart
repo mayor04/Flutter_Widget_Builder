@@ -5,10 +5,10 @@ import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> {
-  var topInput = FbInputDataSmall<double?>('Top', null);
-  var rightInput = FbInputDataSmall<double?>('Right', null);
-  var leftInput = FbInputDataSmall<double?>('Left', null);
-  var bottomInput = FbInputDataSmall<double?>('Bottom', null);
+  var topInput = FbInputDataWrap<double?>('Top', null);
+  var rightInput = FbInputDataWrap<double?>('Right', null);
+  var leftInput = FbInputDataWrap<double?>('Left', null);
+  var bottomInput = FbInputDataWrap<double?>('Bottom', null);
 
   FbPositionedConfig() : super(FbWidgetType.positioned, FbChildType.single);
 
@@ -19,10 +19,10 @@ class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> {
   }
 
   @override
-  List<FbInputBase> getInputs() {
+  List<BaseFbInput> getInputs() {
     return [
-      FbGroupHWData('', input1: topInput, input2: leftInput),
-      FbGroupHWData('', input1: rightInput, input2: bottomInput),
+      FbGroupDoubleInputs('', input1: topInput, input2: leftInput),
+      FbGroupDoubleInputs('', input1: rightInput, input2: bottomInput),
     ];
   }
 

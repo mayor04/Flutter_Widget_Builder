@@ -1,9 +1,13 @@
+import 'package:fb_components/src/base/base_fb_config.dart';
+import 'package:fb_components/src/base/base_input.dart';
+import 'package:fb_components/src/base/fb_enum.dart';
+import 'package:fb_components/src/inputs/groups/double_inputs.dart';
+import 'package:fb_components/src/inputs/groups/multiple_inputs.dart';
+import 'package:fb_components/src/inputs/single/color_input.dart';
+import 'package:fb_components/src/inputs/single/dropdown_input.dart';
+import 'package:fb_components/src/inputs/single/ltrb_input.dart';
+import 'package:fb_components/src/inputs/single/small_input.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
   var heightInput = FbInputDataWrap<double?>('Height', 50);

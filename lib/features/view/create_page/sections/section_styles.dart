@@ -59,7 +59,7 @@ class SectionStyles extends StatelessWidget {
 }
 
 class FInputPad extends StatelessWidget {
-  final FbInputBase fbInputBase;
+  final BaseFbInput fbInputBase;
   final int widgetId;
 
   const FInputPad({
@@ -72,7 +72,7 @@ class FInputPad extends StatelessWidget {
   Widget build(BuildContext context) {
     var padding = const EdgeInsets.fromLTRB(13, 15, 13, 15);
 
-    if (fbInputBase is FbGroupMultiple) {
+    if (fbInputBase is FbGroupMultipleInputs) {
       padding = const EdgeInsets.fromLTRB(6, 15, 6, 15);
     }
 
@@ -84,7 +84,7 @@ class FInputPad extends StatelessWidget {
           child: Builder(
             builder: (context) {
               if (fbInputBase.inputType == FbInputType.group) {
-                FbGroupInputBase groupData = fbInputBase as FbGroupInputBase;
+                BaseFbGroupInput groupData = fbInputBase as BaseFbGroupInput;
 
                 return InputItemBox.getGroupInput(
                   inputGroup: groupData,
