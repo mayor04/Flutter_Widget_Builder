@@ -1,6 +1,5 @@
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_builder/core/constant/colors.dart';
-import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {

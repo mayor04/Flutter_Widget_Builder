@@ -1,7 +1,7 @@
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/config/theme.dart';
-import 'package:flutter_widget_builder/core/constant/strings.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/styles_input/input_bloc.dart';
@@ -28,8 +28,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<WidgetTreeBloc>(
-          create: (_) => WidgetTreeBloc(widget.fbController)
-            ..add(InitialWidgetTreeEvent()),
+          create: (_) => WidgetTreeBloc(widget.fbController)..add(InitialWidgetTreeEvent()),
         ),
         BlocProvider<InputBloc>(create: (_) => InputBloc(widget.fbController)),
         BlocProvider<NotifierCubit>(create: (_) => NotifierCubit()),

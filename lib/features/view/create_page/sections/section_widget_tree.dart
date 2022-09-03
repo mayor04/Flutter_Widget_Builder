@@ -1,9 +1,6 @@
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_builder/core/constant/colors.dart';
-import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
-import 'package:flutter_widget_builder/core/utils/extension.dart';
-import 'package:flutter_widget_builder/core/utils/logg.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
@@ -250,11 +247,8 @@ class _FbWidgetBox extends StatelessWidget {
                     const Box.horizontal(15),
                     GestureDetector(
                       onTapUp: (tapDetails) {
-                        context
-                            .read<AppOverlayCubit>()
-                            .showAddWidgetListOverlay(
-                              position: tapDetails.globalPosition -
-                                  tapDetails.localPosition,
+                        context.read<AppOverlayCubit>().showAddWidgetListOverlay(
+                              position: tapDetails.globalPosition - tapDetails.localPosition,
                               widgetType: details.widgetType,
                               widgetId: details.id,
                             );
@@ -268,8 +262,7 @@ class _FbWidgetBox extends StatelessWidget {
                     GestureDetector(
                       onTapUp: (tapDetails) {
                         context.read<AppOverlayCubit>().showMenuOverlay(
-                              position: tapDetails.globalPosition -
-                                  tapDetails.localPosition,
+                              position: tapDetails.globalPosition - tapDetails.localPosition,
                               widgetType: details.widgetType,
                               widgetId: details.id,
                             );

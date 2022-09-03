@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_widget_builder/core/constant/constant.dart';
-import 'package:flutter_widget_builder/core/utils/logg.dart';
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_details.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
@@ -13,8 +12,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
   final log = AppLog('WidgetTreeBloc');
   late final FbInterfaceController _fbController;
 
-  WidgetTreeBloc(FbInterfaceController fbController)
-      : super(WidgetTreeState(fbDetailsMap: {})) {
+  WidgetTreeBloc(FbInterfaceController fbController) : super(WidgetTreeState(fbDetailsMap: {})) {
     _fbController = fbController;
 
     on<InitialWidgetTreeEvent>(_initialEvent);

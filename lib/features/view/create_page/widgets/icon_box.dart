@@ -1,6 +1,5 @@
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_builder/core/constant/colors.dart';
-import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
 
 class IconBox extends StatefulWidget {
   final Widget icon;
@@ -38,9 +37,7 @@ class _IconBoxState extends State<IconBox> {
       child: Tooltip(
         message: widget.tooltip,
         child: Container(
-          decoration: widget.filled
-              ? AppDecoration.radius(color: AppColors.iconBox)
-              : null,
+          decoration: widget.filled ? AppDecoration.radius(color: AppColors.iconBox) : null,
           child: Container(
             padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
             decoration: AppDecoration.radius(color: hoverColor),

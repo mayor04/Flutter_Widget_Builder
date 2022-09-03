@@ -1,8 +1,6 @@
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_builder/core/constant/colors.dart';
-import 'package:flutter_widget_builder/core/utils/box_decoration.dart';
-import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
@@ -36,8 +34,7 @@ class MenuOverlay extends StatelessWidget {
             onTap: (tapDetails) {
               context.read<AppOverlayCubit>().showAddWidgetListOverlay(
                   position:
-                      (tapDetails.globalPosition - tapDetails.localPosition) +
-                          const Offset(135, 5),
+                      (tapDetails.globalPosition - tapDetails.localPosition) + const Offset(135, 5),
                   widgetType: widgetType,
                   widgetId: widgetId,
                   addWidgetType: AddWidgetType.wrap);
@@ -47,9 +44,8 @@ class MenuOverlay extends StatelessWidget {
             text: 'Add',
             onTap: (tapDetails) {
               context.read<AppOverlayCubit>().showAddWidgetListOverlay(
-                    position:
-                        (tapDetails.globalPosition - tapDetails.localPosition) +
-                            const Offset(135, 5),
+                    position: (tapDetails.globalPosition - tapDetails.localPosition) +
+                        const Offset(135, 5),
                     widgetType: widgetType,
                     widgetId: widgetId,
                   );

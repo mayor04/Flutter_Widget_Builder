@@ -1,6 +1,5 @@
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_widget_builder/core/constant/constant.dart';
-import 'package:flutter_widget_builder/core/utils/failure.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
@@ -205,10 +204,10 @@ void main() {
   });
 }
 
-///Wait so the id will be different,
-///Test is so fast that the id for different
-///widget which is milliseconds can be the same
-///In real app user can not create two widget at the same time
+/// Wait so the id will be different,
+/// Test is so fast that the id for different
+/// widget which is milliseconds can be the same
+/// In real app user can not create two widget at the same time
 Future wait() {
   return Future.delayed(const Duration(milliseconds: 4));
 }

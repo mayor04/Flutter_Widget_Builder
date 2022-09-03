@@ -1,4 +1,4 @@
-import 'package:flutter_widget_builder/core/utils/extension.dart';
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_inputs.dart';
 import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';

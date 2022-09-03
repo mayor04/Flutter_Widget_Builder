@@ -1,6 +1,6 @@
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_builder/core/utils/extension.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
@@ -137,8 +137,7 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
           widgetStyles: details.styles,
           children: List.generate(details.children.length, (i) {
             var childDetails = getChildDetails(i);
-            assert(childDetails != null,
-                'Error, could not get child details of a multiple widget');
+            assert(childDetails != null, 'Error, could not get child details of a multiple widget');
 
             //If the child is a positioned then we create a special layout
             if (childDetails?.widgetType == FbWidgetType.positioned) {
@@ -164,8 +163,7 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
 
         if (details.hasChild) {
           childDetails = getChildDetails(0);
-          assert(childDetails != null,
-              'Error, could not get child details of a single widget');
+          assert(childDetails != null, 'Error, could not get child details of a single widget');
         }
 
         return SingleChildWidgetMapper(
