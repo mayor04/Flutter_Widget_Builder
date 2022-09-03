@@ -10,11 +10,12 @@ class FbWidgetDetails {
   final int id;
   final FbWidgetType widgetType;
 
-  //Chilren is not made immutable to allow
+  // Both parent and children can be changed since removing doe
+  // Chilren is not made immutable to allow changing children
   List<int> _children;
   List<int> get children => _children;
 
-  //For easy search when
+  // For easy search when
   int _parentId;
   int get parentId => _parentId;
 
@@ -53,7 +54,7 @@ class FbWidgetDetails {
     return widgetStylesCallback!();
   }
 
-  ///Change children is used only when there is a remove or wrap
+  /// Change children is used only when there is a remove or wrap
   void changeChildren(List<int> children) {
     _children = children;
   }
