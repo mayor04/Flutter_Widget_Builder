@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
+import 'package:flutter_widget_builder/features/controller/fb_details.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_details.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 part 'widget_tree_event.dart';
 part 'widget_tree_state.dart';
@@ -38,15 +38,16 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     Emitter<WidgetTreeState> emit,
   ) async {
     try {
+      final widgetConfig = FbConfigFactory.createConfig(event.fbWidgetType);
       var fbDataMap = _fbController.addChildWidget(
         event.parentId,
-        event.fbWidget,
+        widgetConfig,
       );
 
       emit(WidgetTreeState(
           fbDetailsMap: fbDataMap,
           action: WidgetTreeAction.add,
-          widgetId: event.fbWidget.id,
+          widgetId: widgetConfig.id,
           parentId: event.parentId));
     } catch (e) {
       log.error('addEvent()', e.toString());
@@ -58,15 +59,16 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     Emitter<WidgetTreeState> emit,
   ) async {
     try {
+      final widgetConfig = FbConfigFactory.createConfig(event.fbWidgetType);
       var fbDataMap = _fbController.wrapWidget(
         event.childId,
-        event.fbWidget,
+        widgetConfig,
       );
 
       emit(WidgetTreeState(
         fbDetailsMap: fbDataMap,
         action: WidgetTreeAction.wrap,
-        widgetId: event.fbWidget.id,
+        widgetId: widgetConfig.id,
       ));
     } catch (e) {
       log.error('wrapEvent()', e.toString());

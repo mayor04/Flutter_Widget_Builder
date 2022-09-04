@@ -1,7 +1,6 @@
+import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_widgets/base_fb_config.dart';
 
 class FbWidgetDetails {
   final log = AppLog('FBdata');

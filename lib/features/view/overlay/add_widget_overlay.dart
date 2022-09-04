@@ -1,10 +1,9 @@
+import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_creator.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 class AddWidgetOverlay extends StatelessWidget {
@@ -99,16 +98,15 @@ class _WidgetItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        var config = FbConfigCreator.createConfig(type);
         context.read<AppOverlayCubit>().removeOverlay();
 
         //TODO: use transformers to prevent double click before close
         var treeBloc = context.read<WidgetTreeBloc>();
 
         if (addOrWrap == AddWidgetType.add) {
-          treeBloc.add(AddWidgetEvent(parentId, config));
+          treeBloc.add(AddWidgetEvent(parentId, type));
         } else if (addOrWrap == AddWidgetType.wrap) {
-          treeBloc.add(WrapWidgetEvent(parentId, config));
+          treeBloc.add(WrapWidgetEvent(parentId, type));
         }
       },
       child: Container(

@@ -1,12 +1,9 @@
+import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/styles_input/input_bloc.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_input/base_input.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_input/fb_group_inputs.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
-import 'package:flutter_widget_builder/features/view/create_page/input_widgets/input_map.dart';
 
 class SectionStyles extends StatelessWidget {
   const SectionStyles({Key? key}) : super(key: key);
@@ -85,13 +82,13 @@ class FInputPad extends StatelessWidget {
               if (fbInputBase.inputType == FbInputType.group) {
                 BaseFbGroupInput groupData = fbInputBase as BaseFbGroupInput;
 
-                return InputItemBox.getGroupInput(
+                return FbInputFactory.getGroupInput(
                   inputGroup: groupData,
                   onEditComplete: onEditComplete(context),
                 );
               }
 
-              return InputItemBox.getInput(
+              return FbInputFactory.getInput(
                 inputData: fbInputBase,
                 onEditComplete: onEditComplete(context),
               );

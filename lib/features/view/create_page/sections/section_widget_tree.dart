@@ -1,11 +1,11 @@
+import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_details.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
+import 'package:flutter_widget_builder/features/controller/fb_details.dart';
 import 'package:flutter_widget_builder/features/view/create_page/widgets/icon_box.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
@@ -24,7 +24,7 @@ class SectionWidgetTree extends StatelessWidget {
             decoration: AppDecoration.radius(color: AppColors.appGrey),
             child: Column(
               children: [
-                // >>>logo
+                // * @logo
                 Expanded(
                   flex: 2,
                   child: Container(
@@ -39,7 +39,7 @@ class SectionWidgetTree extends StatelessWidget {
                     ),
                   ),
                 ),
-                // >>>tabs
+                // * @tabs
                 Expanded(
                   flex: 5,
                   child: Align(
@@ -71,7 +71,7 @@ class SectionWidgetTree extends StatelessWidget {
                 builder: (context, state) {
                   var parentFbData = state.firstWidgetDetails;
                   if (parentFbData == null) {
-                    //You can return an add buttom first
+                    // You can return an add buttom first
                     return Container();
                   }
 
@@ -90,8 +90,8 @@ class SectionWidgetTree extends StatelessWidget {
 }
 
 ///TODO: this might not be the best way to solve this
-///This is more like a nested widget that keeps
-///nesting children recurssively till they are none left
+/// This is more like a nested widget that keeps
+/// nesting children recurssively till they are none left
 class WidgetTypeItem extends StatelessWidget {
   final Map<int, FbWidgetDetails> allWidgetDetails;
   final FbWidgetDetails widgetDetails;
@@ -126,6 +126,7 @@ class WidgetTypeItem extends StatelessWidget {
 
     return Stack(
       children: [
+        // * @line
         Positioned(
           left: 3,
           right: 0,
@@ -323,28 +324,3 @@ class _Tabs extends StatelessWidget {
 //     );
 //   }
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

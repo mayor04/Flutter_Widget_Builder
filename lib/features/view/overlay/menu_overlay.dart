@@ -1,9 +1,9 @@
+import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
 import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
-import 'package:flutter_widget_builder/features/fwb/fwb_objects/fb_enum.dart';
 
 class MenuOverlay extends StatelessWidget {
   final FbWidgetType widgetType;
