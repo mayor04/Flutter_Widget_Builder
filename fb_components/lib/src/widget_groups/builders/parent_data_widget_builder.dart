@@ -1,7 +1,7 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
-import 'package:fb_components/src/widget_groups/single_child_widgets/container/fb_container.dart';
-import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box.dart';
+import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded.dart';
+import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned.dart';
 import 'package:flutter/material.dart';
 
 /// This class return the widget that matches the styles config provided
@@ -22,10 +22,10 @@ class ParentDataWidgetBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (widgetStyles.widgetType) {
-      case FbWidgetType.container:
-        return FbContainer(styles: widgetStyles, child: child);
-      case FbWidgetType.sizedBox:
-        return FbSizedBox(styles: widgetStyles, child: child);
+      case FbWidgetType.positioned:
+        return FbPositioned(styles: widgetStyles, child: child);
+      case FbWidgetType.expanded:
+        return FbExpanded(styles: widgetStyles, child: child);
       default:
         return Container();
     }

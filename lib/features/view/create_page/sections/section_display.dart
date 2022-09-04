@@ -15,8 +15,8 @@ class SectionDisplay extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        height: 370,
-        width: 400,
+        height: 600,
+        width: 600,
         color: Colors.white,
         alignment: Alignment.center,
         child: BlocBuilder<WidgetTreeBloc, WidgetTreeState>(
@@ -70,10 +70,6 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
   Widget build(BuildContext context) {
     details = widget.details;
     allWidgetDetails = widget.allWidgetDetails;
-
-    if (details == null) {
-      return const SizedBox();
-    }
 
     return BlocConsumer<NotifierCubit, NotifierState>(
       listenWhen: (previous, current) {
