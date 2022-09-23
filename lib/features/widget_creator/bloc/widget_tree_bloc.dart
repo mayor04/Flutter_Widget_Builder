@@ -2,12 +2,14 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
-import 'package:flutter_widget_builder/features/controller/fb_details.dart';
-import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
+import 'package:flutter_widget_builder/features/widget_creator/controller/fb_details.dart';
+import 'package:flutter_widget_builder/features/widget_creator/controller/interface_controller.dart';
 
 part 'widget_tree_event.dart';
 part 'widget_tree_state.dart';
 
+/// Widget tree is the list of widget on the left side
+/// it handles adding and removing of the widgets
 class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
   final log = AppLog('WidgetTreeBloc');
   late final FbInterfaceController _fbController;
@@ -33,6 +35,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     ));
   }
 
+  // Add event is triggered when user decides to add a widget as a child
   Future<void> _addEvent(
     AddWidgetEvent event,
     Emitter<WidgetTreeState> emit,
@@ -54,6 +57,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     }
   }
 
+  // Wrap event is triggered when user selects wrap with
   Future<void> _wrapEvent(
     WrapWidgetEvent event,
     Emitter<WidgetTreeState> emit,
@@ -75,6 +79,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     }
   }
 
+  // Remove event will remove only the particular widget and not the children
   Future<void> _removeEvent(
     RemoveWidgetEvent event,
     Emitter<WidgetTreeState> emit,
@@ -92,6 +97,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     }
   }
 
+  // Delete events permanently deletes this widget and all the children
   Future<void> _deleteEvent(
     DeleteWidgetEvent event,
     Emitter<WidgetTreeState> emit,

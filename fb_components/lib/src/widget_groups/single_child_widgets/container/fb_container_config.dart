@@ -10,8 +10,8 @@ import 'package:fb_components/src/inputs/single/wrap_input.dart';
 import 'package:flutter/material.dart';
 
 class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
-  var heightInput = FbInputDataWrap<double?>('Height', 50);
-  var widthInput = FbInputDataWrap<double?>('Width', 50);
+  var heightInput = FbInputDataWrap<double?>('Height', 300);
+  var widthInput = FbInputDataWrap<double?>('Width', 300);
   var colorInput = FbInputDataColor('Color', int.parse('0xFFE6E6D6'));
 
   var alignInput = FbInputDataDropdownMap(

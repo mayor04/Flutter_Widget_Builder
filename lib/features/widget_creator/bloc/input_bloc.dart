@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
-import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
+import 'package:flutter_widget_builder/features/widget_creator/controller/interface_controller.dart';
 
 part 'input_event.dart';
 part 'input_state.dart';

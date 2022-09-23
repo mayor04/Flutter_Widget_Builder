@@ -2,8 +2,8 @@ import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
-import 'package:flutter_widget_builder/features/bloc/styles_input/input_bloc.dart';
+import 'package:flutter_widget_builder/features/widget_creator/bloc/input_bloc.dart';
+import 'package:flutter_widget_builder/features/widget_creator/bloc/notifier_bloc.dart';
 
 class SectionStyles extends StatelessWidget {
   const SectionStyles({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class SectionStyles extends StatelessWidget {
     // BlocProvider.of<StylesInputBloc>(context)
     //     .add(StylesGetInputsEvent(1647131181583));
 
-    return BlocListener<NotifierCubit, NotifierState>(
+    return BlocListener<NotifierBloc, NotifierState>(
       listener: (context, state) {
         if (state is NotifierSelected) {
           context.read<InputBloc>().add(GetInputsEvent(state.id));
@@ -102,7 +102,7 @@ class FInputPad extends StatelessWidget {
 
   VoidCallback onEditComplete(BuildContext context) {
     return () {
-      context.read<NotifierCubit>().styleChanged(widgetId);
+      context.read<NotifierBloc>().styleChanged(widgetId);
     };
   }
 }

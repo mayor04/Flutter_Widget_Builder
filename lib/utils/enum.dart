@@ -1,0 +1,1 @@
+enum AddWidgetType { add, wrap }

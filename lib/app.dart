@@ -2,14 +2,14 @@ import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/config/theme.dart';
-import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
-import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
-import 'package:flutter_widget_builder/features/bloc/styles_input/input_bloc.dart';
-import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
-import 'package:flutter_widget_builder/features/controller/interface_controller.dart';
 import 'package:flutter_widget_builder/features/view/create_page/create_page.dart';
 import 'package:flutter_widget_builder/features/view/home_page/home_page.dart';
+import 'package:flutter_widget_builder/features/view/overlay/app_overlay.dart';
 import 'package:flutter_widget_builder/features/view/playground.dart';
+import 'package:flutter_widget_builder/features/widget_creator/bloc/input_bloc.dart';
+import 'package:flutter_widget_builder/features/widget_creator/bloc/notifier_bloc.dart';
+import 'package:flutter_widget_builder/features/widget_creator/bloc/widget_tree_bloc.dart';
+import 'package:flutter_widget_builder/features/widget_creator/controller/interface_controller.dart';
 import 'package:go_router/go_router.dart';
 
 class MyApp extends StatefulWidget {
@@ -31,15 +31,19 @@ class _MyAppState extends State<MyApp> {
           create: (_) => WidgetTreeBloc(widget.fbController)..add(InitialWidgetTreeEvent()),
         ),
         BlocProvider<InputBloc>(create: (_) => InputBloc(widget.fbController)),
-        BlocProvider<NotifierCubit>(create: (_) => NotifierCubit()),
-        BlocProvider<AppOverlayCubit>(create: (_) => AppOverlayCubit()),
+        BlocProvider<NotifierBloc>(create: (_) => NotifierBloc()),
       ],
-      child: MaterialApp.router(
-        title: AppStrings.appTitle,
-        theme: AppTheme.darkTheme,
-        // home: const Playground(),
-        routeInformationParser: _router.routeInformationParser,
-        routerDelegate: _router.routerDelegate,
+      child: AppOverlayWidget(
+        child: MaterialApp.router(
+          // builder: (context, child) {
+          //   return AppOverlayWidget(child: child ?? Container());
+          // },
+          title: AppStrings.appTitle,
+          theme: AppTheme.darkTheme,
+          // home: const Playground(),
+          routeInformationParser: _router.routeInformationParser,
+          routerDelegate: _router.routerDelegate,
+        ),
       ),
     );
   }

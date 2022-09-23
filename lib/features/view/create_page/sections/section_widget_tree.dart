@@ -2,11 +2,14 @@ import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_builder/features/bloc/notifier/notifier_cubit.dart';
-import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
-import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
-import 'package:flutter_widget_builder/features/controller/fb_details.dart';
 import 'package:flutter_widget_builder/features/view/create_page/widgets/icon_box.dart';
+import 'package:flutter_widget_builder/features/view/overlay/add_widget_overlay.dart';
+import 'package:flutter_widget_builder/features/view/overlay/app_overlay.dart';
+import 'package:flutter_widget_builder/features/view/overlay/menu_overlay.dart';
+import 'package:flutter_widget_builder/features/widget_creator/bloc/notifier_bloc.dart';
+import 'package:flutter_widget_builder/features/widget_creator/bloc/widget_tree_bloc.dart';
+import 'package:flutter_widget_builder/features/widget_creator/controller/fb_details.dart';
+import 'package:flutter_widget_builder/utils/enum.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 class SectionWidgetTree extends StatelessWidget {
@@ -65,7 +68,7 @@ class SectionWidgetTree extends StatelessWidget {
                   await Future.delayed(Duration.zero);
 
                   if (state.action == WidgetTreeAction.add) {
-                    context.read<NotifierCubit>().select(state.widgetId ?? 0);
+                    context.read<NotifierBloc>().select(state.widgetId ?? 0);
                   }
                 },
                 builder: (context, state) {
@@ -195,7 +198,7 @@ class _FbWidgetBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NotifierCubit, NotifierState>(
+    return BlocBuilder<NotifierBloc, NotifierState>(
       buildWhen: (prev, current) {
         return current is NotifierSelected;
       },
@@ -210,7 +213,7 @@ class _FbWidgetBox extends StatelessWidget {
 
         return GestureDetector(
           onTap: () {
-            context.read<NotifierCubit>().select(details.id);
+            context.read<NotifierBloc>().select(details.id);
           },
           child: Container(
             height: 35,
@@ -248,11 +251,15 @@ class _FbWidgetBox extends StatelessWidget {
                     const Box.horizontal(15),
                     GestureDetector(
                       onTapUp: (tapDetails) {
-                        context.read<AppOverlayCubit>().showAddWidgetListOverlay(
-                              position: tapDetails.globalPosition - tapDetails.localPosition,
-                              widgetType: details.widgetType,
-                              widgetId: details.id,
-                            );
+                        AppOverlay.showAddWidgetMenu(
+                          context,
+                          position: tapDetails.globalPosition - tapDetails.localPosition,
+                          overlay: AddWidgetOverlay(
+                            widgetType: details.widgetType,
+                            widgetId: details.id,
+                            addOrWrap: AddWidgetType.add,
+                          ),
+                        );
                       },
                       child: const IconBox(
                         tooltip: 'Add - Ctrl A',
@@ -262,11 +269,14 @@ class _FbWidgetBox extends StatelessWidget {
                     const Box.horizontal(20),
                     GestureDetector(
                       onTapUp: (tapDetails) {
-                        context.read<AppOverlayCubit>().showMenuOverlay(
-                              position: tapDetails.globalPosition - tapDetails.localPosition,
-                              widgetType: details.widgetType,
-                              widgetId: details.id,
-                            );
+                        AppOverlay.showMenu(
+                          context,
+                          position: tapDetails.globalPosition - tapDetails.localPosition,
+                          overlay: MenuOverlay(
+                            widgetType: details.widgetType,
+                            widgetId: details.id,
+                          ),
+                        );
                       },
                       child: const IconBox(
                         filled: true,

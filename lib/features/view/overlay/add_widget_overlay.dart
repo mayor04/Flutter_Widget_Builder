@@ -2,8 +2,9 @@ import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
-import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
+import 'package:flutter_widget_builder/features/view/overlay/app_overlay.dart';
+import 'package:flutter_widget_builder/features/widget_creator/bloc/widget_tree_bloc.dart';
+import 'package:flutter_widget_builder/utils/enum.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 class AddWidgetOverlay extends StatelessWidget {
@@ -98,7 +99,7 @@ class _WidgetItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.read<AppOverlayCubit>().removeOverlay();
+        AppOverlay.removeAll(context);
 
         //TODO: use transformers to prevent double click before close
         var treeBloc = context.read<WidgetTreeBloc>();

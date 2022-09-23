@@ -1,6 +1,6 @@
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
-import 'package:flutter_widget_builder/features/controller/fb_details.dart';
+import 'package:flutter_widget_builder/features/widget_creator/controller/fb_details.dart';
 
 typedef FbWidgetStylesCallback = BaseFbStyles Function();
 

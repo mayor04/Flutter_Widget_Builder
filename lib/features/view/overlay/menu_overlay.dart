@@ -2,8 +2,10 @@ import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_builder/features/bloc/overlay/app_overlay_cubit.dart';
-import 'package:flutter_widget_builder/features/bloc/widget_tree/widget_tree_bloc.dart';
+import 'package:flutter_widget_builder/features/view/overlay/add_widget_overlay.dart';
+import 'package:flutter_widget_builder/features/view/overlay/app_overlay.dart';
+import 'package:flutter_widget_builder/features/widget_creator/bloc/widget_tree_bloc.dart';
+import 'package:flutter_widget_builder/utils/enum.dart';
 
 class MenuOverlay extends StatelessWidget {
   final FbWidgetType widgetType;
@@ -32,29 +34,41 @@ class MenuOverlay extends StatelessWidget {
           _MenuItem(
             text: 'Wrap With',
             onTap: (tapDetails) {
-              context.read<AppOverlayCubit>().showAddWidgetListOverlay(
-                  position:
-                      (tapDetails.globalPosition - tapDetails.localPosition) + const Offset(135, 5),
+              final position =
+                  (tapDetails.globalPosition - tapDetails.localPosition) + const Offset(135, 5);
+
+              AppOverlay.showAddWidgetMenu(
+                context,
+                position: position,
+                overlay: AddWidgetOverlay(
                   widgetType: widgetType,
                   widgetId: widgetId,
-                  addWidgetType: AddWidgetType.wrap);
+                  addOrWrap: AddWidgetType.wrap,
+                ),
+              );
             },
           ),
           _MenuItem(
             text: 'Add',
             onTap: (tapDetails) {
-              context.read<AppOverlayCubit>().showAddWidgetListOverlay(
-                    position: (tapDetails.globalPosition - tapDetails.localPosition) +
-                        const Offset(135, 5),
-                    widgetType: widgetType,
-                    widgetId: widgetId,
-                  );
+              final position =
+                  (tapDetails.globalPosition - tapDetails.localPosition) + const Offset(135, 5);
+
+              AppOverlay.showAddWidgetMenu(
+                context,
+                position: position,
+                overlay: AddWidgetOverlay(
+                  widgetType: widgetType,
+                  widgetId: widgetId,
+                  addOrWrap: AddWidgetType.add,
+                ),
+              );
             },
           ),
           _MenuItem(
             text: 'Remove',
             onTap: (tapDetails) {
-              context.read<AppOverlayCubit>().removeOverlay();
+              AppOverlay.removeAll(context);
               context.read<WidgetTreeBloc>().add(RemoveWidgetEvent(widgetId));
             },
           ),

@@ -4,9 +4,9 @@ import 'package:fb_core/fb_core.dart';
 
 part 'notifier_state.dart';
 
-class NotifierCubit extends Cubit<NotifierState> {
+class NotifierBloc extends Cubit<NotifierState> {
   final log = AppLog('NotifierCubit');
-  NotifierCubit() : super(NotifierInitial());
+  NotifierBloc() : super(NotifierInitial());
 
   @override
   void onChange(Change<NotifierState> change) {
