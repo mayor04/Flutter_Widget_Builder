@@ -52,9 +52,20 @@ class FbWidgetDetails {
     return widgetStylesCallback!();
   }
 
-  /// Change children is used only when there is a remove or wrap
+  /// Change children is used only when there is a wrap
   void changeChildren(List<int> children) {
     _children = children;
+  }
+
+  /// Change children is used only when there is a wrap
+  void replaceChild(int id, int? replaceId) {
+    final index = _children.indexOf(id);
+    if (replaceId == null) {
+      _children.removeAt(index);
+      return;
+    }
+
+    _children.replaceRange(index, index + 1, [replaceId]);
   }
 
   ///Change parent is used only when there is a remove or wrap

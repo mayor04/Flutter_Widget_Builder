@@ -13,7 +13,7 @@ class FbInterfaceController {
   /// Each of them hold the list of child/children and parent id
   /// For example lets take alook at
   ///               ` Container1 > Column > Container2`
-  /// The columnDetails holds reference to container1 as id and
+  /// The columnDetails holds reference to container1 as parentId and
   /// Hold refrence to container2 as children
   final Map<int, FbWidgetDetails> fbDetailsMap = {};
   final Map<int, FbWidgetStylesCallback> widgetStylesCallbackMap = {};
@@ -64,20 +64,26 @@ class FbInterfaceController {
     return fbDetailsMap;
   }
 
-  Map<int, FbWidgetDetails> removeWidget(int widgetId) {
+  /// Removes only the particular widget from the widget tree
+  Map<int, FbWidgetDetails> removeWidget(int removeWidgetId) {
     // The aim of this remove is to remove all the reference to the widget
     // To acheive this we remove the child reference from the parent
     // And also remove the reference to parent id from the child
+    // Then we attach its children to this widget parent
+
+    /// before `ParentWidget` > `RemoveWidget` > `ChildWidget`
+    /// after `ParentWidget` > `ChildWidget`
 
     // Get widget details for widget to be removed
-    var widgetDetails = fbDetailsMap[widgetId];
-    if (widgetDetails == null) {
+    var removeWidgetDetails = fbDetailsMap[removeWidgetId];
+    if (removeWidgetDetails == null) {
       throw Failure('widget does not exist');
     }
 
-    int? parentId = widgetDetails.parentId;
-    List<int> children = widgetDetails.children;
+    int? parentId = removeWidgetDetails.parentId;
+    List<int> children = removeWidgetDetails.children;
 
+    // If this widget has multiple children it mean it can be removed
     if (children.length > 1) {
       throw (RemoveMultipleWidgetFailure());
     }
@@ -87,22 +93,23 @@ class FbInterfaceController {
     if (parentDetails == null) {
       throw Failure('Parent does not exist');
     }
-    // Since we are removing and not totally deleting we need to
-    // attach the children of the widget to the parent
-    parentDetails.changeChildren(children);
 
-    var childId = widgetDetails.firstChildId;
+    var childId = removeWidgetDetails.firstChildId;
     if (childId == null) {
       log.out('removeWidget()', 'This widget has no children');
     }
+
+    // Since we are removing and not totally deleting we replace this
+    // widget with its child in the parent details
+    parentDetails.replaceChild(removeWidgetId, childId);
 
     // Change parent of the child to this widget parent
     fbDetailsMap[childId]?.changeParentId(parentDetails.id);
 
     // Finally remove the widget totally
-    fbDetailsMap.remove(widgetId);
-    fbWidgetsMap.remove(widgetId);
-    widgetStylesCallbackMap.remove(widgetId);
+    fbDetailsMap.remove(removeWidgetId);
+    fbWidgetsMap.remove(removeWidgetId);
+    widgetStylesCallbackMap.remove(removeWidgetId);
 
     return fbDetailsMap;
   }
@@ -111,6 +118,9 @@ class FbInterfaceController {
     // The aim of wrap is to insert a widget in between two widget
     // What we would do first is attach childId to the new widget to be created
     // and detach the childId from the previous parent.
+
+    /// before `ParentWidget` > `ChildWidget`
+    /// after `ParentWidget` > `WrapWidget` > `ChildWidget`
 
     // Get child parent Id
     var childDetails = fbDetailsMap[childId];
