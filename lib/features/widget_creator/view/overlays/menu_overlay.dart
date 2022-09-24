@@ -2,10 +2,10 @@ import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_builder/features/view/overlay/add_widget_overlay.dart';
-import 'package:flutter_widget_builder/features/view/overlay/app_overlay.dart';
 import 'package:flutter_widget_builder/features/widget_creator/bloc/widget_tree_bloc.dart';
+import 'package:flutter_widget_builder/features/widget_creator/view/overlays/add_widget_overlay.dart';
 import 'package:flutter_widget_builder/utils/enum.dart';
+import 'package:flutter_widget_builder/widget/app_overlay.dart';
 
 class MenuOverlay extends StatelessWidget {
   final FbWidgetType widgetType;

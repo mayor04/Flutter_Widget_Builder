@@ -2,14 +2,14 @@ import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/config/theme.dart';
-import 'package:flutter_widget_builder/features/view/create_page/create_page.dart';
-import 'package:flutter_widget_builder/features/view/home_page/home_page.dart';
-import 'package:flutter_widget_builder/features/view/overlay/app_overlay.dart';
-import 'package:flutter_widget_builder/features/view/playground.dart';
+import 'package:flutter_widget_builder/features/home/views/home_page.dart';
+import 'package:flutter_widget_builder/features/playground/playground.dart';
 import 'package:flutter_widget_builder/features/widget_creator/bloc/input_bloc.dart';
 import 'package:flutter_widget_builder/features/widget_creator/bloc/notifier_bloc.dart';
 import 'package:flutter_widget_builder/features/widget_creator/bloc/widget_tree_bloc.dart';
 import 'package:flutter_widget_builder/features/widget_creator/controller/interface_controller.dart';
+import 'package:flutter_widget_builder/features/widget_creator/view/create_page.dart';
+import 'package:flutter_widget_builder/widget/app_overlay.dart';
 import 'package:go_router/go_router.dart';
 
 class MyApp extends StatefulWidget {

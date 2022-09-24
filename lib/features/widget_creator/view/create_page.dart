@@ -1,11 +1,11 @@
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_builder/features/view/create_page/sections/section_display.dart';
-import 'package:flutter_widget_builder/features/view/create_page/sections/section_styles.dart';
-import 'package:flutter_widget_builder/features/view/create_page/sections/section_widget_tree.dart';
-import 'package:flutter_widget_builder/features/view/overlay/app_overlay.dart';
 import 'package:flutter_widget_builder/features/widget_creator/bloc/notifier_bloc.dart';
+import 'package:flutter_widget_builder/features/widget_creator/view/sections/section_display.dart';
+import 'package:flutter_widget_builder/features/widget_creator/view/sections/section_styles.dart';
+import 'package:flutter_widget_builder/features/widget_creator/view/sections/section_widget_tree.dart';
+import 'package:flutter_widget_builder/widget/app_overlay.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
 class CreatePage extends StatelessWidget {
