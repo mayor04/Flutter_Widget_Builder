@@ -9,7 +9,7 @@ class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> {
   FbExpandedConfig() : super(FbWidgetType.expanded, FbChildType.single);
 
   @override
-  String generateCode(String child) {
+  String generateCode(String? childCode, int level) {
     // TODO: implement generateCode
     throw UnimplementedError();
   }

@@ -8,8 +8,17 @@ import 'package:flutter_widget_builder/features/widget_creator/view/sections/sec
 import 'package:flutter_widget_builder/widget/app_overlay.dart';
 import 'package:flutter_widget_builder/widget/box_spacing.dart';
 
-class CreatePage extends StatelessWidget {
+import 'sections/code_section.dart';
+
+class CreatePage extends StatefulWidget {
   const CreatePage({Key? key}) : super(key: key);
+
+  @override
+  State<CreatePage> createState() => _CreatePageState();
+}
+
+class _CreatePageState extends State<CreatePage> {
+  bool showCode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +26,7 @@ class CreatePage extends StatelessWidget {
       backgroundColor: AppColors.appBg,
       body: Column(
         children: [
+          // * @TOP BAR
           Container(
             height: 40,
             width: double.infinity,
@@ -44,25 +54,37 @@ class CreatePage extends StatelessWidget {
               ],
             ),
           ),
+          // *
+          // * Sections
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(23, 15, 23, 15),
-              child: Row(
-                children: [
-                  const SectionWidgetTree(),
-                  const Box.horizontal(15),
-                  const SectionStyles(),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        context.read<NotifierBloc>().select(0);
-                        AppOverlay.removeAll(context);
-                      },
-                      child: const SectionDisplay(),
-                    ),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(23, 15, 23, 15),
+                  child: Row(
+                    children: [
+                      const SectionWidgetTree(),
+                      const Box.horizontal(15),
+                      const SectionStyles(),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            context.read<NotifierBloc>().select(0);
+                            AppOverlay.removeAll(context);
+                          },
+                          child: const SectionDisplay(),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                const Positioned(
+                  right: 20,
+                  top: 20,
+                  bottom: 20,
+                  child: CodeSection(),
+                ),
+              ],
             ),
           ),
         ],

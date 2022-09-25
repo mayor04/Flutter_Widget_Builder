@@ -20,7 +20,7 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> {
   FbStackConfig() : super(FbWidgetType.stack, FbChildType.multiple);
 
   @override
-  String generateCode(String child) {
+  String generateCode(String? childCode, int level) {
     // TODO: implement generateCode
     throw UnimplementedError();
   }

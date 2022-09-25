@@ -1,10 +1,10 @@
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
-import 'package:flutter_widget_builder/features/widget_creator/controller/fb_details.dart';
+import 'package:flutter_widget_builder/features/widget_creator/models/fb_details.dart';
 
 typedef FbWidgetStylesCallback = BaseFbStyles Function();
 
-class FbInterfaceController {
+class InterfaceController {
   final log = AppLog('FbInterfaceController');
 
   final List<int> idList = [];
@@ -16,9 +16,11 @@ class FbInterfaceController {
   /// The columnDetails holds reference to container1 as parentId and
   /// Hold refrence to container2 as children
   final Map<int, FbWidgetDetails> fbDetailsMap = {};
+
+  // Todo: inspect this implemntation -> is the styles suppose to be stored in a map
   final Map<int, FbWidgetStylesCallback> widgetStylesCallbackMap = {};
 
-  FbInterfaceController() {
+  InterfaceController() {
     // The main data is used to know the starting point of the widget
 
     idList.add(xMainId);
@@ -31,7 +33,18 @@ class FbInterfaceController {
     );
   }
 
-  //TODO: create an error class instead of using exception
+  /// This is called first when the screen is loaded
+  Map<int, FbWidgetDetails> initialLoad() {
+    /// Since no data is saved locally for now the initial load
+    /// is always 1 for now
+
+    if (idList.length == 1) {
+      // Add Container if no widget has been created
+      //
+      addChildWidget(xMainId, FbContainerConfig());
+    }
+    return fbDetailsMap;
+  }
 
   /// throws `Exception('Parent not found')` when the parent id is not found
   /// Add child widget to the `fbWidgetMap` and `idList`
@@ -159,19 +172,6 @@ class FbInterfaceController {
 
   List<BaseFbInput> getWidgetInput(int id) {
     return fbWidgetsMap[id]?.getInputs() ?? [];
-  }
-
-  /// This is called first when the screen is loaded
-  Map<int, FbWidgetDetails> initialLoad() {
-    /// Since no data is saved locally for now the initial load
-    /// is always 1 for now
-
-    if (idList.length == 1) {
-      // Add Container if no widget has been created
-      //
-      addChildWidget(xMainId, FbContainerConfig());
-    }
-    return fbDetailsMap;
   }
 
   // ignore: unused_element

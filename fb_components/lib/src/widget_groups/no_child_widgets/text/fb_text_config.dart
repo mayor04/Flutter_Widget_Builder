@@ -20,7 +20,7 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> {
   FbTextConfig() : super(FbWidgetType.text, FbChildType.none);
 
   @override
-  String generateCode(String child) {
+  String generateCode(String? childCode, int level) {
     // TODO: implement generateCode
     throw UnimplementedError();
   }

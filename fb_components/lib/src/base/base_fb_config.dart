@@ -14,7 +14,9 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
   // This method should be used somewhereelse due to testing
   // Widget builder(dynamic widget);
 
-  String generateCode(String child);
+  String generateCode(String? childCode, int level);
+
+  String indent(int level) => List.generate(level, (index) => '  ').join();
 
   List<BaseFbInput> getInputs();
 

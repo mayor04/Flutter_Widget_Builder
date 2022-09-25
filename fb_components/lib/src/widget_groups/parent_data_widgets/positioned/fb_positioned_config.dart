@@ -13,7 +13,7 @@ class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> {
   FbPositionedConfig() : super(FbWidgetType.positioned, FbChildType.single);
 
   @override
-  String generateCode(String child) {
+  String generateCode(String? childCode, int level) {
     // TODO: implement generateCode
     throw UnimplementedError();
   }

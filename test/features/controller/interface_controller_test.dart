@@ -1,15 +1,17 @@
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_widget_builder/features/widget_creator/controller/fb_details.dart';
 import 'package:flutter_widget_builder/features/widget_creator/controller/interface_controller.dart';
+import 'package:flutter_widget_builder/features/widget_creator/models/fb_details.dart';
+
+import '../../general/wait.dart';
 
 void main() {
-  late FbInterfaceController interfaceController;
+  late InterfaceController interfaceController;
   late Map<int, FbWidgetDetails> details;
 
   setUp(() {
-    interfaceController = FbInterfaceController();
+    interfaceController = InterfaceController();
     details = interfaceController.fbDetailsMap;
   });
 
@@ -217,19 +219,11 @@ void main() {
   });
 }
 
-/// Wait so the id will be different,
-/// Test is so fast that the id for different
-/// widget which is milliseconds can be the same
-/// In real app user can not create two widget at the same time
-Future wait() {
-  return Future.delayed(const Duration(milliseconds: 4));
-}
-
-FbWidgetDetails? getDetails(FbInterfaceController interfaceController, int widgetId) {
+FbWidgetDetails? getDetails(InterfaceController interfaceController, int widgetId) {
   return interfaceController.fbDetailsMap[widgetId];
 }
 
-bool isChildPresent(id, FbInterfaceController fbControl) {
+bool isChildPresent(id, InterfaceController fbControl) {
   return fbControl.fbDetailsMap.containsKey(id) &&
       fbControl.idList.contains(id) &&
       fbControl.fbWidgetsMap.containsKey(id) &&

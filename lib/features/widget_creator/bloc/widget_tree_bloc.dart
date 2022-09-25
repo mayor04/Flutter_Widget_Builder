@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
-import 'package:flutter_widget_builder/features/widget_creator/controller/fb_details.dart';
 import 'package:flutter_widget_builder/features/widget_creator/controller/interface_controller.dart';
+import 'package:flutter_widget_builder/features/widget_creator/models/fb_details.dart';
 
 part 'widget_tree_event.dart';
 part 'widget_tree_state.dart';
@@ -12,9 +12,9 @@ part 'widget_tree_state.dart';
 /// it handles adding and removing of the widgets
 class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
   final log = AppLog('WidgetTreeBloc');
-  late final FbInterfaceController _fbController;
+  late final InterfaceController _fbController;
 
-  WidgetTreeBloc(FbInterfaceController fbController) : super(WidgetTreeState(fbDetailsMap: {})) {
+  WidgetTreeBloc(InterfaceController fbController) : super(WidgetTreeState(fbDetailsMap: {})) {
     _fbController = fbController;
 
     on<InitialWidgetTreeEvent>(_initialEvent);

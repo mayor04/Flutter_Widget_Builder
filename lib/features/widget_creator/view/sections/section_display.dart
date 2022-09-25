@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_builder/features/widget_creator/bloc/notifier_bloc.dart';
 import 'package:flutter_widget_builder/features/widget_creator/bloc/widget_tree_bloc.dart';
-import 'package:flutter_widget_builder/features/widget_creator/controller/fb_details.dart';
+import 'package:flutter_widget_builder/features/widget_creator/models/fb_details.dart';
 import 'package:flutter_widget_builder/widget/app_overlay.dart';
 
 class SectionDisplay extends StatelessWidget {

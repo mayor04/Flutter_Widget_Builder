@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
@@ -35,9 +37,17 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
   FbContainerConfig() : super(FbWidgetType.container, FbChildType.single);
 
   @override
-  String generateCode(String child) {
-    // TODO: implement generateCode
-    throw UnimplementedError();
+  String generateCode(String? childCode, int level) {
+    final i = indent(level);
+    final child = childCode == null || childCode.isEmpty
+        ? '${indent(level - 1)}),'
+        : '${i}child:$childCode\n${i}),';
+
+    return '''
+ Container(
+  ${i}height: ${heightInput.value}
+  ${i}width: ${widthInput.value}
+  $child''';
   }
 
   @override

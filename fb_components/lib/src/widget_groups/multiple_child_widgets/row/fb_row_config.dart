@@ -26,7 +26,7 @@ class FbRowConfig extends BaseFbConfig<FbRowStyles> {
   FbRowConfig() : super(FbWidgetType.row, FbChildType.multiple);
 
   @override
-  String generateCode(String child) {
+  String generateCode(String? childCode, int level) {
     // TODO: implement generateCode
     throw UnimplementedError();
   }

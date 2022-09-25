@@ -9,9 +9,9 @@ part 'input_state.dart';
 
 class InputBloc extends Bloc<InputEvent, InputState> {
   final log = AppLog('StylesInputBloc');
-  late final FbInterfaceController _fbController;
+  late final InterfaceController _fbController;
 
-  InputBloc(FbInterfaceController fbController) : super(const InputState([], xMainId)) {
+  InputBloc(InterfaceController fbController) : super(const InputState([], xMainId)) {
     _fbController = fbController;
 
     on<GetInputsEvent>(_getStyles);

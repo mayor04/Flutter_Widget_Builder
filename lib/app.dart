@@ -13,7 +13,7 @@ import 'package:flutter_widget_builder/widget/app_overlay.dart';
 import 'package:go_router/go_router.dart';
 
 class MyApp extends StatefulWidget {
-  final FbInterfaceController fbController;
+  final InterfaceController fbController;
 
   const MyApp({Key? key, required this.fbController}) : super(key: key);
 
