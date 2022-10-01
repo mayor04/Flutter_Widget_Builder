@@ -17,6 +17,7 @@ class _AppOverlayWidgetState extends State<AppOverlayWidget> {
   OverlayEntry? addWidgetEntry;
   OverlayEntry? menuWidgetEntry;
   OverlayEntry? selectionWidgetEntry;
+  OverlayEntry? overlayWidgetEntry;
 
   void removeAddEntry() {
     addWidgetEntry?.remove();
@@ -33,10 +34,16 @@ class _AppOverlayWidgetState extends State<AppOverlayWidget> {
     menuWidgetEntry = null;
   }
 
+  void removeOverlayEntry() {
+    overlayWidgetEntry?.remove();
+    overlayWidgetEntry = null;
+  }
+
   void removeAll() {
     removeAddEntry();
     removeMenuEntry();
     removeSelectionEntry();
+    removeOverlayEntry();
   }
 
   void showMenuOverlay(BuildContext context, {required Offset position, required Widget overlay}) {
@@ -97,12 +104,38 @@ class _AppOverlayWidgetState extends State<AppOverlayWidget> {
     Overlay.of(context)?.insert(selectionWidgetEntry!);
   }
 
+  void showOverlay(BuildContext context, {required Offset position, required Widget overlay}) {
+    removeOverlayEntry();
+
+    overlayWidgetEntry = OverlayEntry(
+      builder: (context) {
+        return Stack(
+          children: [
+            //close overlay on click
+            Positioned.fill(
+              child: GestureDetector(
+                onTap: removeOverlayEntry,
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              ),
+            ),
+            Positioned(top: position.dy, left: position.dx, child: overlay),
+          ],
+        );
+      },
+    );
+
+    Overlay.of(context)?.insert(overlayWidgetEntry!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppOverlay(
       showMenuOverlay: showMenuOverlay,
       showAddWidgetMenuOverlay: showAddWidgetOverlay,
       showWidgetSelectionOverlay: showSelectionOverlay,
+      showOverlayWidget: showOverlay,
       removeAllOverlay: removeAll,
       child: widget.child,
     );
@@ -113,17 +146,17 @@ class AppOverlay extends InheritedWidget {
   const AppOverlay({
     required this.removeAllOverlay,
     required this.showMenuOverlay,
-    required Widget child,
     required this.showAddWidgetMenuOverlay,
     required this.showWidgetSelectionOverlay,
+    required this.showOverlayWidget,
+    required Widget child,
     Key? key,
   }) : super(child: child, key: key);
 
   final VoidCallback removeAllOverlay;
-
   final OverlayCallback showMenuOverlay;
   final OverlayCallback showAddWidgetMenuOverlay;
-
+  final OverlayCallback showOverlayWidget;
   final Function(
     BuildContext context, {
     required Offset position,
@@ -172,6 +205,18 @@ class AppOverlay extends InheritedWidget {
       context,
       position: position,
       size: size,
+    );
+  }
+
+  static void showOverlay(
+    BuildContext context, {
+    required Offset position,
+    required Widget overlay,
+  }) {
+    AppOverlay._of(context).showOverlayWidget(
+      context,
+      position: position,
+      overlay: overlay,
     );
   }
 

@@ -1,9 +1,9 @@
 import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
 import 'package:fb_app/utils/enum.dart';
-import 'package:fb_app/widget/app_overlay.dart';
 import 'package:fb_app/widget/box_spacing.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
+import 'package:fb_core/src/widgets/app_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,6 +1,6 @@
 import 'package:fb_app/features/widget_creator/bloc/code_display_bloc.dart';
-import 'package:fb_app/widget/app_overlay.dart';
 import 'package:fb_core/fb_core.dart';
+import 'package:fb_core/src/widgets/app_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

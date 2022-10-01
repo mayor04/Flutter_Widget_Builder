@@ -1,18 +1,13 @@
-name: fb_components
+name: color_picker_mod
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
-publish_to: none
 
 environment:
   sdk: ">=2.17.6 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
-  fb_core:
-    path: ../fb_core
-  color_picker_mod:
-    path: ../packages/color_picker_mod
   flutter:
     sdk: flutter
 

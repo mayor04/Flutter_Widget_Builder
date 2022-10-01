@@ -1,3 +1,4 @@
+import 'package:color_picker_mod/color_picker_mod.dart';
 import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/widgets/box_spacing.dart';
@@ -34,59 +35,100 @@ class _InputColorState extends State<InputColor> {
 
     editControl.text = colorCode;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          widget.colorInputData.title,
-          style: context.textTheme.bodyMedium,
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: AppDimen.inputHeight,
-              height: AppDimen.inputHeight - 3,
-              decoration: AppDecoration.darkBorder(
-                color: Color(colorInputData.value),
-                radius: 4,
-                borderColor: Colors.white70,
-              ),
-            ),
-            const Box.horizontal(6),
-            SizedBox(
-              height: AppDimen.inputHeight,
-              width: AppDimen.expandedInputWidth,
-              child: TextField(
-                style: context.textTheme.titleMedium?.copyWith(
-                  color: AppColors.focusedBorder,
+    return AppOverlayWidget(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            widget.colorInputData.title,
+            style: context.textTheme.bodyMedium,
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // To get the context of the ovelay widget on top
+              Builder(builder: (context) {
+                return GestureDetector(
+                  onTapDown: (tapDetails) {
+                    showColorPicker(context, tapDetails);
+                  },
+                  child: Container(
+                    width: AppDimen.inputHeight,
+                    height: AppDimen.inputHeight - 3,
+                    decoration: AppDecoration.darkBorder(
+                      color: Color(colorInputData.value),
+                      radius: 4,
+                      borderColor: Colors.white70,
+                    ),
+                  ),
+                );
+              }),
+              const Box.horizontal(6),
+              SizedBox(
+                height: AppDimen.inputHeight,
+                width: AppDimen.expandedInputWidth,
+                child: TextField(
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: AppColors.focusedBorder,
+                  ),
+                  controller: editControl,
+                  inputFormatters: [
+                    UpperCaseTextFormatter(),
+                  ],
+                  onSubmitted: (text) {
+                    text = text.replaceFirst('#', '');
+                    if (text.length <= 6) {
+                      text = 'FF$text';
+                    }
+
+                    try {
+                      var value = int.parse('0x$text');
+                      colorInputData.value = value;
+                      setState(() {});
+                    } catch (e) {
+                      AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
+                      return;
+                    }
+
+                    widget.onEditComplete();
+                  },
                 ),
-                controller: editControl,
-                inputFormatters: [
-                  UpperCaseTextFormatter(),
-                ],
-                onSubmitted: (text) {
-                  text = text.replaceFirst('#', '');
-                  if (text.length <= 6) {
-                    text = 'FF$text';
-                  }
-
-                  try {
-                    var value = int.parse('0x$text');
-                    colorInputData.value = value;
-                    setState(() {});
-                  } catch (e) {
-                    AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
-                    return;
-                  }
-
-                  widget.onEditComplete();
-                },
               ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  showColorPicker(BuildContext context, TapDownDetails tapDetails) {
+    AppOverlay.showOverlay(
+      context,
+      position: tapDetails.globalPosition - tapDetails.localPosition,
+      overlay: GestureDetector(
+        onTap: () {
+          //This detector is used to stop the color picker
+          //area from closing on tap
+        },
+        child: SizedBox(
+          width: 283,
+          child: Card(
+            child: ModColorPicker(
+              pickerColor: Color(colorInputData.value),
+              onColorChanged: (color) {
+                colorInputData.value = color.value;
+                setState(() {});
+
+                widget.onEditComplete();
+              },
+              colorPickerWidth: 280,
+              portraitOnly: true,
+              hexInputBar: true,
+              pickerAreaHeightPercent: 0.6,
             ),
-          ],
+          ),
         ),
-      ],
+      ),
     );
   }
 

@@ -5,10 +5,10 @@ import 'package:fb_app/features/widget_creator/view/overlays/add_widget_overlay.
 import 'package:fb_app/features/widget_creator/view/overlays/menu_overlay.dart';
 import 'package:fb_app/features/widget_creator/view/widgets/icon_box.dart';
 import 'package:fb_app/utils/enum.dart';
-import 'package:fb_app/widget/app_overlay.dart';
 import 'package:fb_app/widget/box_spacing.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
+import 'package:fb_core/src/widgets/app_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
