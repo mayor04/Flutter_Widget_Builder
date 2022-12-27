@@ -1,3 +1,4 @@
+import 'package:dart_style/dart_style.dart';
 import 'package:fb_app/features/widget_creator/controller/interface_controller.dart';
 import 'package:fb_app/features/widget_creator/models/fb_details.dart';
 import 'package:fb_components/fb_components.dart';
@@ -17,7 +18,21 @@ class CodeGeneratorController {
     // Get the first details
     // TODO: handle all null errors
     final firstChildId = allDetails[xMainId]!.firstChildId;
-    return _generateCode(firstChildId!, allDetails[firstChildId]!);
+
+    final formatter = DartFormatter();
+    final code = _generateCode(firstChildId!, allDetails[firstChildId]!);
+    print(code);
+
+    return formatter.format('''
+        class WidgetName extends StatelessWidget {
+          @override
+          Widget build(BuildContext context) {
+            return SizedBox(
+              child: $code
+            );
+          }
+        }
+    ''');
   }
 
   String _generateCode(int id, FbWidgetDetails widgetDetails, {int level = 1}) {

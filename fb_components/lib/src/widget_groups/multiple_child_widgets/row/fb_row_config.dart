@@ -1,10 +1,11 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
+import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/inputs/single/dropdown_input.dart';
 import 'package:flutter/material.dart';
 
-class FbRowConfig extends BaseFbConfig<FbRowStyles> {
+class FbRowConfig extends BaseFbConfig<FbRowStyles> with CodeGeneratorLogic {
   var mainAxisInput = FbInputDataDropdown(
     'MainAxisAlign',
     defaultEnum: MainAxisAlignment.start,
@@ -26,12 +27,6 @@ class FbRowConfig extends BaseFbConfig<FbRowStyles> {
   FbRowConfig() : super(FbWidgetType.row, FbChildType.multiple);
 
   @override
-  String generateCode(String? childCode, int level) {
-    // TODO: implement generateCode
-    throw UnimplementedError();
-  }
-
-  @override
   List<BaseFbInput> getInputs() {
     return [
       mainAxisInput,
@@ -49,6 +44,28 @@ class FbRowConfig extends BaseFbConfig<FbRowStyles> {
       crossAlignment: crossAxisInput.value,
       axisSize: mainAxisSizeInput.value,
     );
+  }
+
+  @override
+  String generateCode(String? childCode, int level) {
+    final widgetCode = {
+      '_name': 'Row',
+      'mainAxisAlignment': nullMapper(
+        value: mainAxisInput.value.toString(),
+        returnNullChecks: [(v) => v == mainAxisInput.defaultEnum.toString()],
+      ),
+      'crossAxisAlignment': nullMapper(
+        value: crossAxisInput.value.toString(),
+        returnNullChecks: [(v) => v == crossAxisInput.defaultEnum.toString()],
+      ),
+      'mainAxisSize': nullMapper(
+        value: mainAxisSizeInput.value.toString(),
+        returnNullChecks: [(v) => v == mainAxisSizeInput.defaultEnum.toString()],
+      ),
+      'children': '[$childCode]',
+    };
+
+    return getCode(widgetCode) ?? '';
   }
 }
 

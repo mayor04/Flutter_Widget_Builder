@@ -1,10 +1,11 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
+import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/inputs/single/dropdown_input.dart';
 import 'package:flutter/material.dart';
 
-class FbColumnConfig extends BaseFbConfig<FbColumnStyles> {
+class FbColumnConfig extends BaseFbConfig<FbColumnStyles> with CodeGeneratorLogic {
   var mainAxisInput = FbInputDataDropdown(
     'MainAxisAlign',
     defaultEnum: MainAxisAlignment.start,
@@ -27,8 +28,24 @@ class FbColumnConfig extends BaseFbConfig<FbColumnStyles> {
 
   @override
   String generateCode(String? childCode, int level) {
-    // TODO: implement generateCode
-    throw UnimplementedError();
+    final widgetCode = {
+      '_name': 'Column',
+      'mainAxisAlignment': nullMapper(
+        value: mainAxisInput.value.toString(),
+        returnNullChecks: [(v) => v == mainAxisInput.defaultEnum.toString()],
+      ),
+      'crossAxisAlignment': nullMapper(
+        value: crossAxisInput.value.toString(),
+        returnNullChecks: [(v) => v == crossAxisInput.defaultEnum.toString()],
+      ),
+      'mainAxisSize': nullMapper(
+        value: mainAxisSizeInput.value.toString(),
+        returnNullChecks: [(v) => v == mainAxisSizeInput.defaultEnum.toString()],
+      ),
+      'children': '[$childCode]',
+    };
+
+    return getCode(widgetCode) ?? '';
   }
 
   @override

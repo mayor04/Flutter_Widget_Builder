@@ -1,5 +1,6 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
+import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/inputs/single/color_input.dart';
 import 'package:fb_components/src/inputs/single/dropdown_input.dart';
@@ -7,7 +8,7 @@ import 'package:fb_components/src/inputs/single/expanded_input.dart';
 import 'package:fb_components/src/inputs/single/text_input.dart';
 import 'package:flutter/material.dart';
 
-class FbTextConfig extends BaseFbConfig<FbTextStyles> {
+class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
   var textInput = FbInputDataText('Text', '');
   var fontSizeInput = FbInputDataExpanded<double>('Font Size', 13);
   var colorInput = FbInputDataColor('Color', int.parse('0xFF000000'));
@@ -18,12 +19,6 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> {
   );
 
   FbTextConfig() : super(FbWidgetType.text, FbChildType.none);
-
-  @override
-  String generateCode(String? childCode, int level) {
-    // TODO: implement generateCode
-    throw UnimplementedError();
-  }
 
   @override
   List<BaseFbInput> getInputs() {
@@ -40,6 +35,31 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> {
       colorValue: colorInput.value,
       fontWeight: fontWeightInput.mapValue,
     );
+  }
+
+  @override
+  String generateCode(String? childCode, int level) {
+    final widgetCode = {
+      '_name': 'Text',
+      '': "'${textInput.value}'",
+      'style': {
+        '_name': 'TextStyle',
+        'fontSize': fontSizeInput.intValue,
+        'color': nullMapper(
+          prefix: 'Color(',
+          value: colorInput.intValue,
+          suffix: ')',
+          returnNullChecks: [(value) => value == 0],
+        ),
+        'fontWeight': nullMapper(
+          prefix: 'FontWeight.',
+          value: fontWeightInput.value,
+          returnNullChecks: [(v) => v == FbTextStyles.defaultWeight],
+        ),
+      }
+    };
+
+    return getCode(widgetCode) ?? '';
   }
 }
 

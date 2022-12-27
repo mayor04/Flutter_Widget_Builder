@@ -1,3 +1,5 @@
+import 'package:fb_components/src/extension.dart/num_extension.dart';
+
 import 'fb_enum.dart';
 
 abstract class BaseFbInput<T> {
@@ -13,6 +15,14 @@ abstract class BaseFbInput<T> {
     }
 
     throw Exception('Unable to cast $A to type FbInputData');
+  }
+
+  dynamic get intValue {
+    if (value is double) {
+      return (value as double?)?.removeZeroDecimal;
+    }
+
+    return value;
   }
 }
 

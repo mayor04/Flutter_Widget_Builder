@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static ThemeData lightTheme = _baseTheme(_lightColorScheme);
+  ThemeData lightTheme() => _baseTheme(_lightColorScheme);
 
   static ThemeData darkTheme = _baseTheme(_darkColorScheme);
 

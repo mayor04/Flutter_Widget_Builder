@@ -1,10 +1,11 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
+import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/inputs/single/dropdown_input.dart';
 import 'package:flutter/material.dart';
 
-class FbStackConfig extends BaseFbConfig<FbStackStyles> {
+class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic {
   // var alignInput = FbInputDataDropdown<MainAxisAlignment>(
   //   'MainAxisAlign',
   //   defaultEnum: MainAxisAlignment.start,
@@ -20,12 +21,6 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> {
   FbStackConfig() : super(FbWidgetType.stack, FbChildType.multiple);
 
   @override
-  String generateCode(String? childCode, int level) {
-    // TODO: implement generateCode
-    throw UnimplementedError();
-  }
-
-  @override
   List<BaseFbInput> getInputs() {
     return [
       fitInput,
@@ -39,6 +34,21 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> {
       widgetType,
       stackFit: fitInput.value,
     );
+  }
+
+  @override
+  String generateCode(String? childCode, int level) {
+    @override
+    final widgetCode = {
+      '_name': 'Stack',
+      'mainAxisAlignment': nullMapper(
+        value: fitInput.value.toString(),
+        returnNullChecks: [(v) => v == fitInput.defaultEnum.toString()],
+      ),
+      'children': '[$childCode]',
+    };
+
+    return getCode(widgetCode) ?? '';
   }
 }
 

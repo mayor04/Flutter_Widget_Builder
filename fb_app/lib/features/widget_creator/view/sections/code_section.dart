@@ -56,17 +56,21 @@ class _CodeSectionState extends State<CodeSection> {
                   width: 400,
                   color: AppColors.appGrey,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
                         height: 20,
                         color: AppColors.appDark,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(17),
-                        child: Text(
-                          state.generatedCode,
-                          style: context.textTheme.bodyMedium,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(17),
+                            child: SelectableText(
+                              state.generatedCode,
+                              style: context.textTheme.bodyMedium,
+                            ),
+                          ),
                         ),
                       ),
                     ],

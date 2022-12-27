@@ -5,18 +5,81 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "flutter_widget_builder",
+            "name": "fb_app",
+            "cwd": "fb_app",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "flutter_widget_builder (profile mode)",
+            "name": "fb_app (profile mode)",
+            "cwd": "fb_app",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "flutter_widget_builder (release mode)",
+            "name": "fb_app (release mode)",
+            "cwd": "fb_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "fb_components",
+            "cwd": "fb_components",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "fb_components (profile mode)",
+            "cwd": "fb_components",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "fb_components (release mode)",
+            "cwd": "fb_components",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "fb_core",
+            "cwd": "fb_core",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "fb_core (profile mode)",
+            "cwd": "fb_core",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "fb_core (release mode)",
+            "cwd": "fb_core",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "color_picker_mod",
+            "cwd": "packages/color_picker_mod",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "color_picker_mod (profile mode)",
+            "cwd": "packages/color_picker_mod",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "color_picker_mod (release mode)",
+            "cwd": "packages/color_picker_mod",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

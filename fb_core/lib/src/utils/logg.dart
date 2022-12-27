@@ -2,8 +2,8 @@ import 'dart:developer';
 
 class AppLog {
   final String className;
-  // final String _errorAnsi = '\u001b[31m';
 
+  final String _errorAnsi = '\u001b[31m';
   final String _errorbgAnsi = '\u001b[41m';
   final String _debugAnsi = '\u001b[32m';
   final String _whiteAnsi = '\u001b[37m';
@@ -15,8 +15,7 @@ class AppLog {
   }
 
   void error(String method, String error) {
-    log('$_whiteAnsi$_errorbgAnsi$error  ',
-        name: '$_whiteAnsi$className > $method');
+    log('$_errorAnsi$error  ', name: '$_whiteAnsi$className > $method');
   }
 
   void out(String method, var objects) {

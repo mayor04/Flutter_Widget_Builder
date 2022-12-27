@@ -2,7 +2,9 @@
 
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
+import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
+import 'package:fb_components/src/extension.dart/num_extension.dart';
 import 'package:fb_components/src/inputs/groups/double_inputs.dart';
 import 'package:fb_components/src/inputs/groups/multiple_inputs.dart';
 import 'package:fb_components/src/inputs/single/color_input.dart';
@@ -11,54 +13,25 @@ import 'package:fb_components/src/inputs/single/ltrb_input.dart';
 import 'package:fb_components/src/inputs/single/wrap_input.dart';
 import 'package:flutter/material.dart';
 
-class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
-  var heightInput = FbInputDataWrap<double?>('Height', 300);
-  var widthInput = FbInputDataWrap<double?>('Width', 300);
-  var colorInput = FbInputDataColor('Color', int.parse('0xFFE6E6D6'));
+part 'fb_input_config.dart';
 
-  var alignInput = FbInputDataDropdownMap(
-    'Alignment',
-    defaultValue: FbContainerStyles.defaultAlign,
-    map: FbContainerStyles.alignmentMap,
-  );
-
-  var paddingInput = FbInputDataLTRB<List<double>>('Padding', [0, 0, 0, 0]);
-  var marginInput = FbInputDataLTRB<List<double>>('Margin', [0, 0, 0, 0]);
-
-  var borderInput = FbGroupMultipleInputs('Border', fbInputs: [
-    FbGroupDoubleInputs(
-      '',
-      input1: FbInputDataWrap<double>('radius', 0),
-      input2: FbInputDataWrap<double>('size', 0),
-    ),
-    FbInputDataColor('color', Colors.transparent.value),
-  ]);
-
+class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGeneratorLogic {
+  final _Inputs _config = _Inputs();
   FbContainerConfig() : super(FbWidgetType.container, FbChildType.single);
-
-  @override
-  String generateCode(String? childCode, int level) {
-    final i = indent(level);
-    final child = childCode == null || childCode.isEmpty
-        ? '${indent(level - 1)}),'
-        : '${i}child:$childCode\n${i}),';
-
-    return '''
- Container(
-  ${i}height: ${heightInput.value}
-  ${i}width: ${widthInput.value}
-  $child''';
-  }
 
   @override
   List<BaseFbInput> getInputs() {
     return [
-      FbGroupDoubleInputs('', input1: heightInput, input2: widthInput),
-      colorInput,
-      alignInput,
-      paddingInput,
-      marginInput,
-      borderInput,
+      FbGroupDoubleInputs(
+        '',
+        input1: _config.heightInput,
+        input2: _config.widthInput,
+      ),
+      _config.colorInput,
+      _config.alignInput,
+      _config.paddingInput,
+      _config.marginInput,
+      _config.borderInput,
     ];
   }
 
@@ -67,16 +40,69 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> {
     return FbContainerStyles(
       id,
       widgetType,
-      height: heightInput.value,
-      width: widthInput.value,
-      colorValue: colorInput.value,
-      pad: paddingInput.value,
-      marg: marginInput.value,
-      alignment: alignInput.mapValue,
-      radius: (borderInput.inputAt(0) as FbGroupDoubleInputs).input1.value as double,
-      borderSize: (borderInput.inputAt(0) as FbGroupDoubleInputs).input2.value as double,
-      borderColor: borderInput.inputAt(1).value,
+      height: _config.height?.toDouble(),
+      width: _config.width?.toDouble(),
+      colorValue: _config.color,
+      pad: _config.padding,
+      marg: _config.margin,
+      alignment: _config.alignment,
+      radius: _config.radius?.toDouble() ?? 0,
+      borderSize: _config.borderSize?.toDouble() ?? 0,
+      borderColor: _config.borderColor,
     );
+  }
+
+  @override
+  String generateCode(String? childCode, int level) {
+    final pad = _config.padding.map((e) => e.removeZeroDecimal).toList();
+    final marg = _config.margin.map((e) => e.removeZeroDecimal).toList();
+
+    var widgetCode = {
+      '_name': 'Container',
+      'height': _config.height,
+      'width': _config.width,
+      'color': nullMapper(
+        prefix: 'Color(',
+        value: _config.color,
+        suffix: ')',
+        returnNullChecks: [(value) => value == 0],
+      ),
+      'padding': nullMapper(
+        prefix: 'EdgeInsets.fromLTRB(',
+        value: '${pad[0]},${pad[0]},${pad[0]},${pad[0]}',
+        suffix: ')',
+        returnNullChecks: [(_) => pad.where((v) => v != 0).isEmpty],
+      ),
+      'margin': nullMapper(
+        prefix: 'EdgeInsets.fromLTRB(',
+        value: '${marg[0]},${marg[0]},${marg[0]},${marg[0]}',
+        suffix: ')',
+        returnNullChecks: [
+          // Check if all the element in the list is not zero
+          (_) => marg.where((v) => v != 0).isEmpty,
+        ],
+      ),
+      'decoration': {
+        '_name': 'BoxDecoration',
+        'borderRadius': {
+          '_name': 'BorderRadius.circular',
+          '': _config.radius,
+        },
+        'border': {
+          '_name': 'Border.all',
+          'width': _config.borderSize,
+          'color': nullMapper(
+            prefix: 'Color(',
+            value: _config.borderColor,
+            suffix: ')',
+            returnNullChecks: [(value) => value == 0],
+          ),
+        }
+      },
+      'child': childCode,
+    };
+
+    return getCode(widgetCode) ?? '';
   }
 }
 
@@ -95,6 +121,7 @@ class FbContainerStyles extends BaseFbStyles {
     'topLeft': Alignment.topLeft,
     'topRight': Alignment.topRight,
   };
+
   final double? height;
   final double? width;
   final int colorValue;
@@ -102,9 +129,7 @@ class FbContainerStyles extends BaseFbStyles {
   late final EdgeInsetsGeometry padding;
   late final EdgeInsetsGeometry margin;
   late final BorderRadiusGeometry borderRadius;
-
   late final BoxBorder? border;
-
   late final List<BoxShadow>? boxShadow;
 
   //radius

@@ -23,6 +23,11 @@ class FbGroupMultipleInputs extends BaseFbGroupInput {
 
     return input;
   }
+
+  // If all elements are null, return null
+  bool isEmpty() {
+    return fbInputs.where((element) => element.value != null).isNotEmpty;
+  }
 }
 
 class GroupInputMultiple extends StatelessWidget {
