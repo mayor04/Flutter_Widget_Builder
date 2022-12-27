@@ -53,7 +53,8 @@ mixin CodeGeneratorLogic<T extends BaseFbStyles> on BaseFbConfig<T> {
     return codeBuffer.toString();
   }
 
-  /// Provide a list of checks, if check retu
+  /// Provide a list of checks, if any of the check
+  /// return true the nullMaper returns null
   nullMapper({
     Comparable? value,
     String prefix = '',

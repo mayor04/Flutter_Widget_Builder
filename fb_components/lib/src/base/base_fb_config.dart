@@ -5,11 +5,13 @@ import 'package:fb_components/src/base/fb_enum.dart';
 /// Extends this class to add more functionality
 ///`FBcontainerConfig extends FBwidgetConfig`
 abstract class BaseFbConfig<T extends BaseFbStyles> {
-  final int id = DateTime.now().millisecondsSinceEpoch;
+  // TODO(sam): change id to string
+  final int id;
   final FbWidgetType widgetType;
   final FbChildType childType;
 
-  BaseFbConfig(this.widgetType, this.childType);
+  BaseFbConfig(this.widgetType, this.childType, {int? id})
+      : id = id ?? DateTime.now().millisecondsSinceEpoch;
 
   // This method should be used somewhereelse due to testing
   // Widget builder(dynamic widget);

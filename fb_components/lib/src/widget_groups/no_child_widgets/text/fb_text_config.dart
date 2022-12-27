@@ -18,7 +18,7 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
     map: FbTextStyles.fontWeightMap,
   );
 
-  FbTextConfig() : super(FbWidgetType.text, FbChildType.none);
+  FbTextConfig({int? id}) : super(FbWidgetType.text, FbChildType.none, id: id);
 
   @override
   List<BaseFbInput> getInputs() {

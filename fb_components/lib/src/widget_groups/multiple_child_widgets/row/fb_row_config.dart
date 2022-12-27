@@ -24,7 +24,7 @@ class FbRowConfig extends BaseFbConfig<FbRowStyles> with CodeGeneratorLogic {
     list: MainAxisSize.values,
   );
 
-  FbRowConfig() : super(FbWidgetType.row, FbChildType.multiple);
+  FbRowConfig({int? id}) : super(FbWidgetType.row, FbChildType.multiple, id: id);
 
   @override
   List<BaseFbInput> getInputs() {

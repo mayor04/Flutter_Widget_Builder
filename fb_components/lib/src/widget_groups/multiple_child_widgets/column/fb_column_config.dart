@@ -24,7 +24,7 @@ class FbColumnConfig extends BaseFbConfig<FbColumnStyles> with CodeGeneratorLogi
     list: MainAxisSize.values,
   );
 
-  FbColumnConfig() : super(FbWidgetType.column, FbChildType.multiple);
+  FbColumnConfig({int? id}) : super(FbWidgetType.column, FbChildType.multiple, id: id);
 
   @override
   String generateCode(String? childCode, int level) {

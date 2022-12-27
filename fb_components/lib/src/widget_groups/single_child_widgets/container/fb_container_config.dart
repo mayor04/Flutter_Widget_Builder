@@ -17,7 +17,7 @@ part 'fb_input_config.dart';
 
 class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGeneratorLogic {
   final _Inputs _config = _Inputs();
-  FbContainerConfig() : super(FbWidgetType.container, FbChildType.single);
+  FbContainerConfig({int? id}) : super(FbWidgetType.container, FbChildType.single, id: id);
 
   @override
   List<BaseFbInput> getInputs() {

@@ -11,7 +11,7 @@ class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> with CodeGener
   var leftInput = FbInputDataWrap<double?>('Left', null);
   var bottomInput = FbInputDataWrap<double?>('Bottom', null);
 
-  FbPositionedConfig() : super(FbWidgetType.positioned, FbChildType.single);
+  FbPositionedConfig({int? id}) : super(FbWidgetType.positioned, FbChildType.single, id: id);
 
   @override
   List<BaseFbInput> getInputs() {

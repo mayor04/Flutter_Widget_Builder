@@ -8,7 +8,7 @@ class FbSizedBoxConfig extends BaseFbConfig<FbSizedBoxStyles> with CodeGenerator
   var heightInput = FbInputDataExpanded<double?>('Height', null);
   var widthInput = FbInputDataExpanded<double?>('Width', null);
 
-  FbSizedBoxConfig() : super(FbWidgetType.sizedBox, FbChildType.single);
+  FbSizedBoxConfig({int? id}) : super(FbWidgetType.sizedBox, FbChildType.single, id: id);
 
   @override
   List<BaseFbInput> getInputs() {

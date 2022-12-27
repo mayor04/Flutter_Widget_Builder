@@ -7,7 +7,7 @@ import 'package:fb_components/src/inputs/single/expanded_input.dart';
 class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> with CodeGeneratorLogic {
   var flexInput = FbInputDataExpanded<int>('Flex', 1);
 
-  FbExpandedConfig() : super(FbWidgetType.expanded, FbChildType.single);
+  FbExpandedConfig({int? id}) : super(FbWidgetType.expanded, FbChildType.single, id: id);
 
   @override
   List<BaseFbInput> getInputs() {

@@ -18,7 +18,7 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic 
     list: StackFit.values,
   );
 
-  FbStackConfig() : super(FbWidgetType.stack, FbChildType.multiple);
+  FbStackConfig({int? id}) : super(FbWidgetType.stack, FbChildType.multiple, id: id);
 
   @override
   List<BaseFbInput> getInputs() {
