@@ -18,8 +18,6 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
 
   String generateCode(String? childCode, int level);
 
-  String indent(int level) => List.generate(level, (index) => '  ').join();
-
   List<BaseFbInput> getInputs();
 
   T getWidgetStyles();
@@ -31,7 +29,7 @@ abstract class BaseFbStyles {
   final int id;
   final FbWidgetType widgetType;
 
-  BaseFbStyles(this.id, this.widgetType);
+  const BaseFbStyles(this.id, this.widgetType);
 
   A cast<A extends BaseFbStyles>() {
     if (this is A) {

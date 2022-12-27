@@ -57,7 +57,7 @@ class FbWidgetDetails {
     _children = children;
   }
 
-  /// Change children is used only when there is a wrap
+  /// Replace childId with another child id
   void replaceChild(int id, int? replaceId) {
     final index = _children.indexOf(id);
     if (replaceId == null) {

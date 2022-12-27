@@ -8,6 +8,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  dart_style: ^2.2.4
   flutter:
     sdk: flutter
 

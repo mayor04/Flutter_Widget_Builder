@@ -194,6 +194,11 @@ void main() {
       await wait();
       var container3 = FbContainerConfig();
 
+      /* - container1
+        - column1
+          - container2
+          - container3 */
+
       //add container1
       interfaceController.addChildWidget(xMainId, container1);
 

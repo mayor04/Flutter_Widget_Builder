@@ -88,7 +88,7 @@ class InterfaceController {
     /// after `ParentWidget` > `ChildWidget`
 
     // Get widget details for widget to be removed
-    var removeWidgetDetails = fbDetailsMap[removeWidgetId];
+    final removeWidgetDetails = fbDetailsMap[removeWidgetId];
     if (removeWidgetDetails == null) {
       throw Failure('widget does not exist');
     }
@@ -102,7 +102,7 @@ class InterfaceController {
     }
 
     // Attach children of widget to parent of widget
-    var parentDetails = fbDetailsMap[parentId];
+    final parentDetails = fbDetailsMap[parentId];
     if (parentDetails == null) {
       throw Failure('Parent does not exist');
     }
@@ -136,19 +136,26 @@ class InterfaceController {
     /// after `ParentWidget` > `WrapWidget` > `ChildWidget`
 
     // Get child parent Id
-    var childDetails = fbDetailsMap[childId];
+    final childDetails = fbDetailsMap[childId];
     if (childDetails == null) {
       throw Failure('The selected child doesn\'t exist');
     }
 
-    var childsParentId = childDetails.parentId;
-    var childParentDetails = fbDetailsMap[childsParentId];
+    final childsParentId = childDetails.parentId;
+    final childParentDetails = fbDetailsMap[childsParentId];
 
+    final parentChildren = childParentDetails?.children;
     // To avoid error(type single widget error) we need to remove the children
     childParentDetails?.changeChildren([]);
 
     // Add the child to the widget tree
     addChildWidget(childsParentId, wrapWidget);
+
+    // After adding wrap widget, change children to previous children then
+    // replace the former child id with the wrap widget, this is done this way
+    // to matain the position of previous children
+    childParentDetails?.changeChildren(parentChildren ?? []);
+    childParentDetails?.replaceChild(childId, wrapWidget.id);
 
     //Change the child widget parent id to the wrap widget to detach it
     childDetails.changeParentId(wrapWidget.id);
@@ -163,6 +170,9 @@ class InterfaceController {
   ///
   /// This pattern is used incase the user wants to undo his action
   Map<int, FbWidgetDetails> deleteWidget(int widgetId) {
+    final parentId = fbDetailsMap[widgetId]?.parentId;
+    fbDetailsMap[parentId]?.replaceChild(widgetId, null);
+
     fbDetailsMap.remove(widgetId);
     fbWidgetsMap.remove(widgetId);
     widgetStylesCallbackMap.remove(widgetId);
