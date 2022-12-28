@@ -20,7 +20,7 @@ class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> with CodeGenerator
   }
 
   @override
-  String generateCode(String? childCode, int level) {
+  String generateCode(String? childCode) {
     final widgetCode = {
       '_name': 'Expanded',
       'flex': nullMapper(

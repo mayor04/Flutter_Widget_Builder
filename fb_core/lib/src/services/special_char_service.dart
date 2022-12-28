@@ -1,0 +1,3 @@
+class SpecialCharService {
+  static replaceCharWithText() {}
+}

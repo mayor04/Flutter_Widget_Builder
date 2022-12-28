@@ -53,7 +53,7 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGenerat
   }
 
   @override
-  String generateCode(String? childCode, int level) {
+  String generateCode(String? childCode) {
     final pad = _config.padding.map((e) => e.removeZeroDecimal).toList();
     final marg = _config.margin.map((e) => e.removeZeroDecimal).toList();
 

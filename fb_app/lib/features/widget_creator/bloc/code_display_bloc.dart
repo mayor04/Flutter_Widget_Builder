@@ -16,7 +16,7 @@ class CodeDisplayBloc extends Cubit<CodeDisplayState> {
     try {
       emit(CodeDisplayState(generator.getCode()));
     } catch (e) {
-      log.error('generateCode()', e.toString());
+      log.error('', e.toString());
 
       emit(const CodeDisplayState('Unable to generate Code'));
     }

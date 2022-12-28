@@ -34,7 +34,7 @@ class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> with CodeGener
   }
 
   @override
-  String generateCode(String? childCode, int level) {
+  String generateCode(String? childCode) {
     final widgetCode = {
       '_name': 'Positioned',
       'top': topInput.intValue,

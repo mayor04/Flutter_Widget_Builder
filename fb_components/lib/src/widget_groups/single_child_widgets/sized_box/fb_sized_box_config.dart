@@ -29,7 +29,7 @@ class FbSizedBoxConfig extends BaseFbConfig<FbSizedBoxStyles> with CodeGenerator
   }
 
   @override
-  String generateCode(String? childCode, int level) {
+  String generateCode(String? childCode) {
     final widgetCode = {
       '_name': 'SizedBox',
       'height': heightInput.intValue,

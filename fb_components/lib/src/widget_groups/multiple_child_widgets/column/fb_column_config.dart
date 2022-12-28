@@ -27,7 +27,7 @@ class FbColumnConfig extends BaseFbConfig<FbColumnStyles> with CodeGeneratorLogi
   FbColumnConfig({int? id}) : super(FbWidgetType.column, FbChildType.multiple, id: id);
 
   @override
-  String generateCode(String? childCode, int level) {
+  String generateCode(String? childCode) {
     final widgetCode = {
       '_name': 'Column',
       'mainAxisAlignment': nullMapper(

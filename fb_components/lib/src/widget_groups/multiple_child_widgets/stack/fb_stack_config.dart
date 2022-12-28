@@ -37,7 +37,7 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic 
   }
 
   @override
-  String generateCode(String? childCode, int level) {
+  String generateCode(String? childCode) {
     @override
     final widgetCode = {
       '_name': 'Stack',

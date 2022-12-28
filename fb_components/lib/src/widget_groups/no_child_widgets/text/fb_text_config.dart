@@ -38,10 +38,18 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
   }
 
   @override
-  String generateCode(String? childCode, int level) {
+  String generateCode(String? childCode) {
+    // TODO: implement special character fix
+    final text = textInput.value;
+    bool useMultiLineString = false;
+
+    if (text.contains("'") || text.contains('"')) {
+      useMultiLineString = true;
+    }
+
     final widgetCode = {
       '_name': 'Text',
-      '': "'${textInput.value}'",
+      '': useMultiLineString ? "'''$text'''" : "'${textInput.value}'",
       'style': {
         '_name': 'TextStyle',
         'fontSize': fontSizeInput.intValue,

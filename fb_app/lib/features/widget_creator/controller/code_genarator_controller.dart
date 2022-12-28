@@ -1,4 +1,3 @@
-import 'package:dart_style/dart_style.dart';
 import 'package:fb_app/features/widget_creator/controller/interface_controller.dart';
 import 'package:fb_app/features/widget_creator/models/fb_details.dart';
 import 'package:fb_components/fb_components.dart';
@@ -8,8 +7,9 @@ import 'package:fb_core/fb_core.dart';
 ///
 /// This is seperated from the `InterfaceController` but depends on it to get all the widget
 class CodeGeneratorController {
-  const CodeGeneratorController(this._interfaceController);
+  CodeGeneratorController(this._interfaceController);
   final InterfaceController _interfaceController;
+  final WidgetFormatter widgetFormatter = WidgetFormatter();
 
   Map<int, FbWidgetDetails> get allDetails => _interfaceController.fbDetailsMap;
   Map<int, BaseFbConfig> get allWidgetConfig => _interfaceController.fbWidgetsMap;
@@ -18,21 +18,10 @@ class CodeGeneratorController {
     // Get the first details
     // TODO: handle all null errors
     final firstChildId = allDetails[xMainId]!.firstChildId;
-
-    final formatter = DartFormatter();
     final code = _generateCode(firstChildId!, allDetails[firstChildId]!);
     print(code);
 
-    return formatter.format('''
-        class WidgetName extends StatelessWidget {
-          @override
-          Widget build(BuildContext context) {
-            return SizedBox(
-              child: $code
-            );
-          }
-        }
-    ''');
+    return widgetFormatter.formatWidget(code);
   }
 
   String _generateCode(int id, FbWidgetDetails widgetDetails, {int level = 1}) {
@@ -57,6 +46,6 @@ class CodeGeneratorController {
     final widgetConfig = allWidgetConfig[id]!;
     final childCode = childrenCodeList.isEmpty ? null : childrenCodeList.join('\n');
 
-    return widgetConfig.generateCode(childCode, level);
+    return widgetConfig.generateCode(childCode);
   }
 }

@@ -47,7 +47,7 @@ class FbRowConfig extends BaseFbConfig<FbRowStyles> with CodeGeneratorLogic {
   }
 
   @override
-  String generateCode(String? childCode, int level) {
+  String generateCode(String? childCode) {
     final widgetCode = {
       '_name': 'Row',
       'mainAxisAlignment': nullMapper(

@@ -16,7 +16,7 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
   // This method should be used somewhereelse due to testing
   // Widget builder(dynamic widget);
 
-  String generateCode(String? childCode, int level);
+  String generateCode(String? childCode);
 
   List<BaseFbInput> getInputs();
 
