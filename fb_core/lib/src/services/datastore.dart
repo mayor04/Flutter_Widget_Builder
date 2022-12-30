@@ -1,4 +1,4 @@
-import 'package:fb_core/src/domain/enitities/local/files_local_entity.dart';
+import 'package:fb_core/src/domain/enitities/local/file_local_entity.dart';
 import 'package:fb_core/src/domain/enitities/local/project_local_entity.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -7,7 +7,7 @@ class Datastore {
   static Future<void> initStorage() async {
     await Hive.initFlutter();
     Hive.registerAdapter(ProjectLocalEntityAdapter());
-    Hive.registerAdapter(FilesLocalEntityAdapter());
+    Hive.registerAdapter(FileLocalEntityAdapter());
   }
 
   Future<DatastoreBox<E>> openBox<E>(String boxName) async {

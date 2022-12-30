@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'files_local_entity.dart';
+part of 'file_local_entity.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class FilesLocalEntityAdapter extends TypeAdapter<FilesLocalEntity> {
+class FileLocalEntityAdapter extends TypeAdapter<FileLocalEntity> {
   @override
   final int typeId = 0;
 
   @override
-  FilesLocalEntity read(BinaryReader reader) {
+  FileLocalEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return FilesLocalEntity(
+    return FileLocalEntity(
       id: fields[0] as String,
       name: fields[1] as String,
       desc: fields[2] as String,
@@ -27,7 +27,7 @@ class FilesLocalEntityAdapter extends TypeAdapter<FilesLocalEntity> {
   }
 
   @override
-  void write(BinaryWriter writer, FilesLocalEntity obj) {
+  void write(BinaryWriter writer, FileLocalEntity obj) {
     writer
       ..writeByte(6)
       ..writeByte(0)
@@ -50,7 +50,7 @@ class FilesLocalEntityAdapter extends TypeAdapter<FilesLocalEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FilesLocalEntityAdapter &&
+      other is FileLocalEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

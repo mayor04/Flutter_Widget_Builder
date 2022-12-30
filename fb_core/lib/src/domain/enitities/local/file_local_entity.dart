@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 
-part 'files_local_entity.g.dart';
+part 'file_local_entity.g.dart';
 
 @HiveType(typeId: 0)
-class FilesLocalEntity {
+class FileLocalEntity {
   @HiveField(0)
   final String id;
 
@@ -22,7 +22,7 @@ class FilesLocalEntity {
   @HiveField(5)
   final DateTime updatedAt;
 
-  const FilesLocalEntity({
+  const FileLocalEntity({
     required this.id,
     required this.name,
     required this.desc,

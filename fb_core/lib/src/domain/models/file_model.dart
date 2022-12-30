@@ -1,6 +1,6 @@
-import 'package:fb_core/src/domain/enitities/local/files_local_entity.dart';
+import 'package:fb_core/src/domain/enitities/local/file_local_entity.dart';
 
-class FilesModel {
+class FileModel {
   final String id;
   final String name;
   final String desc;
@@ -8,7 +8,7 @@ class FilesModel {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  const FilesModel({
+  const FileModel({
     required this.id,
     required this.name,
     required this.desc,
@@ -17,14 +17,25 @@ class FilesModel {
     required this.projectId,
   });
 
-  FilesLocalEntity toLocalEntity() {
-    return FilesLocalEntity(
+  FileLocalEntity toLocalEntity() {
+    return FileLocalEntity(
       id: id,
       name: name,
       desc: desc,
       createdAt: createdAt,
       updatedAt: updatedAt,
       projectId: projectId,
+    );
+  }
+
+  factory FileModel.fromLocalEntity(FileLocalEntity entity) {
+    return FileModel(
+      id: entity.id,
+      name: entity.name,
+      desc: entity.desc,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+      projectId: entity.projectId,
     );
   }
 }
