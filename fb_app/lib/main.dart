@@ -1,5 +1,6 @@
 import 'package:fb_app/config/theme.dart';
 import 'package:fb_app/features/home/presentation/blocs/project_list_bloc.dart';
+import 'package:fb_app/features/home/presentation/sidebar_view/your_files_view.dart';
 import 'package:fb_app/features/home/presentation/sidebar_view/your_project_view.dart';
 import 'package:fb_app/features/home/presentation/views/home_layout.dart';
 import 'package:fb_app/features/playground/playground.dart';
@@ -17,6 +18,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_strategy/url_strategy.dart';
 
+import 'features/home/presentation/blocs/file_bloc.dart';
+import 'features/home/presentation/blocs/file_list_bloc.dart';
 import 'features/home/presentation/blocs/project_bloc.dart';
 import 'features/widget_creator/bloc/code_display_bloc.dart';
 
@@ -90,6 +93,22 @@ class _MyAppState extends State<MyApp> {
                       ),
                     ],
                     child: const YourProjectsView(),
+                  ),
+                ),
+                GoRoute(
+                  path: '/files/:project_id',
+                  builder: (context, state) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => FileBloc(),
+                      ),
+                      BlocProvider(
+                        create: (context) => FileListBloc(),
+                      ),
+                    ],
+                    child: YourFilesView(
+                      projectId: state.params['project_id'],
+                    ),
                   ),
                 )
               ],

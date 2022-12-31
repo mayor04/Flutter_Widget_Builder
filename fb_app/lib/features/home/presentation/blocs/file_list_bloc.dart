@@ -11,8 +11,16 @@ class FileListBloc extends Cubit<FileListState> {
   final FilesRepository _fileRepo = FilesRepository();
   final ProjectRepository _projectRepo = ProjectRepository();
 
-  void loadFileList(String projectId) async {
+  void loadFileList(String? projectId) async {
     emit(state.copyWith(status: FileListStatus.loading));
+    if (projectId == null) {
+      emit(state.copyWith(
+        status: FileListStatus.error,
+        errorMessage: 'Project ID is null',
+      ));
+      return;
+    }
+
     try {
       final project = await _projectRepo.get(projectId);
       final fileList = await _fileRepo.getFilesLinkedToProject(projectId);

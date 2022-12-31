@@ -5,4 +5,6 @@ class AppStrings {
   static const String appDescription = "Flutter widget builder";
   static const String appAuthor = "Samuel Mayor";
   static const String appAuthorEmail = "mayorwa4@gamil.com";
+
+  static const String rootProjectId = "root";
 }

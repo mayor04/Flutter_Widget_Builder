@@ -9,7 +9,6 @@ class ProjectRepository {
   Future<DatastoreBox<ProjectLocalEntity>> getBox() async =>
       _projectBox ??= await localStore.openBox<ProjectLocalEntity>('projects');
 
-  // get project by id
   Future<ProjectModel> get(String id) async {
     final box = await getBox();
     final project = box.get(id);

@@ -1,10 +1,12 @@
-import 'package:fb_app/features/home/presentation/blocs/project_bloc.dart';
+import 'package:fb_app/features/home/presentation/blocs/file_bloc.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateWidgetDialog extends StatefulWidget {
-  const CreateWidgetDialog({Key? key}) : super(key: key);
+  const CreateWidgetDialog({Key? key, required this.projectId}) : super(key: key);
+
+  final String projectId;
 
   @override
   State<CreateWidgetDialog> createState() => _CreateWidgetDialogState();
@@ -49,7 +51,7 @@ class _CreateWidgetDialogState extends State<CreateWidgetDialog> {
           ),
           const SizedBox(height: 50),
           ElevatedButton(
-            onPressed: createProject,
+            onPressed: createFile,
             child: Text(
               'Create',
               style: context.textTheme.bodyMedium,
@@ -61,9 +63,12 @@ class _CreateWidgetDialogState extends State<CreateWidgetDialog> {
     );
   }
 
-  void createProject() {
+  void createFile() {
     if (controller.text.isNotEmpty) {
-      context.read<ProjectBloc>().createProject(name: controller.text);
+      context.read<FileBloc>().createFile(
+            name: controller.text,
+            projectId: widget.projectId,
+          );
     }
   }
 }

@@ -8,7 +8,9 @@
             "name": "fb_app",
             "cwd": "fb_app",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": ["-d", "chrome","--web-port", "3000"],
+
         },
         {
             "name": "fb_app (profile mode)",

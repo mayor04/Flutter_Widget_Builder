@@ -1,8 +1,17 @@
+import 'package:fb_app/features/home/presentation/blocs/project_bloc.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CreateProjectDialog extends StatelessWidget {
+class CreateProjectDialog extends StatefulWidget {
   const CreateProjectDialog({Key? key}) : super(key: key);
+
+  @override
+  State<CreateProjectDialog> createState() => _CreateProjectDialogState();
+}
+
+class _CreateProjectDialogState extends State<CreateProjectDialog> {
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +39,7 @@ class CreateProjectDialog extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           TextField(
+            controller: controller,
             decoration: InputDecoration(
               label: Text(
                 'Enter Widget Name',
@@ -39,7 +49,7 @@ class CreateProjectDialog extends StatelessWidget {
           ),
           const SizedBox(height: 50),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: createProject,
             child: Text(
               'Create',
               style: context.textTheme.bodyMedium,
@@ -49,5 +59,11 @@ class CreateProjectDialog extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void createProject() {
+    if (controller.text.isNotEmpty) {
+      context.read<ProjectBloc>().createProject(name: controller.text);
+    }
   }
 }
