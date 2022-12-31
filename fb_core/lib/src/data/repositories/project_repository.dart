@@ -9,6 +9,18 @@ class ProjectRepository {
   Future<DatastoreBox<ProjectLocalEntity>> getBox() async =>
       _projectBox ??= await localStore.openBox<ProjectLocalEntity>('projects');
 
+  // get project by id
+  Future<ProjectModel> get(String id) async {
+    final box = await getBox();
+    final project = box.get(id);
+
+    if (project == null) {
+      throw Exception('Project not found');
+    }
+
+    return ProjectModel.fromLocalEntity(project);
+  }
+
   Future<void> create(ProjectModel projectModel) async {
     final box = await getBox();
     await box.create(projectModel.id, projectModel.toLocalEntity());
