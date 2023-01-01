@@ -60,23 +60,28 @@ class _MyAppState extends State<MyApp> {
           builder: (context, state, child) => TabLayout(child: child),
           routes: [
             GoRoute(
-              path: '/create/:project_id',
-              builder: (context, state) => MultiBlocProvider(
-                providers: [
-                  BlocProvider<WidgetTreeBloc>(
-                    create: (_) =>
-                        WidgetTreeBloc(widget.fbController)..add(InitialWidgetTreeEvent()),
+              path: '/widget',
+              routes: [
+                GoRoute(
+                  path: '/build/:file_id',
+                  builder: (context, state) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider<WidgetTreeBloc>(
+                        create: (_) =>
+                            WidgetTreeBloc(widget.fbController)..add(InitialWidgetTreeEvent()),
+                      ),
+                      BlocProvider<InputBloc>(create: (_) => InputBloc(widget.fbController)),
+                      BlocProvider<NotifierBloc>(create: (_) => NotifierBloc()),
+                      BlocProvider<CodeDisplayBloc>(
+                        create: (_) => CodeDisplayBloc(
+                          generator: CodeGeneratorController(widget.fbController),
+                        ),
+                      ),
+                    ],
+                    child: CreatePage(fileId: state.params['file_id']),
                   ),
-                  BlocProvider<InputBloc>(create: (_) => InputBloc(widget.fbController)),
-                  BlocProvider<NotifierBloc>(create: (_) => NotifierBloc()),
-                  BlocProvider<CodeDisplayBloc>(
-                    create: (_) => CodeDisplayBloc(
-                      generator: CodeGeneratorController(widget.fbController),
-                    ),
-                  ),
-                ],
-                child: const CreatePage(),
-              ),
+                ),
+              ],
             ),
             ShellRoute(
               builder: (context, state, child) => HomeLayout(child: child),
@@ -128,3 +133,11 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+/*~NOTES~
+- The routes available are
+- /widget/build/{fileId} for building widget
+- /widget/view/{fileId} opens the widget without buildable access
+- /your_projects/
+- /files/{projectId}
+*/

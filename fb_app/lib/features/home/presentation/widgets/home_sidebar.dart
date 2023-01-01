@@ -6,8 +6,9 @@ class HomeSidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: 250,
+      color: AppColors.appBg,
       child: Column(
         children: [
           const SizedBox(height: 30),

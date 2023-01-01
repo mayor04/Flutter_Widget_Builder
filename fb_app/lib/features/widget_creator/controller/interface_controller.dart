@@ -11,14 +11,14 @@ class InterfaceController {
   final Map<int, BaseFbConfig> fbWidgetsMap = {};
 
   /// Each of them hold the list of child/children and parent id
-  /// For example lets take alook at
+  /// For example lets take a look at
   ///               ` Container1 > Column > Container2`
   /// The columnDetails holds reference to container1 as parentId and
   /// Hold refrence to container2 as children
   final Map<int, FbWidgetDetails> fbDetailsMap = {};
 
   // Todo: inspect this implemntation -> is the styles suppose to be stored in a map
-  final Map<int, FbWidgetStylesCallback> widgetStylesCallbackMap = {};
+  // final Map<int, FbWidgetStylesCallback> widgetStylesCallbackMap = {};
 
   InterfaceController() {
     // The main data is used to know the starting point of the widget
@@ -54,7 +54,7 @@ class InterfaceController {
     // Add id to the Id list
     idList.add(id);
     fbWidgetsMap[id] = childWidget;
-    widgetStylesCallbackMap[id] = childWidget.getWidgetStyles;
+    // widgetStylesCallbackMap[id] = childWidget.getWidgetStyles;
 
     var parentData = fbDetailsMap[parentId];
 
@@ -122,7 +122,7 @@ class InterfaceController {
     // Finally remove the widget totally
     fbDetailsMap.remove(removeWidgetId);
     fbWidgetsMap.remove(removeWidgetId);
-    widgetStylesCallbackMap.remove(removeWidgetId);
+    // widgetStylesCallbackMap.remove(removeWidgetId);
 
     return fbDetailsMap;
   }
@@ -175,7 +175,7 @@ class InterfaceController {
 
     fbDetailsMap.remove(widgetId);
     fbWidgetsMap.remove(widgetId);
-    widgetStylesCallbackMap.remove(widgetId);
+    // widgetStylesCallbackMap.remove(widgetId);
 
     return fbDetailsMap;
   }
@@ -184,14 +184,13 @@ class InterfaceController {
     return fbWidgetsMap[id]?.getInputs() ?? [];
   }
 
-  // ignore: unused_element
-  void _refreshWidgetConfig(int id) {
-    var config = fbWidgetsMap[id]?.getWidgetStyles;
-    if (config == null) {
-      log.error('refreshWidgetConfig($id)', 'Found no config data while refreshing');
-      throw (Failure('Config Data not found while refreshing'));
-    } else {
-      widgetStylesCallbackMap[id] = config;
-    }
-  }
+  // void _refreshWidgetConfig(int id) {
+  //   var config = fbWidgetsMap[id]?.getWidgetStyles;
+  //   if (config == null) {
+  //     log.error('refreshWidgetConfig($id)', 'Found no config data while refreshing');
+  //     throw (Failure('Config Data not found while refreshing'));
+  //   } else {
+  //     widgetStylesCallbackMap[id] = config;
+  //   }
+  // }
 }
