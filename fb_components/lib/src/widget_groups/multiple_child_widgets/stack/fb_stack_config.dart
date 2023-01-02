@@ -12,13 +12,28 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic 
   //   list: MainAxisAlignment.values,
   // );
 
-  var fitInput = FbInputDataDropdown(
+  @visibleForTesting
+  final fitInput = FbInputDataDropdown(
     'Alignment',
     defaultEnum: StackFit.loose,
     list: StackFit.values,
   );
 
   FbStackConfig({int? id}) : super(FbWidgetType.stack, FbChildType.multiple, id: id);
+
+  factory FbStackConfig.fromJson(Map<String, dynamic> json) {
+    final config = FbStackConfig(id: json['id'] as int);
+    // config.alignInput.value = MainAxisAlignment.values.where((element) => element == json['mainAxisAlignment']).first;
+    config.fitInput.value = StackFit.values.where((element) => element == json['stackFit']).first;
+    return config;
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'stackFit': fitInput.value.name,
+      };
 
   @override
   List<BaseFbInput> getInputs() {
@@ -62,4 +77,17 @@ class FbStackStyles extends BaseFbStyles {
     // required this.alignment,
     required this.stackFit,
   }) : super(id, widgetType);
+
+  // copyWith
+  FbStackStyles copyWith({
+    // Alignment? alignment,
+    StackFit? stackFit,
+  }) {
+    return FbStackStyles(
+      id,
+      widgetType,
+      // alignment: alignment ?? this.alignment,
+      stackFit: stackFit ?? this.stackFit,
+    );
+  }
 }

@@ -61,7 +61,7 @@ class DatastoreBox<E> {
 }
 
 
-/* ~NOTE~ We have (project_box) (widget_meta_box) (widget_ui_box)
+/* ~NOTES~ We have (project_box) (widget_meta_box) (widget_ui_box)
 
 - The project box stores all the project the user has created
     - id, Name, Created At, Updated At, Desc

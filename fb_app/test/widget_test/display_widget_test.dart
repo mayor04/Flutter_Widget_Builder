@@ -14,6 +14,7 @@ void main() {
       pad: [2, 0, 0, 0],
       marg: [0, 0, 5, 0],
       radius: 10,
+      color: Colors.black,
       borderSize: 2,
       borderColor: Colors.blue.value,
     );

@@ -1,5 +1,12 @@
+import 'package:fb_components/fb_components.dart';
 import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
+import 'package:fb_components/src/widget_groups/multiple_child_widgets/row/fb_row_config.dart';
+import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack_config.dart';
+import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text_config.dart';
+import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded_config.dart';
+import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_config.dart';
+import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box_config.dart';
 
 /// This abstract class is the base class for every widget
 /// Extends this class to add more functionality
@@ -13,6 +20,31 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
   BaseFbConfig(this.widgetType, this.childType, {int? id})
       : id = id ?? DateTime.now().millisecondsSinceEpoch;
 
+  static BaseFbConfig<BaseFbStyles> fromJson(Map<String, dynamic> json) {
+    switch (FbWidgetType.values.firstWhere((e) => e.name == json['type'])) {
+      case FbWidgetType.container:
+        return FbContainerConfig();
+      case FbWidgetType.column:
+        return FbColumnConfig();
+      case FbWidgetType.row:
+        return FbRowConfig();
+      case FbWidgetType.sizedBox:
+        return FbSizedBoxConfig();
+      case FbWidgetType.stack:
+        return FbStackConfig();
+      case FbWidgetType.expanded:
+        return FbExpandedConfig();
+      case FbWidgetType.text:
+        return FbTextConfig();
+      case FbWidgetType.positioned:
+        return FbPositionedConfig();
+
+      default:
+    }
+
+    throw Exception('Unable to find widget type ${json['type']}');
+  }
+
   // This method should be used somewhereelse due to testing
   // Widget builder(dynamic widget);
 
@@ -21,6 +53,8 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
   List<BaseFbInput> getInputs();
 
   T getWidgetStyles();
+
+  Map<String, dynamic> toJson();
 }
 
 /// Each WidgetConfig contains a data, this data is used

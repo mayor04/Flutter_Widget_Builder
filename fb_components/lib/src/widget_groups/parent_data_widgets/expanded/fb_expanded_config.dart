@@ -3,11 +3,28 @@ import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/inputs/single/expanded_input.dart';
+import 'package:flutter/foundation.dart';
 
 class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> with CodeGeneratorLogic {
-  var flexInput = FbInputDataExpanded<int>('Flex', 1);
+  @visibleForTesting
+  final flexInput = FbInputDataExpanded<int>('Flex', 1);
 
   FbExpandedConfig({int? id}) : super(FbWidgetType.expanded, FbChildType.single, id: id);
+
+  factory FbExpandedConfig.fromJson(Map<String, dynamic> json) {
+    return FbExpandedConfig(
+      id: json['id'],
+    )..flexInput.value = json['flex']?.toInt();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'type': widgetType.name,
+      'flex': flexInput.value,
+    };
+  }
 
   @override
   List<BaseFbInput> getInputs() {
@@ -42,4 +59,15 @@ class FbExpandedStyles extends BaseFbStyles {
     FbWidgetType widgetType,
     this.flex,
   ) : super(id, widgetType);
+
+  // copyWith
+  FbExpandedStyles copyWith({
+    int? flex,
+  }) {
+    return FbExpandedStyles(
+      id,
+      widgetType,
+      flex ?? this.flex,
+    );
+  }
 }

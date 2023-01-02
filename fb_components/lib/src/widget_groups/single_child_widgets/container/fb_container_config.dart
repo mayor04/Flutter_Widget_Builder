@@ -13,11 +13,48 @@ import 'package:fb_components/src/inputs/single/ltrb_input.dart';
 import 'package:fb_components/src/inputs/single/wrap_input.dart';
 import 'package:flutter/material.dart';
 
-part 'fb_input_config.dart';
+part 'fb_input_list.dart';
 
 class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGeneratorLogic {
-  final _Inputs _config = _Inputs();
-  FbContainerConfig({int? id}) : super(FbWidgetType.container, FbChildType.single, id: id);
+  FbContainerInputList _config = FbContainerInputList();
+  FbContainerInputList get config => _config;
+
+  FbContainerConfig({
+    int? id,
+  }) : super(FbWidgetType.container, FbChildType.single, id: id);
+
+  factory FbContainerConfig.fromJson(Map<String, dynamic> json) {
+    return FbContainerConfig(
+      id: json['id'],
+    ).._config = FbContainerInputList(
+        height: json['height']?.toDouble(),
+        width: json['width']?.toDouble(),
+        color: json['color']?.toInt(),
+        padding: json['padding'],
+        margin: json['margin'],
+        radius: json['radius'],
+        borderSize: json['borderSize'],
+        borderColor: json['borderColor'],
+        alignment: json['alignment'],
+      );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'type': widgetType.name,
+      'height': _config.height,
+      'width': _config.width,
+      'color': _config.color,
+      'padding': _config.padding,
+      'margin': _config.margin,
+      'radius': _config.radius,
+      'borderSize': _config.borderSize,
+      'borderColor': _config.borderColor,
+      'alignment': _config.alignment,
+    };
+  }
 
   @override
   List<BaseFbInput> getInputs() {
@@ -45,6 +82,7 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGenerat
       colorValue: _config.color,
       pad: _config.padding,
       marg: _config.margin,
+      color: Colors.transparent,
       alignment: _config.alignment,
       radius: _config.radius?.toDouble() ?? 0,
       borderSize: _config.borderSize?.toDouble() ?? 0,
@@ -125,10 +163,11 @@ class FbContainerStyles extends BaseFbStyles {
   final double? height;
   final double? width;
   final int colorValue;
+  final Color color;
   final Alignment? alignment;
-  late final EdgeInsetsGeometry padding;
-  late final EdgeInsetsGeometry margin;
-  late final BorderRadiusGeometry borderRadius;
+  late final EdgeInsets padding;
+  late final EdgeInsets margin;
+  late final BorderRadius borderRadius;
   late final BoxBorder? border;
   late final List<BoxShadow>? boxShadow;
 
@@ -146,12 +185,15 @@ class FbContainerStyles extends BaseFbStyles {
     required this.height,
     required this.width,
     required this.colorValue,
+    required this.color,
     required this.alignment,
     required List<double> pad,
     required List<double> marg,
     required double radius,
     required double borderSize,
     required int borderColor,
+    this.padding = EdgeInsets.zero,
+    this.margin = EdgeInsets.zero,
     // required bool showShadow,
     // required double offsetX,
     // required double offsetY,
@@ -184,5 +226,39 @@ class FbContainerStyles extends BaseFbStyles {
     //     ),
     //   );
     // }
+  }
+
+  // copy with
+  FbContainerStyles copyWith({
+    double? height,
+    double? width,
+    int? colorValue,
+    Color? color,
+    Alignment? alignment,
+    EdgeInsets? padding,
+    EdgeInsets? margin,
+    BorderRadiusGeometry? borderRadius,
+    BoxBorder? border,
+    double? radius,
+    double? borderSize,
+    int? borderColor,
+    List<BoxShadow>? boxShadow,
+  }) {
+    return FbContainerStyles(
+      id,
+      widgetType,
+      height: height ?? this.height,
+      width: width ?? this.width,
+      colorValue: colorValue ?? this.colorValue,
+      color: color ?? this.color,
+      alignment: alignment ?? this.alignment,
+      padding: padding ?? this.padding,
+      pad: [0, 0, 0, 0],
+      marg: [0, 0, 0, 0],
+      margin: margin ?? this.margin,
+      radius: radius ?? this.borderRadius.topLeft.x,
+      borderSize: borderSize ?? this.border?.top.width ?? 0,
+      borderColor: borderColor ?? this.border?.top.color.value ?? 0,
+    );
   }
 }

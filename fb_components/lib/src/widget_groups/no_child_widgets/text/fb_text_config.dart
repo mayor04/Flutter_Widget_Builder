@@ -9,16 +9,43 @@ import 'package:fb_components/src/inputs/single/text_input.dart';
 import 'package:flutter/material.dart';
 
 class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
-  var textInput = FbInputDataText('Text', '');
-  var fontSizeInput = FbInputDataExpanded<double>('Font Size', 13);
-  var colorInput = FbInputDataColor('Color', int.parse('0xFF000000'));
-  var fontWeightInput = FbInputDataDropdownMap(
+  @visibleForTesting
+  final textInput = FbInputDataText('Text', '');
+  @visibleForTesting
+  final fontSizeInput = FbInputDataExpanded<double>('Font Size', 13);
+  @visibleForTesting
+  final colorInput = FbInputDataColor('Color', int.parse('0xFF000000'));
+
+  @visibleForTesting
+  final fontWeightInput = FbInputDataDropdownMap(
     'Font weight',
     defaultValue: FbTextStyles.defaultWeight,
     map: FbTextStyles.fontWeightMap,
   );
 
   FbTextConfig({int? id}) : super(FbWidgetType.text, FbChildType.none, id: id);
+
+  factory FbTextConfig.fromJson(Map<String, dynamic> json) {
+    return FbTextConfig(
+      id: json['id'],
+    )
+      ..textInput.value = json['text']
+      ..fontSizeInput.value = json['fontSize']?.toDouble()
+      ..colorInput.value = json['colorValue']
+      ..fontWeightInput.value = json['fontWeight'];
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'type': widgetType.name,
+      'text': textInput.value,
+      'fontSize': fontSizeInput.value,
+      'colorValue': colorInput.value,
+      'fontWeight': fontWeightInput.value,
+    };
+  }
 
   @override
   List<BaseFbInput> getInputs() {
@@ -33,6 +60,7 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
       text: textInput.value,
       fontSize: fontSizeInput.value,
       colorValue: colorInput.value,
+      color: Colors.black,
       fontWeight: fontWeightInput.mapValue,
     );
   }
@@ -74,6 +102,7 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
 class FbTextStyles extends BaseFbStyles {
   final String text;
   final int colorValue;
+  final Color color;
   final FontWeight? fontWeight;
   final double? fontSize;
 
@@ -82,6 +111,7 @@ class FbTextStyles extends BaseFbStyles {
     FbWidgetType widgetType, {
     required this.text,
     required this.colorValue,
+    required this.color,
     this.fontWeight,
     this.fontSize,
   }) : super(id, widgetType);
@@ -98,4 +128,22 @@ class FbTextStyles extends BaseFbStyles {
 
     return weightMap;
   }();
+
+  copyWith({
+    String? text,
+    int? colorValue,
+    FontWeight? fontWeight,
+    double? fontSize,
+    Color? color,
+  }) {
+    return FbTextStyles(
+      id,
+      widgetType,
+      text: text ?? this.text,
+      color: color ?? this.color,
+      colorValue: colorValue ?? this.colorValue,
+      fontWeight: fontWeight ?? this.fontWeight,
+      fontSize: fontSize ?? this.fontSize,
+    );
+  }
 }

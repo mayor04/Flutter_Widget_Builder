@@ -6,25 +6,48 @@ import 'package:fb_components/src/inputs/single/dropdown_input.dart';
 import 'package:flutter/material.dart';
 
 class FbColumnConfig extends BaseFbConfig<FbColumnStyles> with CodeGeneratorLogic {
-  var mainAxisInput = FbInputDataDropdown(
+  @visibleForTesting
+  final mainAxisInput = FbInputDataDropdown(
     'MainAxisAlign',
     defaultEnum: MainAxisAlignment.start,
     list: MainAxisAlignment.values,
   );
 
-  var crossAxisInput = FbInputDataDropdown(
+  @visibleForTesting
+  final crossAxisInput = FbInputDataDropdown(
     'CrossAxisAlign',
     defaultEnum: CrossAxisAlignment.center,
     list: CrossAxisAlignment.values,
   );
 
-  var mainAxisSizeInput = FbInputDataDropdown(
+  @visibleForTesting
+  final mainAxisSizeInput = FbInputDataDropdown(
     'MainAxisSize',
     defaultEnum: MainAxisSize.max,
     list: MainAxisSize.values,
   );
 
   FbColumnConfig({int? id}) : super(FbWidgetType.column, FbChildType.multiple, id: id);
+
+  factory FbColumnConfig.fronJson(Map<String, dynamic> json) {
+    final config = FbColumnConfig(id: json['id'] as int);
+    config.mainAxisInput.value =
+        MainAxisAlignment.values.where((element) => element == json['mainAxisAlignment']).first;
+    config.crossAxisInput.value =
+        CrossAxisAlignment.values.where((element) => element == json['crossAxisAlignment']).first;
+    config.mainAxisSizeInput.value =
+        MainAxisSize.values.where((element) => element == json['mainAxisSize']).first;
+    return config;
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'mainAxisAlignment': mainAxisInput.value.name,
+        'crossAxisAlignment': crossAxisInput.value.name,
+        'mainAxisSize': mainAxisSizeInput.value.name,
+      };
 
   @override
   String generateCode(String? childCode) {
@@ -81,4 +104,19 @@ class FbColumnStyles extends BaseFbStyles {
     required this.crossAlignment,
     required this.axisSize,
   }) : super(id, widgetType);
+
+  // CopyWith
+  FbColumnStyles copyWith({
+    MainAxisAlignment? mainAlignment,
+    CrossAxisAlignment? crossAlignment,
+    MainAxisSize? axisSize,
+  }) {
+    return FbColumnStyles(
+      id,
+      widgetType,
+      mainAlignment: mainAlignment ?? this.mainAlignment,
+      crossAlignment: crossAlignment ?? this.crossAlignment,
+      axisSize: axisSize ?? this.axisSize,
+    );
+  }
 }

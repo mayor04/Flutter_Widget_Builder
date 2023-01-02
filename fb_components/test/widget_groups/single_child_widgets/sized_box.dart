@@ -1,5 +1,5 @@
 void main() {
-  // test('Text formatter test', () {
+  // test('Expanded code formatted without errors', () {
   //   final formatter = WidgetFormatter();
   //   final textConfig = FbTextConfig();
 

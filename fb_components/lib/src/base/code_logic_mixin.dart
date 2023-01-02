@@ -1,6 +1,8 @@
 import 'package:fb_components/fb_components.dart';
 
 mixin CodeGeneratorLogic<T extends BaseFbStyles> on BaseFbConfig<T> {
+  /// Generates the code for the widget, Include the _name key in the map
+  /// which will be the name of the widget
   String? getCode(Map<String, dynamic> mapCode, {bool isFirst = true}) {
     final codeBuffer = StringBuffer();
     final name = mapCode['_name'];

@@ -4,14 +4,15 @@ import 'package:fb_app/features/widget_creator/view/sections/section_styles.dart
 import 'package:fb_app/features/widget_creator/view/sections/section_widget_tree.dart';
 import 'package:fb_app/widget/box_spacing.dart';
 import 'package:fb_core/fb_core.dart';
-import 'package:fb_core/src/widgets/app_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'sections/code_section.dart';
 
 class CreatePage extends StatefulWidget {
-  const CreatePage({Key? key}) : super(key: key);
+  const CreatePage({Key? key, required this.fileId}) : super(key: key);
+
+  final String? fileId;
 
   @override
   State<CreatePage> createState() => _CreatePageState();
