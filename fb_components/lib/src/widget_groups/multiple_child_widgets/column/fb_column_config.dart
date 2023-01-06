@@ -12,7 +12,7 @@ class FbColumnConfig extends BaseFbConfig<FbColumnStyles> with CodeGeneratorLogi
 
   FbColumnConfig({int? id, this.styles}) : super(_type, FbChildType.multiple, id: id);
 
-  factory FbColumnConfig.fronJson(Map<String, dynamic> json) {
+  factory FbColumnConfig.fromJson(Map<String, dynamic> json) {
     return FbColumnConfig(
       id: json['id'] as int,
       styles: FbColumnStyles.fromJson(json['styles']),

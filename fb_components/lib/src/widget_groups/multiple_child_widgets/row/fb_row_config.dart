@@ -17,7 +17,7 @@ class FbRowConfig extends BaseFbConfig<FbRowStyles> with CodeGeneratorLogic {
           id: id,
         );
 
-  factory FbRowConfig.fronJson(Map<String, dynamic> json) {
+  factory FbRowConfig.fromJson(Map<String, dynamic> json) {
     return FbRowConfig(
       id: json['id'] as int,
       styles: FbRowStyles.fromJson(json['styles']),
