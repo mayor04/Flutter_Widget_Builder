@@ -9,17 +9,19 @@ void main() {
     final containerConfig = FbContainerConfig();
 
     formatter.formatWidget(containerConfig.generateCode(''));
-    containerConfig.config
-      ..colorInput.value = Colors.blue.value
-      ..heightInput.value = 100
-      ..widthInput.value = 100
-      ..paddingInput.value = [10, 10, 10, 10]
-      ..marginInput.value = [10, 10, 10, 10]
-      ..alignInput.value = FbContainerStyles.alignmentMap.keys.first;
 
-    final borderInput = containerConfig.config.borderInput;
-    (borderInput.inputAt(0) as FbGroupDoubleInputs).input1.value = 10;
-    (borderInput.inputAt(0) as FbGroupDoubleInputs).input1.value = 10;
+    containerConfig.updateStyles(
+      FbContainerStyles(
+        1,
+        color: Colors.blue,
+        height: 100,
+        width: 100,
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
+        alignment: Alignment.center,
+        colorValue: 0,
+      ),
+    );
 
     formatter.formatWidget(
       containerConfig.generateCode(''),

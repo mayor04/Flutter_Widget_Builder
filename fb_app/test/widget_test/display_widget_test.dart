@@ -6,7 +6,6 @@ void main() {
   testWidgets('Test if container is rendered correctly', (WidgetTester tester) async {
     var containerStyles = FbContainerStyles(
       101,
-      FbWidgetType.container,
       height: 100,
       width: 100,
       colorValue: Colors.red.value,
@@ -16,7 +15,7 @@ void main() {
       radius: 10,
       color: Colors.black,
       borderSize: 2,
-      borderColor: Colors.blue.value,
+      borderColor: Colors.blue,
     );
 
     // Build our app and trigger a frame.

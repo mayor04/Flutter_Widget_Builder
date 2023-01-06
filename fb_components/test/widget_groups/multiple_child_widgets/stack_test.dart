@@ -9,7 +9,12 @@ void main() {
     final stackConfig = FbStackConfig();
 
     formatter.formatWidget(stackConfig.generateCode(''));
-    stackConfig.fitInput.value = StackFit.expand;
+    stackConfig.updateStyles(
+      FbStackStyles(
+        1,
+        stackFit: StackFit.loose,
+      ),
+    );
 
     formatter.formatWidget(
       stackConfig.generateCode(stackConfig.generateCode('')),

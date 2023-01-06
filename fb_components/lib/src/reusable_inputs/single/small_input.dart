@@ -30,37 +30,40 @@ class SmallInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: AppDimen.inputBoxSmallWidth,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: context.textTheme.bodyMedium?.copyWith(color: AppColors.stylesInputTitle),
-          ),
-          SizedBox(
-            height: AppDimen.inputHeight,
-            width: AppDimen.smallInputWidth,
-            child: TextField(
-              controller: TextEditingController(
-                text: valueText(value),
-              ),
-              onSubmitted: (text) {
-                try {
-                  if (text == '') {
-                    onChanged(null);
-                  }
-
-                  onChanged(double.parse(text));
-                } catch (e) {
-                  AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
-                  return;
-                }
-              },
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(13, 15, 13, 15),
+      child: SizedBox(
+        width: AppDimen.inputBoxSmallWidth,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: context.textTheme.bodyMedium?.copyWith(color: AppColors.stylesInputTitle),
             ),
-          ),
-        ],
+            SizedBox(
+              height: AppDimen.inputHeight,
+              width: AppDimen.smallInputWidth,
+              child: TextField(
+                controller: TextEditingController(
+                  text: valueText(value),
+                ),
+                onSubmitted: (text) {
+                  try {
+                    if (text == '') {
+                      onChanged(null);
+                    }
+
+                    onChanged(double.parse(text));
+                  } catch (e) {
+                    AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
+                    return;
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -11,12 +11,14 @@ class AddWidgetOverlay extends StatelessWidget {
   final FbWidgetType widgetType;
   final int widgetId;
   final AddWidgetType addOrWrap;
+  final WidgetTreeBloc widgetTreeBloc;
 
   const AddWidgetOverlay({
     Key? key,
     required this.widgetType,
     required this.widgetId,
     required this.addOrWrap,
+    required this.widgetTreeBloc,
   }) : super(key: key);
 
   @override
@@ -25,57 +27,60 @@ class AddWidgetOverlay extends StatelessWidget {
     //remove the first one which is main
     allWidgets.removeAt(0);
 
-    return Material(
-      child: GestureDetector(
-        onTap: () {},
-        child: Container(
-          width: 328,
-          height: 566,
-          decoration: AppDecoration.lightBorder(
-            color: AppColors.appDark,
-            borderColor: AppColors.appGrey,
-            borderWidth: 3,
-          ),
-          padding: const EdgeInsets.all(21),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 40,
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    border: AppInputBorder.radius(5),
-                    enabledBorder: AppInputBorder.radius(5),
-                    fillColor: AppColors.appGrey,
+    return BlocProvider.value(
+      value: widgetTreeBloc,
+      child: Material(
+        child: GestureDetector(
+          onTap: () {},
+          child: Container(
+            width: 328,
+            height: 566,
+            decoration: AppDecoration.lightBorder(
+              color: AppColors.appDark,
+              borderColor: AppColors.appGrey,
+              borderWidth: 3,
+            ),
+            padding: const EdgeInsets.all(21),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 40,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      border: AppInputBorder.radius(5),
+                      enabledBorder: AppInputBorder.radius(5),
+                      fillColor: AppColors.appGrey,
+                    ),
                   ),
                 ),
-              ),
-              const Box.vertical(22),
-              Text(
-                'Add Child Widget',
-                style: context.textTheme.bodyMedium,
-              ),
-              const Box.vertical(12),
-              const Divider(
-                color: AppColors.lightBorder,
-                thickness: 0.3,
-              ),
-              const Box.vertical(32),
-              Wrap(
-                spacing: 17,
-                runSpacing: 22,
-                alignment: WrapAlignment.start,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: List.generate(allWidgets.length, (index) {
-                  return _WidgetItem(
-                    type: allWidgets[index],
-                    parentId: widgetId,
-                    addOrWrap: addOrWrap,
-                  );
-                }),
-              ),
-            ],
+                const Box.vertical(22),
+                Text(
+                  'Add Child Widget',
+                  style: context.textTheme.bodyMedium,
+                ),
+                const Box.vertical(12),
+                const Divider(
+                  color: AppColors.lightBorder,
+                  thickness: 0.3,
+                ),
+                const Box.vertical(32),
+                Wrap(
+                  spacing: 17,
+                  runSpacing: 22,
+                  alignment: WrapAlignment.start,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: List.generate(allWidgets.length, (index) {
+                    return _WidgetItem(
+                      type: allWidgets[index],
+                      parentId: widgetId,
+                      addOrWrap: addOrWrap,
+                    );
+                  }),
+                ),
+              ],
+            ),
           ),
         ),
       ),

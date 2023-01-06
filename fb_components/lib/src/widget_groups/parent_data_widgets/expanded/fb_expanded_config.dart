@@ -2,46 +2,48 @@ import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
-import 'package:fb_components/src/inputs/single/expanded_input.dart';
-import 'package:flutter/foundation.dart';
+
+const _type = FbWidgetType.expanded;
 
 class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> with CodeGeneratorLogic {
-  @visibleForTesting
-  final flexInput = FbInputDataExpanded<int>('Flex', 1);
+  FbExpandedStyles? styles;
 
-  FbExpandedConfig({int? id}) : super(FbWidgetType.expanded, FbChildType.single, id: id);
+  FbExpandedConfig({int? id, this.styles}) : super(_type, FbChildType.single, id: id);
 
   factory FbExpandedConfig.fromJson(Map<String, dynamic> json) {
     return FbExpandedConfig(
       id: json['id'],
-    )..flexInput.value = json['flex']?.toInt();
+      styles: FbExpandedStyles.fromJson(json['styles']),
+    );
   }
 
   @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'type': widgetType.name,
-      'flex': flexInput.value,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'styles': styles?.toJson(),
+      };
 
   @override
   List<BaseFbInput> getInputs() {
-    return [flexInput];
+    return [
+      // flexInput
+    ];
   }
 
   @override
   FbExpandedStyles getWidgetStyles() {
-    return FbExpandedStyles(id, widgetType, flexInput.value);
+    return styles ??= FbExpandedStyles(id);
   }
 
   @override
   String generateCode(String? childCode) {
+    final styles = getWidgetStyles();
+
     final widgetCode = {
       '_name': 'Expanded',
       'flex': nullMapper(
-        value: flexInput.intValue,
+        value: styles.flex,
         returnNullChecks: [(v) => v == 0],
       ),
       'child': childCode,
@@ -49,16 +51,28 @@ class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> with CodeGenerator
 
     return getCode(widgetCode) ?? '';
   }
+
+  @override
+  void updateStyles(FbExpandedStyles styles) {
+    this.styles = styles;
+  }
 }
 
 class FbExpandedStyles extends BaseFbStyles {
   final int flex;
 
   FbExpandedStyles(
-    int id,
-    FbWidgetType widgetType,
-    this.flex,
-  ) : super(id, widgetType);
+    int id, {
+    this.flex = 1,
+  }) : super(id, _type);
+
+  // from json
+  factory FbExpandedStyles.fromJson(Map<String, dynamic> json) {
+    return FbExpandedStyles(
+      json['id'],
+      flex: json['flex']?.toInt(),
+    );
+  }
 
   // copyWith
   FbExpandedStyles copyWith({
@@ -66,8 +80,15 @@ class FbExpandedStyles extends BaseFbStyles {
   }) {
     return FbExpandedStyles(
       id,
-      widgetType,
-      flex ?? this.flex,
+      flex: flex ?? this.flex,
     );
+  }
+
+  // to json
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'flex': flex,
+    };
   }
 }

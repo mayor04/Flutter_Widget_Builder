@@ -5,9 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('Expanded code formatted without errors', () {
     final formatter = WidgetFormatter();
-    final expandedConfig = FbExpandedConfig();
+    final expandedConfig = FbExpandedConfig(
+      styles: FbExpandedStyles(
+        1,
+        flex: 10,
+      ),
+    );
 
-    expandedConfig.flexInput.value = 2;
     formatter.formatWidget(expandedConfig.generateCode(''));
 
     formatter.formatWidget(

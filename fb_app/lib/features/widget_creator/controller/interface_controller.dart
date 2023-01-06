@@ -184,6 +184,14 @@ class InterfaceController {
     return fbWidgetsMap[id]?.getInputs() ?? [];
   }
 
+  BaseFbStyles? getWidgetStyles(int id) {
+    return fbWidgetsMap[id]?.getWidgetStyles();
+  }
+
+  void changeWidgetStyles(BaseFbStyles styles) {
+    fbWidgetsMap[styles.id]?.updateStyles(styles);
+  }
+
   // void _refreshWidgetConfig(int id) {
   //   var config = fbWidgetsMap[id]?.getWidgetStyles;
   //   if (config == null) {

@@ -5,103 +5,85 @@ import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/extension.dart/num_extension.dart';
-import 'package:fb_components/src/inputs/groups/double_inputs.dart';
-import 'package:fb_components/src/inputs/groups/multiple_inputs.dart';
-import 'package:fb_components/src/inputs/single/color_input.dart';
-import 'package:fb_components/src/inputs/single/dropdown_input.dart';
-import 'package:fb_components/src/inputs/single/ltrb_input.dart';
-import 'package:fb_components/src/inputs/single/wrap_input.dart';
 import 'package:flutter/material.dart';
 
-part 'fb_input_list.dart';
+const _type = FbWidgetType.container;
 
 class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGeneratorLogic {
-  FbContainerInputList _config = FbContainerInputList();
-  FbContainerInputList get config => _config;
+  FbContainerStyles? styles;
 
   FbContainerConfig({
     int? id,
-  }) : super(FbWidgetType.container, FbChildType.single, id: id);
+    this.styles,
+  }) : super(_type, FbChildType.single, id: id);
 
   factory FbContainerConfig.fromJson(Map<String, dynamic> json) {
     return FbContainerConfig(
       id: json['id'],
-    ).._config = FbContainerInputList(
-        height: json['height']?.toDouble(),
-        width: json['width']?.toDouble(),
-        color: json['color']?.toInt(),
-        padding: json['padding'],
-        margin: json['margin'],
-        radius: json['radius'],
-        borderSize: json['borderSize'],
-        borderColor: json['borderColor'],
-        alignment: json['alignment'],
-      );
+      styles: FbContainerStyles.fromJson(json['styles']),
+    );
   }
 
   @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'type': widgetType.name,
-      'height': _config.height,
-      'width': _config.width,
-      'color': _config.color,
-      'padding': _config.padding,
-      'margin': _config.margin,
-      'radius': _config.radius,
-      'borderSize': _config.borderSize,
-      'borderColor': _config.borderColor,
-      'alignment': _config.alignment,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'styles': styles?.toJson(),
+      };
 
   @override
   List<BaseFbInput> getInputs() {
     return [
-      FbGroupDoubleInputs(
-        '',
-        input1: _config.heightInput,
-        input2: _config.widthInput,
-      ),
-      _config.colorInput,
-      _config.alignInput,
-      _config.paddingInput,
-      _config.marginInput,
-      _config.borderInput,
+      // FbGroupDoubleInputs(
+      //   '',
+      //   input1: _config.heightInput,
+      //   input2: _config.widthInput,
+      // ),
+      // _config.colorInput,
+      // _config.alignInput,
+      // _config.paddingInput,
+      // _config.marginInput,
+      // _config.borderInput,
     ];
   }
 
   @override
+  void updateStyles(FbContainerStyles styles) {
+    this.styles = styles;
+  }
+
+  @override
   FbContainerStyles getWidgetStyles() {
-    return FbContainerStyles(
+    // If style is null re-inititalize it
+    return styles ??= FbContainerStyles(
       id,
-      widgetType,
-      height: _config.height?.toDouble(),
-      width: _config.width?.toDouble(),
-      colorValue: _config.color,
-      pad: _config.padding,
-      marg: _config.margin,
-      color: Colors.transparent,
-      alignment: _config.alignment,
-      radius: _config.radius?.toDouble() ?? 0,
-      borderSize: _config.borderSize?.toDouble() ?? 0,
-      borderColor: _config.borderColor,
+      colorValue: int.parse('0xFFE6E6D6'),
+      color: Colors.blue,
+      borderColor: const Color(0xFF000000),
     );
   }
 
   @override
   String generateCode(String? childCode) {
-    final pad = _config.padding.map((e) => e.removeZeroDecimal).toList();
-    final marg = _config.margin.map((e) => e.removeZeroDecimal).toList();
+    final styles = getWidgetStyles();
+
+    final padInset = styles.padding;
+    final margInset = styles.margin;
+
+    final pad = [padInset.left, padInset.top, padInset.right, padInset.bottom]
+        .map((e) => e.removeZeroDecimal)
+        .toList();
+    final marg = [margInset.left, margInset.top, margInset.right, margInset.bottom]
+        .map((e) => e.removeZeroDecimal)
+        .toList();
 
     var widgetCode = {
       '_name': 'Container',
-      'height': _config.height,
-      'width': _config.width,
+      'height': styles.height,
+      'width': styles.width,
       'color': nullMapper(
         prefix: 'Color(',
-        value: _config.color,
+        value: styles.color.value,
         suffix: ')',
         returnNullChecks: [(value) => value == 0],
       ),
@@ -124,14 +106,14 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGenerat
         '_name': 'BoxDecoration',
         'borderRadius': {
           '_name': 'BorderRadius.circular',
-          '': _config.radius,
+          '': styles.radius,
         },
         'border': {
           '_name': 'Border.all',
-          'width': _config.borderSize,
+          'width': styles.borderSize,
           'color': nullMapper(
             prefix: 'Color(',
-            value: _config.borderColor,
+            value: styles.borderColor?.value,
             suffix: ')',
             returnNullChecks: [(value) => value == 0],
           ),
@@ -165,6 +147,10 @@ class FbContainerStyles extends BaseFbStyles {
   final int colorValue;
   final Color color;
   final Alignment? alignment;
+  final double radius;
+  final double borderSize;
+  final Color? borderColor;
+
   late final EdgeInsets padding;
   late final EdgeInsets margin;
   late final BorderRadius borderRadius;
@@ -180,18 +166,17 @@ class FbContainerStyles extends BaseFbStyles {
   //color
 
   FbContainerStyles(
-    int id,
-    FbWidgetType widgetType, {
-    required this.height,
-    required this.width,
+    int id, {
+    this.height = 300,
+    this.width = 300,
     required this.colorValue,
     required this.color,
-    required this.alignment,
-    required List<double> pad,
-    required List<double> marg,
-    required double radius,
-    required double borderSize,
-    required int borderColor,
+    this.alignment,
+    List<double> pad = const [],
+    List<double> marg = const [],
+    this.radius = 0,
+    this.borderSize = 0,
+    this.borderColor,
     this.padding = EdgeInsets.zero,
     this.margin = EdgeInsets.zero,
     // required bool showShadow,
@@ -200,15 +185,15 @@ class FbContainerStyles extends BaseFbStyles {
     // required int shadowColor,
     // required double blurRadius,
     // required double spreadRadius,
-  }) : super(id, widgetType) {
-    padding = EdgeInsets.fromLTRB(pad[0], pad[1], pad[2], pad[3]);
-    margin = EdgeInsets.fromLTRB(marg[0], marg[1], marg[2], marg[3]);
+  }) : super(id, _type) {
+    // padding = EdgeInsets.fromLTRB(pad[0], pad[1], pad[2], pad[3]);
+    // margin = EdgeInsets.fromLTRB(marg[0], marg[1], marg[2], marg[3]);
 
     borderRadius = BorderRadius.circular(radius);
 
     if (borderSize != 0) {
       border = Border.all(
-        color: Color(borderColor),
+        color: borderColor ?? Colors.transparent,
         width: borderSize,
       );
     } else {
@@ -228,6 +213,41 @@ class FbContainerStyles extends BaseFbStyles {
     // }
   }
 
+  // from json
+  factory FbContainerStyles.fromJson(Map<String, dynamic> json) {
+    return FbContainerStyles(
+      json['id'],
+      height: json['height'],
+      width: json['width'],
+      colorValue: json['colorValue'],
+      color: Color(json['color']),
+      alignment: alignmentMap[json['alignment']],
+      padding: EdgeInsets.fromLTRB(
+        json['padding'][0],
+        json['padding'][1],
+        json['padding'][2],
+        json['padding'][3],
+      ),
+      margin: EdgeInsets.fromLTRB(
+        json['margin'][0],
+        json['margin'][1],
+        json['margin'][2],
+        json['margin'][3],
+      ),
+      radius: json['radius'],
+      borderSize: json['borderSize'],
+      borderColor: json['borderColor'],
+      pad: [],
+      marg: [],
+      // showShadow: json['showShadow'],
+      // offsetX: json['offsetX'],
+      // offsetY: json['offsetY'],
+      // shadowColor: json['shadowColor'],
+      // blurRadius: json['blurRadius'],
+      // spreadRadius: json['spreadRadius'],
+    );
+  }
+
   // copy with
   FbContainerStyles copyWith({
     double? height,
@@ -241,12 +261,11 @@ class FbContainerStyles extends BaseFbStyles {
     BoxBorder? border,
     double? radius,
     double? borderSize,
-    int? borderColor,
+    Color? borderColor,
     List<BoxShadow>? boxShadow,
   }) {
     return FbContainerStyles(
       id,
-      widgetType,
       height: height ?? this.height,
       width: width ?? this.width,
       colorValue: colorValue ?? this.colorValue,
@@ -258,7 +277,42 @@ class FbContainerStyles extends BaseFbStyles {
       margin: margin ?? this.margin,
       radius: radius ?? this.borderRadius.topLeft.x,
       borderSize: borderSize ?? this.border?.top.width ?? 0,
-      borderColor: borderColor ?? this.border?.top.color.value ?? 0,
+      borderColor: borderColor ?? this.border?.top.color,
     );
+  }
+
+  // to json
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'height': height,
+      'width': width,
+      'colorValue': colorValue,
+      'alignment': alignmentMap.keys.firstWhere(
+        (key) => alignmentMap[key] == alignment,
+        orElse: () => defaultAlign,
+      ),
+      'padding': [
+        padding.left,
+        padding.top,
+        padding.right,
+        padding.bottom,
+      ],
+      'margin': [
+        margin.left,
+        margin.top,
+        margin.right,
+        margin.bottom,
+      ],
+      'radius': borderRadius.topLeft.x,
+      'borderSize': border?.top.width,
+      'borderColor': border?.top.color.value,
+      // 'showShadow': boxShadow != null,
+      // 'offsetX': boxShadow?.first.offset.dx ?? 0,
+      // 'offsetY': boxShadow?.first.offset.dy ?? 0,
+      // 'shadowColor': boxShadow?.first.color.value ?? 0,
+      // 'blurRadius': boxShadow?.first.blurRadius ?? 0,
+      // 'spreadRadius': boxShadow?.first.spreadRadius ?? 0,
+    };
   }
 }

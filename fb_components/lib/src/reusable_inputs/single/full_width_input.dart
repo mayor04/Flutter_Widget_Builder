@@ -30,35 +30,38 @@ class FullWidthInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: context.textTheme.bodyMedium,
-        ),
-        SizedBox(
-          height: AppDimen.inputHeight,
-          width: AppDimen.expandedInputWidth,
-          child: TextField(
-            controller: TextEditingController(
-              text: value.toString(),
-            ),
-            onSubmitted: (text) {
-              try {
-                if (text == '') {
-                  onChanged(null);
-                }
-
-                onChanged(double.parse(text));
-              } catch (e) {
-                AppLog.warn('InputExpanded > onSubmitted', 'Incorrect input type  $e');
-                return;
-              }
-            },
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(13, 15, 13, 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: context.textTheme.bodyMedium,
           ),
-        ),
-      ],
+          SizedBox(
+            height: AppDimen.inputHeight,
+            width: AppDimen.expandedInputWidth,
+            child: TextField(
+              controller: TextEditingController(
+                text: value.toString(),
+              ),
+              onSubmitted: (text) {
+                try {
+                  if (text == '') {
+                    onChanged(null);
+                  }
+
+                  onChanged(double.parse(text));
+                } catch (e) {
+                  AppLog.warn('InputExpanded > onSubmitted', 'Incorrect input type  $e');
+                  return;
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

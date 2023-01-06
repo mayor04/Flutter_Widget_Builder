@@ -25,7 +25,7 @@ class FbContainer extends StatelessWidget {
       width: containerStyles.width,
       alignment: containerStyles.alignment,
       decoration: BoxDecoration(
-        color: Color(containerStyles.colorValue),
+        color: containerStyles.color,
         borderRadius: containerStyles.borderRadius,
         border: containerStyles.border,
       ),

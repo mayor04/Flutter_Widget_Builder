@@ -15,34 +15,37 @@ class TextFieldInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: context.textTheme.bodyMedium,
-        ),
-        SizedBox(
-          width: AppDimen.dropDownInputWidth,
-          child: TextField(
-            maxLines: 3,
-            controller: TextEditingController(
-              text: value,
-            ),
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.all(10),
-            ),
-            onChanged: (text) {
-              try {
-                onChanged(text);
-              } catch (e) {
-                AppLog.warn('InputExpanded > onSubmitted', 'Incorrect input type  $e');
-                return;
-              }
-            },
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(13, 15, 13, 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: context.textTheme.bodyMedium,
           ),
-        ),
-      ],
+          SizedBox(
+            width: AppDimen.dropDownInputWidth,
+            child: TextField(
+              maxLines: 3,
+              controller: TextEditingController(
+                text: value,
+              ),
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(10),
+              ),
+              onChanged: (text) {
+                try {
+                  onChanged(text);
+                } catch (e) {
+                  AppLog.warn('InputExpanded > onSubmitted', 'Incorrect input type  $e');
+                  return;
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -27,30 +27,33 @@ class DropdownInput<T extends Object?> extends StatefulWidget {
 class _DropdownInputState<T extends Object?> extends State<DropdownInput<T>> {
   @override
   Widget build(BuildContext context) {
-    return _DropWrapper(
-      title: widget.title,
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<T>(
-          isExpanded: true,
-          value: widget.value,
-          onChanged: (value) {
-            if (value == null) {
-              throw Exception('Dropdown value is null');
-            }
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(13, 15, 13, 15),
+      child: _DropWrapper(
+        title: widget.title,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<T>(
+            isExpanded: true,
+            value: widget.value,
+            onChanged: (value) {
+              if (value == null) {
+                throw Exception('Dropdown value is null');
+              }
 
-            widget.onChanged(value);
-          },
-          focusColor: Colors.transparent,
-          items: widget.dropdownList
-              .map((element) => DropdownMenuItem<T>(
-                    value: element,
-                    child: _DropItem(
-                      itemName: widget.getName(element),
-                      defaultItemName:
-                          widget.defaultValue == null ? '' : widget.getName(widget.defaultValue!),
-                    ),
-                  ))
-              .toList(),
+              widget.onChanged(value);
+            },
+            focusColor: Colors.transparent,
+            items: widget.dropdownList
+                .map((element) => DropdownMenuItem<T>(
+                      value: element,
+                      child: _DropItem(
+                        itemName: widget.getName(element),
+                        defaultItemName:
+                            widget.defaultValue == null ? '' : widget.getName(widget.defaultValue!),
+                      ),
+                    ))
+                .toList(),
+          ),
         ),
       ),
     );

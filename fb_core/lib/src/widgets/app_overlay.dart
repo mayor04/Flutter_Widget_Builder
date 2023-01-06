@@ -57,14 +57,14 @@ class _AppOverlayWidgetState extends State<AppOverlayWidget> {
       );
     });
 
-    Overlay.of(context)?.insert(menuWidgetEntry!);
+    Overlay.of(context, rootOverlay: true)?.insert(menuWidgetEntry!);
   }
 
   void showAddWidgetOverlay(BuildContext context,
       {required Offset position, required Widget overlay}) {
     removeAddEntry();
 
-    addWidgetEntry = OverlayEntry(builder: (context) {
+    addWidgetEntry = OverlayEntry(builder: (_) {
       return _DialogOverlay(
         position: position,
         onTap: removeAddEntry,
@@ -72,7 +72,7 @@ class _AppOverlayWidgetState extends State<AppOverlayWidget> {
       );
     });
 
-    Overlay.of(context)?.insert(addWidgetEntry!);
+    Overlay.of(context, rootOverlay: true)?.insert(addWidgetEntry!);
   }
 
   void showSelectionOverlay(
@@ -101,7 +101,7 @@ class _AppOverlayWidgetState extends State<AppOverlayWidget> {
       },
     );
 
-    Overlay.of(context)?.insert(selectionWidgetEntry!);
+    Overlay.of(context, rootOverlay: true)?.insert(selectionWidgetEntry!);
   }
 
   void showOverlay(BuildContext context, {required Offset position, required Widget overlay}) {
@@ -126,7 +126,7 @@ class _AppOverlayWidgetState extends State<AppOverlayWidget> {
       },
     );
 
-    Overlay.of(context)?.insert(overlayWidgetEntry!);
+    Overlay.of(context, rootOverlay: true)?.insert(overlayWidgetEntry!);
   }
 
   @override

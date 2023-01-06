@@ -9,12 +9,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MenuOverlay extends StatelessWidget {
   final FbWidgetType widgetType;
+  final WidgetTreeBloc widgetTreeBloc;
   final int widgetId;
 
   const MenuOverlay({
     Key? key,
     required this.widgetType,
     required this.widgetId,
+    required this.widgetTreeBloc,
   }) : super(key: key);
 
   @override
@@ -44,6 +46,7 @@ class MenuOverlay extends StatelessWidget {
                   widgetType: widgetType,
                   widgetId: widgetId,
                   addOrWrap: AddWidgetType.wrap,
+                  widgetTreeBloc: widgetTreeBloc,
                 ),
               );
             },
@@ -61,6 +64,7 @@ class MenuOverlay extends StatelessWidget {
                   widgetType: widgetType,
                   widgetId: widgetId,
                   addOrWrap: AddWidgetType.add,
+                  widgetTreeBloc: widgetTreeBloc,
                 ),
               );
             },

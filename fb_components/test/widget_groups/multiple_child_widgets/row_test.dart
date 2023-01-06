@@ -10,10 +10,12 @@ void main() {
 
     formatter.formatWidget(rowConfig.generateCode(''));
 
-    rowConfig
-      ..mainAxisInput.value = MainAxisAlignment.spaceAround
-      ..crossAxisInput.value = CrossAxisAlignment.start
-      ..mainAxisSizeInput.value = MainAxisSize.min;
+    rowConfig.updateStyles(
+      FbRowStyles(1,
+          mainAlignment: MainAxisAlignment.center,
+          crossAlignment: CrossAxisAlignment.center,
+          axisSize: MainAxisSize.min),
+    );
 
     formatter.formatWidget(
       rowConfig.generateCode(rowConfig.generateCode('')),

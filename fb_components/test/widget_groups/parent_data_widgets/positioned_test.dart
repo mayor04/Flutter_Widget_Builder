@@ -9,11 +9,9 @@ void main() {
 
     formatter.formatWidget(positionedConfig.generateCode(''));
 
-    positionedConfig
-      ..bottomInput.value = 20
-      ..topInput.value = 20
-      ..leftInput.value = 10
-      ..rightInput.value = 10;
+    positionedConfig.updateStyles(
+      FbPositionedStyles(1, bottom: 20, top: 20, left: 10, right: 10),
+    );
 
     formatter.formatWidget(
       positionedConfig.generateCode(''),

@@ -2,93 +2,78 @@ import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
-import 'package:fb_components/src/inputs/single/dropdown_input.dart';
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 
+const _type = FbWidgetType.row;
+
 class FbRowConfig extends BaseFbConfig<FbRowStyles> with CodeGeneratorLogic {
-  @visibleForTesting
-  final mainAxisInput = FbInputDataDropdown(
-    'MainAxisAlign',
-    defaultEnum: MainAxisAlignment.start,
-    list: MainAxisAlignment.values,
-  );
+  FbRowStyles? styles;
 
-  @visibleForTesting
-  final crossAxisInput = FbInputDataDropdown(
-    'CrossAxisAlign',
-    defaultEnum: CrossAxisAlignment.center,
-    list: CrossAxisAlignment.values,
-  );
-
-  @visibleForTesting
-  final mainAxisSizeInput = FbInputDataDropdown(
-    'MainAxisSize',
-    defaultEnum: MainAxisSize.max,
-    list: MainAxisSize.values,
-  );
-
-  FbRowConfig({int? id}) : super(FbWidgetType.row, FbChildType.multiple, id: id);
+  FbRowConfig({int? id, this.styles})
+      : super(
+          _type,
+          FbChildType.multiple,
+          id: id,
+        );
 
   factory FbRowConfig.fronJson(Map<String, dynamic> json) {
-    final config = FbRowConfig(id: json['id'] as int);
-    config.mainAxisInput.value =
-        MainAxisAlignment.values.where((element) => element == json['mainAxisAlignment']).first;
-    config.crossAxisInput.value =
-        CrossAxisAlignment.values.where((element) => element == json['crossAxisAlignment']).first;
-    config.mainAxisSizeInput.value =
-        MainAxisSize.values.where((element) => element == json['mainAxisSize']).first;
-    return config;
+    return FbRowConfig(
+      id: json['id'] as int,
+      styles: FbRowStyles.fromJson(json['styles']),
+    );
   }
 
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'type': widgetType.name,
-        'mainAxisAlignment': mainAxisInput.value.name,
-        'crossAxisAlignment': crossAxisInput.value.name,
-        'mainAxisSize': mainAxisSizeInput.value.name,
+        'mainAxisAlignment': styles?.mainAlignment.name,
+        'crossAxisAlignment': styles?.crossAlignment.name,
+        'mainAxisSize': styles?.axisSize.name,
       };
 
   @override
   List<BaseFbInput> getInputs() {
     return [
-      mainAxisInput,
-      crossAxisInput,
-      mainAxisSizeInput,
+      // mainAxisInput,
+      // crossAxisInput,
+      // mainAxisSizeInput,
     ];
   }
 
   @override
   FbRowStyles getWidgetStyles() {
-    return FbRowStyles(
-      id,
-      widgetType,
-      mainAlignment: mainAxisInput.value,
-      crossAlignment: crossAxisInput.value,
-      axisSize: mainAxisSizeInput.value,
-    );
+    return styles ??= FbRowStyles(id);
   }
 
   @override
   String generateCode(String? childCode) {
+    final styles = getWidgetStyles();
+
     final widgetCode = {
       '_name': 'Row',
       'mainAxisAlignment': nullMapper(
-        value: mainAxisInput.value.toString(),
-        returnNullChecks: [(v) => v == mainAxisInput.defaultEnum.toString()],
+        value: styles.mainAlignment.toString(),
+        returnNullChecks: [(v) => v == 'MainAxisAlignment.start'],
       ),
       'crossAxisAlignment': nullMapper(
-        value: crossAxisInput.value.toString(),
-        returnNullChecks: [(v) => v == crossAxisInput.defaultEnum.toString()],
+        value: styles.crossAlignment.toString(),
+        returnNullChecks: [(v) => v == 'CrossAxisAlignment.center'],
       ),
       'mainAxisSize': nullMapper(
-        value: mainAxisSizeInput.value.toString(),
-        returnNullChecks: [(v) => v == mainAxisSizeInput.defaultEnum.toString()],
+        value: styles.axisSize.toString(),
+        returnNullChecks: [(v) => v == 'MainAxisSize.max'],
       ),
       'children': '[$childCode]',
     };
 
     return getCode(widgetCode) ?? '';
+  }
+
+  @override
+  void updateStyles(FbRowStyles styles) {
+    this.styles = styles;
   }
 }
 
@@ -98,12 +83,23 @@ class FbRowStyles extends BaseFbStyles {
   MainAxisSize axisSize;
 
   FbRowStyles(
-    int id,
-    FbWidgetType widgetType, {
-    required this.mainAlignment,
-    required this.crossAlignment,
-    required this.axisSize,
-  }) : super(id, widgetType);
+    int id, {
+    this.mainAlignment = MainAxisAlignment.start,
+    this.crossAlignment = CrossAxisAlignment.center,
+    this.axisSize = MainAxisSize.max,
+  }) : super(id, _type);
+
+  // from json
+  factory FbRowStyles.fromJson(Map<String, dynamic> json) {
+    return FbRowStyles(
+      json['id'] as int,
+      mainAlignment: (json['mainAxisAlignment'] as String).toEnum(MainAxisAlignment.values) ??
+          MainAxisAlignment.start,
+      crossAlignment: (json['crossAxisAlignment'] as String).toEnum(CrossAxisAlignment.values) ??
+          CrossAxisAlignment.center,
+      axisSize: (json['mainAxisSize'] as String).toEnum(MainAxisSize.values) ?? MainAxisSize.max,
+    );
+  }
 
   FbRowStyles copyWith({
     MainAxisAlignment? mainAlignment,
@@ -112,10 +108,18 @@ class FbRowStyles extends BaseFbStyles {
   }) {
     return FbRowStyles(
       id,
-      widgetType,
       mainAlignment: mainAlignment ?? this.mainAlignment,
       crossAlignment: crossAlignment ?? this.crossAlignment,
       axisSize: axisSize ?? this.axisSize,
     );
   }
+
+  // to json
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'mainAxisAlignment': mainAlignment.name,
+        'crossAxisAlignment': crossAlignment.name,
+        'mainAxisSize': axisSize.name,
+      };
 }

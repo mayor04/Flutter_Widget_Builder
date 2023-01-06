@@ -5,8 +5,8 @@ import 'package:fb_app/features/home/presentation/sidebar_view/your_project_view
 import 'package:fb_app/features/home/presentation/views/home_layout.dart';
 import 'package:fb_app/features/playground/playground.dart';
 import 'package:fb_app/features/tab/view/tab_layout.dart';
-import 'package:fb_app/features/widget_creator/bloc/input_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/notifier_bloc.dart';
+import 'package:fb_app/features/widget_creator/bloc/styles_input_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
 import 'package:fb_app/features/widget_creator/controller/code_genarator_controller.dart';
 import 'package:fb_app/features/widget_creator/controller/interface_controller.dart';
@@ -61,16 +61,18 @@ class _MyAppState extends State<MyApp> {
           routes: [
             GoRoute(
               path: '/widget',
+              builder: (context, state) => Container(),
               routes: [
                 GoRoute(
-                  path: '/build/:file_id',
+                  path: 'build/:file_id',
                   builder: (context, state) => MultiBlocProvider(
                     providers: [
                       BlocProvider<WidgetTreeBloc>(
                         create: (_) =>
                             WidgetTreeBloc(widget.fbController)..add(InitialWidgetTreeEvent()),
                       ),
-                      BlocProvider<InputBloc>(create: (_) => InputBloc(widget.fbController)),
+                      BlocProvider<StylesInputBloc>(
+                          create: (_) => StylesInputBloc(widget.fbController)),
                       BlocProvider<NotifierBloc>(create: (_) => NotifierBloc()),
                       BlocProvider<CodeDisplayBloc>(
                         create: (_) => CodeDisplayBloc(

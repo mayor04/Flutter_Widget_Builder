@@ -17,53 +17,56 @@ class LTRBInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> lt = ['L', 'T', 'R', 'B'];
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          children: [
-            Text(
-              title,
-              style: context.textTheme.bodyMedium,
-            ),
-          ],
-        ),
-        const Box.vertical(15),
-        SizedBox(
-          width: double.infinity,
-          child: Wrap(
-            alignment: WrapAlignment.spaceBetween,
-            children: List.generate(lt.length, (i) {
-              return SizedBox(
-                height: AppDimen.inputHeight,
-                width: AppDimen.smallInputWidth,
-                child: TextField(
-                  controller: TextEditingController(
-                    text: valueAt(i),
-                  ),
-                  decoration: InputDecoration(
-                    hintText: lt[i],
-                  ),
-                  onSubmitted: (text) {
-                    try {
-                      final newList = [...list];
-                      if (text == '') {
-                        newList[i] = 0;
-                      }
-
-                      newList[i] = double.parse(text);
-                      onChanged(newList);
-                    } catch (e) {
-                      AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
-                      return;
-                    }
-                  },
-                ),
-              );
-            }),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(13, 15, 13, 15),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Text(
+                title,
+                style: context.textTheme.bodyMedium,
+              ),
+            ],
           ),
-        ),
-      ],
+          const Box.vertical(15),
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              children: List.generate(lt.length, (i) {
+                return SizedBox(
+                  height: AppDimen.inputHeight,
+                  width: AppDimen.smallInputWidth,
+                  child: TextField(
+                    controller: TextEditingController(
+                      text: valueAt(i),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: lt[i],
+                    ),
+                    onSubmitted: (text) {
+                      try {
+                        final newList = [...list];
+                        if (text == '') {
+                          newList[i] = 0;
+                        }
+
+                        newList[i] = double.parse(text);
+                        onChanged(newList);
+                      } catch (e) {
+                        AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
+                        return;
+                      }
+                    },
+                  ),
+                );
+              }),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

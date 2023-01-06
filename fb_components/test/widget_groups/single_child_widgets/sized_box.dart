@@ -1,12 +1,20 @@
+import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box_config.dart';
+import 'package:fb_core/fb_core.dart';
+import 'package:flutter_test/flutter_test.dart';
+
 void main() {
-  // test('Expanded code formatted without errors', () {
-  //   final formatter = WidgetFormatter();
-  //   final textConfig = FbTextConfig();
+  test('SizedBox code formatted without errors', () {
+    final formatter = WidgetFormatter();
+    final boxConfig = FbSizedBoxConfig();
 
-  //   formatter.formatWidget(textConfig.generateCode(''));
+    formatter.formatWidget(boxConfig.generateCode(''));
 
-  //   formatter.formatWidget(
-  //     textConfig.generateCode(''),
-  //   );
-  // });
+    boxConfig.updateStyles(
+      FbSizedBoxStyles(1, height: 20, width: 20),
+    );
+
+    formatter.formatWidget(
+      boxConfig.generateCode(''),
+    );
+  });
 }

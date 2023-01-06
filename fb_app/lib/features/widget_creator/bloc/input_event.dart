@@ -1,4 +1,4 @@
-part of 'input_bloc.dart';
+part of 'styles_input_bloc.dart';
 
 abstract class InputEvent extends Equatable {
   const InputEvent();

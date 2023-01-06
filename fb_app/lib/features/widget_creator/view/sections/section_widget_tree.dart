@@ -258,6 +258,7 @@ class _FbWidgetBox extends StatelessWidget {
                             widgetType: details.widgetType,
                             widgetId: details.id,
                             addOrWrap: AddWidgetType.add,
+                            widgetTreeBloc: context.read<WidgetTreeBloc>(),
                           ),
                         );
                       },
@@ -275,6 +276,7 @@ class _FbWidgetBox extends StatelessWidget {
                           overlay: MenuOverlay(
                             widgetType: details.widgetType,
                             widgetId: details.id,
+                            widgetTreeBloc: context.read<WidgetTreeBloc>(),
                           ),
                         );
                       },

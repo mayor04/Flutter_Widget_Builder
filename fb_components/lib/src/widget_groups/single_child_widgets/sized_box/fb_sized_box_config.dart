@@ -2,64 +2,57 @@ import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
-import 'package:fb_components/src/inputs/single/expanded_input.dart';
-import 'package:flutter/foundation.dart';
+
+const _type = FbWidgetType.sizedBox;
 
 class FbSizedBoxConfig extends BaseFbConfig<FbSizedBoxStyles> with CodeGeneratorLogic {
-  @visibleForTesting
-  final heightInput = FbInputDataExpanded<double?>('Height', null);
+  FbSizedBoxStyles? styles;
 
-  @visibleForTesting
-  final widthInput = FbInputDataExpanded<double?>('Width', null);
-
-  FbSizedBoxConfig({int? id}) : super(FbWidgetType.sizedBox, FbChildType.single, id: id);
+  FbSizedBoxConfig({int? id, this.styles})
+      : super(FbWidgetType.sizedBox, FbChildType.single, id: id);
 
   factory FbSizedBoxConfig.fromJson(Map<String, dynamic> json) {
     return FbSizedBoxConfig(
       id: json['id'],
-    )
-      ..heightInput.value = json['height']?.toDouble()
-      ..widthInput.value = json['width']?.toDouble();
+      styles: FbSizedBoxStyles.fromJson(json['styles']),
+    );
   }
-
   @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'type': widgetType.name,
-      'height': heightInput.value,
-      'width': widthInput.value,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'styles': styles?.toJson(),
+      };
 
   @override
   List<BaseFbInput> getInputs() {
     return [
-      heightInput,
-      widthInput,
+      // heightInput,
+      // widthInput,
     ];
   }
 
   @override
-  getWidgetStyles() {
-    return FbSizedBoxStyles(
-      id,
-      widgetType,
-      heightInput.value,
-      widthInput.value,
-    );
+  FbSizedBoxStyles getWidgetStyles() {
+    return styles ??= FbSizedBoxStyles(id);
   }
 
   @override
   String generateCode(String? childCode) {
+    final styles = getWidgetStyles();
     final widgetCode = {
       '_name': 'SizedBox',
-      'height': heightInput.intValue,
-      'width': heightInput.intValue,
+      'height': styles.height,
+      'width': styles.width,
       'child': childCode,
     };
 
     return getCode(widgetCode) ?? '';
+  }
+
+  @override
+  void updateStyles(FbSizedBoxStyles styles) {
+    this.styles = styles;
   }
 }
 
@@ -68,11 +61,19 @@ class FbSizedBoxStyles extends BaseFbStyles {
   final double? width;
 
   FbSizedBoxStyles(
-    int id,
-    FbWidgetType widgetType,
+    int id, {
     this.height,
     this.width,
-  ) : super(id, widgetType);
+  }) : super(id, _type);
+
+  // fromJson
+  factory FbSizedBoxStyles.fromJson(Map<String, dynamic> json) {
+    return FbSizedBoxStyles(
+      json['id'],
+      height: json['height'],
+      width: json['width'],
+    );
+  }
 
   // copy with
   FbSizedBoxStyles copyWith({
@@ -83,9 +84,14 @@ class FbSizedBoxStyles extends BaseFbStyles {
   }) {
     return FbSizedBoxStyles(
       id ?? this.id,
-      widgetType ?? this.widgetType,
-      height ?? this.height,
-      width ?? this.width,
+      height: height ?? this.height,
+      width: width ?? this.width,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'height': height,
+        'width': width,
+      };
 }

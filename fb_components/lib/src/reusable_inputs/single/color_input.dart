@@ -38,64 +38,67 @@ class _ColorInputState extends State<ColorInput> {
     editControl.text = colorCode;
 
     return AppOverlayWidget(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            widget.title,
-            style: context.textTheme.bodyMedium,
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // To get the context of the ovelay widget on top
-              Builder(builder: (context) {
-                return GestureDetector(
-                  onTapDown: (tapDetails) {
-                    showColorPicker(context, tapDetails);
-                  },
-                  child: Container(
-                    width: AppDimen.inputHeight,
-                    height: AppDimen.inputHeight - 3,
-                    decoration: AppDecoration.darkBorder(
-                      color: widget.color,
-                      radius: 4,
-                      borderColor: Colors.white70,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(13, 15, 13, 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.title,
+              style: context.textTheme.bodyMedium,
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // To get the context of the ovelay widget on top
+                Builder(builder: (context) {
+                  return GestureDetector(
+                    onTapDown: (tapDetails) {
+                      showColorPicker(context, tapDetails);
+                    },
+                    child: Container(
+                      width: AppDimen.inputHeight,
+                      height: AppDimen.inputHeight - 3,
+                      decoration: AppDecoration.darkBorder(
+                        color: widget.color,
+                        radius: 4,
+                        borderColor: Colors.white70,
+                      ),
                     ),
-                  ),
-                );
-              }),
-              const Box.horizontal(6),
-              SizedBox(
-                height: AppDimen.inputHeight,
-                width: AppDimen.expandedInputWidth,
-                child: TextField(
-                  style: context.textTheme.titleMedium?.copyWith(
-                    color: AppColors.focusedBorder,
-                  ),
-                  controller: editControl,
-                  inputFormatters: [
-                    UpperCaseTextFormatter(),
-                  ],
-                  onSubmitted: (text) {
-                    text = text.replaceFirst('#', '');
-                    if (text.length <= 6) {
-                      text = 'FF$text';
-                    }
+                  );
+                }),
+                const Box.horizontal(6),
+                SizedBox(
+                  height: AppDimen.inputHeight,
+                  width: AppDimen.expandedInputWidth,
+                  child: TextField(
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: AppColors.focusedBorder,
+                    ),
+                    controller: editControl,
+                    inputFormatters: [
+                      UpperCaseTextFormatter(),
+                    ],
+                    onSubmitted: (text) {
+                      text = text.replaceFirst('#', '');
+                      if (text.length <= 6) {
+                        text = 'FF$text';
+                      }
 
-                    try {
-                      var value = int.parse('0x$text');
-                      widget.onChanged(Color(value));
-                    } catch (e) {
-                      AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
-                      return;
-                    }
-                  },
+                      try {
+                        var value = int.parse('0x$text');
+                        widget.onChanged(Color(value));
+                      } catch (e) {
+                        AppLog.warn('InputSmall > onSubmitted', 'Incorrect input type  $e');
+                        return;
+                      }
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

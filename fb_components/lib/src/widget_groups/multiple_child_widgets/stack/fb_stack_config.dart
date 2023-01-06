@@ -2,92 +2,99 @@ import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
-import 'package:fb_components/src/inputs/single/dropdown_input.dart';
+import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 
+const _type = FbWidgetType.stack;
+
 class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic {
-  // var alignInput = FbInputDataDropdown<MainAxisAlignment>(
-  //   'MainAxisAlign',
-  //   defaultEnum: MainAxisAlignment.start,
-  //   list: MainAxisAlignment.values,
-  // );
+  FbStackStyles? styles;
 
-  @visibleForTesting
-  final fitInput = FbInputDataDropdown(
-    'Alignment',
-    defaultEnum: StackFit.loose,
-    list: StackFit.values,
-  );
-
-  FbStackConfig({int? id}) : super(FbWidgetType.stack, FbChildType.multiple, id: id);
+  FbStackConfig({int? id, this.styles})
+      : super(
+          _type,
+          FbChildType.multiple,
+          id: id,
+        );
 
   factory FbStackConfig.fromJson(Map<String, dynamic> json) {
-    final config = FbStackConfig(id: json['id'] as int);
-    // config.alignInput.value = MainAxisAlignment.values.where((element) => element == json['mainAxisAlignment']).first;
-    config.fitInput.value = StackFit.values.where((element) => element == json['stackFit']).first;
-    return config;
+    return FbStackConfig(
+      id: json['id'] as int,
+      styles: FbStackStyles.fromJson(json['styles']),
+    );
   }
 
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'type': widgetType.name,
-        'stackFit': fitInput.value.name,
+        'fit': styles?.stackFit.name,
       };
 
   @override
   List<BaseFbInput> getInputs() {
     return [
-      fitInput,
+      // fitInput,
     ];
   }
 
   @override
   getWidgetStyles() {
-    return FbStackStyles(
+    return styles ??= FbStackStyles(
       id,
-      widgetType,
-      stackFit: fitInput.value,
+      stackFit: StackFit.loose,
     );
   }
 
   @override
   String generateCode(String? childCode) {
-    @override
+    final styles = getWidgetStyles();
+
     final widgetCode = {
       '_name': 'Stack',
       'mainAxisAlignment': nullMapper(
-        value: fitInput.value.toString(),
-        returnNullChecks: [(v) => v == fitInput.defaultEnum.toString()],
+        value: styles.stackFit.toString(),
+        returnNullChecks: [(v) => v == 'StackFit.loose'],
       ),
       'children': '[$childCode]',
     };
 
     return getCode(widgetCode) ?? '';
   }
+
+  @override
+  void updateStyles(FbStackStyles styles) {
+    this.styles = styles;
+  }
 }
 
 class FbStackStyles extends BaseFbStyles {
-  // final Alignment alignment;
   final StackFit stackFit;
 
   FbStackStyles(
-    int id,
-    FbWidgetType widgetType, {
-    // required this.alignment,
-    required this.stackFit,
-  }) : super(id, widgetType);
+    int id, {
+    this.stackFit = StackFit.loose,
+  }) : super(id, _type);
 
-  // copyWith
+  factory FbStackStyles.fromJson(Map<String, dynamic> json) {
+    return FbStackStyles(
+      json['id'] as int,
+      stackFit: (json['stackFit'] as String).toEnum(StackFit.values) ?? StackFit.loose,
+    );
+  }
+
   FbStackStyles copyWith({
-    // Alignment? alignment,
     StackFit? stackFit,
   }) {
     return FbStackStyles(
       id,
-      widgetType,
-      // alignment: alignment ?? this.alignment,
       stackFit: stackFit ?? this.stackFit,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'stackFit': stackFit.name,
+      };
 }

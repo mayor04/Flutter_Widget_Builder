@@ -2,73 +2,60 @@ import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
-import 'package:fb_components/src/inputs/single/color_input.dart';
-import 'package:fb_components/src/inputs/single/dropdown_input.dart';
-import 'package:fb_components/src/inputs/single/expanded_input.dart';
-import 'package:fb_components/src/inputs/single/text_input.dart';
 import 'package:flutter/material.dart';
 
+const _type = FbWidgetType.text;
+
 class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
-  @visibleForTesting
-  final textInput = FbInputDataText('Text', '');
-  @visibleForTesting
-  final fontSizeInput = FbInputDataExpanded<double>('Font Size', 13);
-  @visibleForTesting
-  final colorInput = FbInputDataColor('Color', int.parse('0xFF000000'));
+  FbTextStyles? styles;
 
-  @visibleForTesting
-  final fontWeightInput = FbInputDataDropdownMap(
-    'Font weight',
-    defaultValue: FbTextStyles.defaultWeight,
-    map: FbTextStyles.fontWeightMap,
-  );
-
-  FbTextConfig({int? id}) : super(FbWidgetType.text, FbChildType.none, id: id);
+  FbTextConfig({int? id, this.styles}) : super(_type, FbChildType.none, id: id);
 
   factory FbTextConfig.fromJson(Map<String, dynamic> json) {
     return FbTextConfig(
       id: json['id'],
-    )
-      ..textInput.value = json['text']
-      ..fontSizeInput.value = json['fontSize']?.toDouble()
-      ..colorInput.value = json['colorValue']
-      ..fontWeightInput.value = json['fontWeight'];
+      styles: FbTextStyles.fromJson(json['styles']),
+    );
   }
 
   @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'type': widgetType.name,
-      'text': textInput.value,
-      'fontSize': fontSizeInput.value,
-      'colorValue': colorInput.value,
-      'fontWeight': fontWeightInput.value,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'text': styles?.text,
+        'fontSize': styles?.fontSize,
+        'color': styles?.color.value,
+        'fontWeight': styles?.fontWeight,
+      };
 
   @override
   List<BaseFbInput> getInputs() {
-    return [textInput, fontSizeInput, colorInput, fontWeightInput];
+    return [
+      // textInput,
+      // fontSizeInput,
+      // colorInput,
+      // fontWeightInput,
+    ];
   }
 
   @override
   FbTextStyles getWidgetStyles() {
-    return FbTextStyles(
+    return styles ??= FbTextStyles(
       id,
-      widgetType,
-      text: textInput.value,
-      fontSize: fontSizeInput.value,
-      colorValue: colorInput.value,
+      text: '',
+      fontSize: 13,
+      colorValue: int.parse('0xFF000000'),
       color: Colors.black,
-      fontWeight: fontWeightInput.mapValue,
+      fontWeight: FontWeight.normal,
     );
   }
 
   @override
   String generateCode(String? childCode) {
+    final styles = getWidgetStyles();
+
     // TODO: implement special character fix
-    final text = textInput.value;
+    final text = styles.text;
     bool useMultiLineString = false;
 
     if (text.contains("'") || text.contains('"')) {
@@ -77,25 +64,30 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
 
     final widgetCode = {
       '_name': 'Text',
-      '': useMultiLineString ? "'''$text'''" : "'${textInput.value}'",
+      '': useMultiLineString ? "'''$text'''" : "'$text'",
       'style': {
         '_name': 'TextStyle',
-        'fontSize': fontSizeInput.intValue,
+        'fontSize': styles.fontSize,
         'color': nullMapper(
           prefix: 'Color(',
-          value: colorInput.intValue,
+          value: styles.color.value,
           suffix: ')',
           returnNullChecks: [(value) => value == 0],
         ),
         'fontWeight': nullMapper(
           prefix: 'FontWeight.',
-          value: fontWeightInput.value,
+          value: styles.fontWeight.toString(),
           returnNullChecks: [(v) => v == FbTextStyles.defaultWeight],
         ),
       }
     };
 
     return getCode(widgetCode) ?? '';
+  }
+
+  @override
+  void updateStyles(FbTextStyles styles) {
+    this.styles = styles;
   }
 }
 
@@ -107,14 +99,25 @@ class FbTextStyles extends BaseFbStyles {
   final double? fontSize;
 
   FbTextStyles(
-    int id,
-    FbWidgetType widgetType, {
-    required this.text,
-    required this.colorValue,
+    int id, {
+    this.text = '',
+    this.colorValue = 0,
     required this.color,
     this.fontWeight,
     this.fontSize,
-  }) : super(id, widgetType);
+  }) : super(id, _type);
+
+  // from json
+  factory FbTextStyles.fromJson(Map<String, dynamic> json) {
+    return FbTextStyles(
+      json['id'],
+      text: json['text'],
+      fontSize: json['fontSize'],
+      colorValue: json['colorValue'],
+      fontWeight: json['fontWeight'],
+      color: Color(json['color']),
+    );
+  }
 
   static String defaultWeight = 'none';
 
@@ -138,7 +141,6 @@ class FbTextStyles extends BaseFbStyles {
   }) {
     return FbTextStyles(
       id,
-      widgetType,
       text: text ?? this.text,
       color: color ?? this.color,
       colorValue: colorValue ?? this.colorValue,
@@ -146,4 +148,14 @@ class FbTextStyles extends BaseFbStyles {
       fontSize: fontSize ?? this.fontSize,
     );
   }
+
+  // to json
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'text': text,
+        'fontSize': fontSize,
+        'color': color.value,
+        'fontWeight': fontWeight.toString().split('.')[1],
+      };
 }

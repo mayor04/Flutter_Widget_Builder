@@ -1,5 +1,5 @@
-import 'package:fb_app/features/widget_creator/bloc/input_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/notifier_bloc.dart';
+import 'package:fb_app/features/widget_creator/bloc/styles_input_bloc.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +16,10 @@ class SectionStyles extends StatelessWidget {
     return BlocListener<NotifierBloc, NotifierState>(
       listener: (context, state) {
         if (state is NotifierSelected) {
-          context.read<InputBloc>().add(GetInputsEvent(state.id));
+          context.read<StylesInputBloc>().getStyles(state.id);
         }
       },
-      child: BlocBuilder<InputBloc, InputState>(
+      child: BlocBuilder<StylesInputBloc, StylesInputState>(
         builder: (context, state) {
           return Container(
             width: 270,
@@ -35,17 +35,15 @@ class SectionStyles extends StatelessWidget {
                 color: AppColors.appGrey,
                 radius: 5,
               ),
-              child: ListView.builder(
-                primary: false,
-                itemCount: state.allInput.length,
-                itemBuilder: (context, index) {
-                  var fbInputBase = state.allInput[index];
-                  return FInputPad(
-                    fbInputBase: fbInputBase,
-                    widgetId: state.widgetId,
-                  );
-                },
-              ),
+              child: state.selectedWidgetStyle == null
+                  ? const SizedBox()
+                  : FbInputBuilderWidget(
+                      styles: state.selectedWidgetStyle!,
+                      onStylesUpdated: (styles) {
+                        context.read<StylesInputBloc>().changeStyles(styles);
+                        context.read<NotifierBloc>().styleChanged(styles.id);
+                      },
+                    ),
             ),
           );
         },

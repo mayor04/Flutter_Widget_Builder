@@ -2,79 +2,60 @@ import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
-import 'package:fb_components/src/inputs/groups/double_inputs.dart';
-import 'package:fb_components/src/inputs/single/wrap_input.dart';
-import 'package:flutter/foundation.dart';
+
+const _type = FbWidgetType.positioned;
 
 class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> with CodeGeneratorLogic {
-  @visibleForTesting
-  final topInput = FbInputDataWrap<double?>('Top', null);
+  FbPositionedStyles? styles;
 
-  @visibleForTesting
-  final rightInput = FbInputDataWrap<double?>('Right', null);
-
-  @visibleForTesting
-  final leftInput = FbInputDataWrap<double?>('Left', null);
-
-  @visibleForTesting
-  final bottomInput = FbInputDataWrap<double?>('Bottom', null);
-
-  FbPositionedConfig({int? id}) : super(FbWidgetType.positioned, FbChildType.single, id: id);
+  FbPositionedConfig({int? id, this.styles}) : super(_type, FbChildType.single, id: id);
 
   factory FbPositionedConfig.fromJson(Map<String, dynamic> json) {
     return FbPositionedConfig(
       id: json['id'],
-    )
-      ..topInput.value = json['top']?.toDouble()
-      ..rightInput.value = json['right']?.toDouble()
-      ..leftInput.value = json['left']?.toDouble()
-      ..bottomInput.value = json['bottom']?.toDouble();
+      styles: FbPositionedStyles.fromJson(json['styles']),
+    );
   }
 
   @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'type': widgetType.name,
-      'top': topInput.value,
-      'right': rightInput.value,
-      'left': leftInput.value,
-      'bottom': bottomInput.value,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': widgetType.name,
+        'styles': styles?.toJson(),
+      };
 
   @override
   List<BaseFbInput> getInputs() {
     return [
-      FbGroupDoubleInputs('', input1: topInput, input2: leftInput),
-      FbGroupDoubleInputs('', input1: rightInput, input2: bottomInput),
+      // FbGroupDoubleInputs('', input1: topInput, input2: leftInput),
+      // FbGroupDoubleInputs('', input1: rightInput, input2: bottomInput),
     ];
   }
 
   @override
   FbPositionedStyles getWidgetStyles() {
-    return FbPositionedStyles(
-      id,
-      widgetType,
-      top: topInput.value,
-      bottom: bottomInput.value,
-      right: rightInput.value,
-      left: leftInput.value,
-    );
+    return styles ??= FbPositionedStyles(id);
   }
 
   @override
   String generateCode(String? childCode) {
+    final styles = getWidgetStyles();
+
     final widgetCode = {
       '_name': 'Positioned',
-      'top': topInput.intValue,
-      'left': leftInput.intValue,
-      'right': rightInput.intValue,
-      'bottom': bottomInput.intValue,
+      'top': styles.top,
+      'left': styles.left,
+      'right': styles.right,
+      'bottom': styles.bottom,
       'child': childCode,
     };
 
     return getCode(widgetCode) ?? '';
+  }
+
+  @override
+  void updateStyles(FbPositionedStyles styles) {
+    this.styles = styles;
   }
 }
 
@@ -85,13 +66,12 @@ class FbPositionedStyles extends BaseFbStyles {
   final double? bottom;
 
   FbPositionedStyles(
-    int id,
-    FbWidgetType widgetType, {
+    int id, {
     this.top,
     this.right,
     this.left,
     this.bottom,
-  }) : super(id, widgetType);
+  }) : super(id, _type);
 
   FbPositionedStyles copyWith({
     double? top,
@@ -101,11 +81,31 @@ class FbPositionedStyles extends BaseFbStyles {
   }) {
     return FbPositionedStyles(
       id,
-      widgetType,
       top: top ?? this.top,
       right: right ?? this.right,
       left: left ?? this.left,
       bottom: bottom ?? this.bottom,
     );
+  }
+
+  // to json
+  factory FbPositionedStyles.fromJson(Map<String, dynamic> json) {
+    return FbPositionedStyles(
+      json['id'],
+      top: json['top'],
+      right: json['right'],
+      left: json['left'],
+      bottom: json['bottom'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'top': top,
+      'right': right,
+      'left': left,
+      'bottom': bottom,
+    };
   }
 }

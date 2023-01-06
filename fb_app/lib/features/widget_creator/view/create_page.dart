@@ -28,33 +28,33 @@ class _CreatePageState extends State<CreatePage> {
       body: Column(
         children: [
           // * @TOP BAR
-          Container(
-            height: 40,
-            width: double.infinity,
-            color: AppColors.appDarker,
-            child: Row(
-              children: [
-                const SizedBox(
-                  width: 70,
-                  child: Icon(
-                    Icons.home,
-                    color: AppColors.inputBorder,
-                    size: 21,
-                  ),
-                ),
-                const Box.vertical(20),
-                Container(
-                  color: AppColors.appGrey,
-                  width: 150,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Twitter widget',
-                    style: context.textTheme.bodyMedium,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   height: 40,
+          //   width: double.infinity,
+          //   color: AppColors.appDarker,
+          //   child: Row(
+          //     children: [
+          //       const SizedBox(
+          //         width: 70,
+          //         child: Icon(
+          //           Icons.home,
+          //           color: AppColors.inputBorder,
+          //           size: 21,
+          //         ),
+          //       ),
+          //       const Box.vertical(20),
+          //       Container(
+          //         color: AppColors.appGrey,
+          //         width: 150,
+          //         alignment: Alignment.center,
+          //         child: Text(
+          //           'Twitter widget',
+          //           style: context.textTheme.bodyMedium,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           // *
           // * Sections
           Expanded(

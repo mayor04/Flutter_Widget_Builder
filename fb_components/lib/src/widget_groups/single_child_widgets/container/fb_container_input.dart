@@ -28,7 +28,7 @@ class FbContainerInput extends StatelessFbInput<FbContainerStyles> {
         ),
         FullWidthInput(
           title: 'Width',
-          value: styles.height,
+          value: styles.width,
           onChanged: (value) => onStylesUpdated(
             styles.copyWith(
               width: value?.toDouble(),
@@ -46,7 +46,7 @@ class FbContainerInput extends StatelessFbInput<FbContainerStyles> {
         ),
         // alignment dropdown
         DropdownInput<Alignment?>(
-          title: 'CrossAxisAlign',
+          title: 'Alignment',
           value: styles.alignment,
           dropdownList: FbContainerStyles.alignmentMap.values.toList(),
           getName: (value) => value?.toString() ?? 'none',

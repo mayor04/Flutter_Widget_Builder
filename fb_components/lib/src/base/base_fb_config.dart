@@ -50,6 +50,8 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
 
   String generateCode(String? childCode);
 
+  void updateStyles(T styles);
+
   List<BaseFbInput> getInputs();
 
   T getWidgetStyles();
