@@ -1,5 +1,4 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 
@@ -13,7 +12,7 @@ class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> with CodeGenerator
   factory FbExpandedConfig.fromJson(Map<String, dynamic> json) {
     return FbExpandedConfig(
       id: json['id'],
-      styles: FbExpandedStyles.fromJson(json['styles']),
+      styles: json['styles'] == null ? null : FbExpandedStyles.fromJson(json['styles']),
     );
   }
 
@@ -23,13 +22,6 @@ class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> with CodeGenerator
         'type': widgetType.name,
         'styles': styles?.toJson(),
       };
-
-  @override
-  List<BaseFbInput> getInputs() {
-    return [
-      // flexInput
-    ];
-  }
 
   @override
   FbExpandedStyles getWidgetStyles() {

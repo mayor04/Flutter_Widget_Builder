@@ -14,7 +14,8 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
   final log = AppLog('WidgetTreeBloc');
   late final InterfaceController _fbController;
 
-  WidgetTreeBloc(InterfaceController fbController) : super(WidgetTreeState(fbDetailsMap: {})) {
+  WidgetTreeBloc(InterfaceController fbController)
+      : super(WidgetTreeState(fbDetailsMap: {}, fbConfigMap: {})) {
     _fbController = fbController;
 
     on<InitialWidgetTreeEvent>(_initialEvent);
@@ -30,6 +31,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
   ) async {
     var fbDataMap = _fbController.initialLoad();
     emit(WidgetTreeState(
+      fbConfigMap: _fbController.fbConfigMap,
       fbDetailsMap: fbDataMap,
       action: WidgetTreeAction.add,
     ));
@@ -49,6 +51,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
 
       emit(WidgetTreeState(
           fbDetailsMap: fbDataMap,
+          fbConfigMap: _fbController.fbConfigMap,
           action: WidgetTreeAction.add,
           widgetId: widgetConfig.id,
           parentId: event.parentId));
@@ -71,6 +74,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
 
       emit(WidgetTreeState(
         fbDetailsMap: fbDataMap,
+        fbConfigMap: _fbController.fbConfigMap,
         action: WidgetTreeAction.wrap,
         widgetId: widgetConfig.id,
       ));
@@ -89,6 +93,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
 
       emit(WidgetTreeState(
         fbDetailsMap: fbDataMap,
+        fbConfigMap: _fbController.fbConfigMap,
         action: WidgetTreeAction.remove,
         widgetId: event.id,
       ));
@@ -107,6 +112,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
 
       emit(WidgetTreeState(
         fbDetailsMap: fbDataMap,
+        fbConfigMap: _fbController.fbConfigMap,
         action: WidgetTreeAction.delete,
         widgetId: event.id,
       ));

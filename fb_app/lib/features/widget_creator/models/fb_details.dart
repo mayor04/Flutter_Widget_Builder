@@ -1,4 +1,3 @@
-import 'package:fb_app/features/widget_creator/controller/interface_controller.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 
@@ -17,9 +16,6 @@ class FbWidgetDetails {
   int _parentId;
   int get parentId => _parentId;
 
-  ///Widget Data holds the style of the widget
-  final FbWidgetStylesCallback? widgetStylesCallback;
-
   /// Represent the how the widget is in the tree.
   /// The topmost widget is `0` and child `1` any subsequent child added
   /// Should increament the level
@@ -33,10 +29,21 @@ class FbWidgetDetails {
     required List<int> children,
     required this.levelInTree,
     required int parentId,
-    this.widgetStylesCallback,
     this.childType = FbChildType.single,
   })  : _children = children,
         _parentId = parentId;
+
+  // FROM json
+  factory FbWidgetDetails.fromJson(Map<String, dynamic> json) {
+    return FbWidgetDetails(
+      id: json['id'] as int,
+      widgetType: FbWidgetType.values[json['widgetType'] as int],
+      children: (json['children'] as List<dynamic>).cast<int>(),
+      levelInTree: json['levelInTree'] as int,
+      parentId: json['parentId'] as int,
+      childType: FbChildType.values[json['childType'] as int],
+    );
+  }
 
   bool get hasChild {
     return children.isNotEmpty;
@@ -44,12 +51,6 @@ class FbWidgetDetails {
 
   String get name {
     return widgetType.name.capitalizeFirst;
-  }
-
-  BaseFbStyles get styles {
-    assert(widgetStylesCallback != null);
-
-    return widgetStylesCallback!();
   }
 
   /// Change children is used only when there is a wrap
@@ -92,5 +93,17 @@ class FbWidgetDetails {
 
   int? get firstChildId {
     return childAt(0);
+  }
+
+  // to json
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'widgetType': widgetType.name,
+      'children': children,
+      'levelInTree': levelInTree,
+      'parentId': parentId,
+      'childType': childType.name,
+    };
   }
 }

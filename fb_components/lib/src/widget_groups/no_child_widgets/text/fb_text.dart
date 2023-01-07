@@ -19,7 +19,7 @@ class FbText extends StatelessWidget {
       textStyles.text == '' ? 'Enter Text' : textStyles.text,
       style: TextStyle(
         fontSize: textStyles.fontSize,
-        color: Color(textStyles.colorValue),
+        color: textStyles.color,
         fontWeight: textStyles.fontWeight,
       ),
     );

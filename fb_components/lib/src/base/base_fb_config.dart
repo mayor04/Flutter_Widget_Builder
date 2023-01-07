@@ -1,5 +1,4 @@
 import 'package:fb_components/fb_components.dart';
-import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/row/fb_row_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack_config.dart';
@@ -51,8 +50,6 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
   String generateCode(String? childCode);
 
   void updateStyles(T styles);
-
-  List<BaseFbInput> getInputs();
 
   T getWidgetStyles();
 

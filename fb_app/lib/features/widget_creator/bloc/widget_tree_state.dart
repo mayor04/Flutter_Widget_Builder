@@ -4,12 +4,14 @@ enum WidgetTreeAction { none, add, remove, wrap, delete }
 
 class WidgetTreeState {
   final Map<int, FbWidgetDetails> fbDetailsMap;
+  final Map<int, BaseFbConfig> fbConfigMap;
   final WidgetTreeAction? action;
   final int? widgetId;
   final int? parentId;
 
   WidgetTreeState({
     required this.fbDetailsMap,
+    required this.fbConfigMap,
     this.action = WidgetTreeAction.none,
     this.widgetId,
     this.parentId,

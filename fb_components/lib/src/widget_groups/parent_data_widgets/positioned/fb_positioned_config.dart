@@ -1,5 +1,4 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 
@@ -13,7 +12,7 @@ class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> with CodeGener
   factory FbPositionedConfig.fromJson(Map<String, dynamic> json) {
     return FbPositionedConfig(
       id: json['id'],
-      styles: FbPositionedStyles.fromJson(json['styles']),
+      styles: json['styles'] == null ? null : FbPositionedStyles.fromJson(json['styles']),
     );
   }
 
@@ -23,14 +22,6 @@ class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> with CodeGener
         'type': widgetType.name,
         'styles': styles?.toJson(),
       };
-
-  @override
-  List<BaseFbInput> getInputs() {
-    return [
-      // FbGroupDoubleInputs('', input1: topInput, input2: leftInput),
-      // FbGroupDoubleInputs('', input1: rightInput, input2: bottomInput),
-    ];
-  }
 
   @override
   FbPositionedStyles getWidgetStyles() {

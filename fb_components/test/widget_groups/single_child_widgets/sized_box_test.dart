@@ -7,7 +7,7 @@ void main() {
     final formatter = WidgetFormatter();
     final boxConfig = FbSizedBoxConfig();
 
-    formatter.formatWidget(boxConfig.generateCode(''));
+    formatter.formatWidget(boxConfig.generateCode(null));
 
     boxConfig.updateStyles(
       FbSizedBoxStyles(1, height: 20, width: 20),
@@ -16,5 +16,17 @@ void main() {
     formatter.formatWidget(
       boxConfig.generateCode(''),
     );
+  });
+
+  test('SizedBox config serialized correctly', () {
+    final boxConfig = FbSizedBoxConfig();
+
+    boxConfig.updateStyles(
+      FbSizedBoxStyles(1, height: 20, width: 20),
+    );
+    final json = boxConfig.toJson();
+    final newConfig = FbSizedBoxConfig.fromJson(json);
+
+    expect(newConfig.toJson(), json);
   });
 }

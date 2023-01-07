@@ -12,10 +12,24 @@ void main() {
       ),
     );
 
-    formatter.formatWidget(expandedConfig.generateCode(''));
+    formatter.formatWidget(expandedConfig.generateCode(null));
 
     formatter.formatWidget(
-      expandedConfig.generateCode(''),
+      expandedConfig.generateCode(null),
     );
+  });
+
+  test('Expanded config serialized correctly', () {
+    final expandedConfig = FbExpandedConfig(
+      styles: FbExpandedStyles(
+        1,
+        flex: 10,
+      ),
+    );
+
+    final json = expandedConfig.toJson();
+    final newConfig = FbExpandedConfig.fromJson(json);
+
+    expect(newConfig.toJson(), json);
   });
 }

@@ -25,7 +25,7 @@ class FbSizedBoxInput extends StatelessFbInput<FbSizedBoxStyles> {
         ),
         FullWidthInput(
           title: 'Width',
-          value: styles.height,
+          value: styles.width,
           onChanged: (value) => onStylesUpdated(
             styles.copyWith(
               width: value?.toDouble(),

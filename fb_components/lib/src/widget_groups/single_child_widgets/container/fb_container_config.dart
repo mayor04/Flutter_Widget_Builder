@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/extension.dart/num_extension.dart';
@@ -20,7 +19,7 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGenerat
   factory FbContainerConfig.fromJson(Map<String, dynamic> json) {
     return FbContainerConfig(
       id: json['id'],
-      styles: FbContainerStyles.fromJson(json['styles']),
+      styles: json['styles'] == null ? null : FbContainerStyles.fromJson(json['styles']),
     );
   }
 
@@ -32,22 +31,6 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGenerat
       };
 
   @override
-  List<BaseFbInput> getInputs() {
-    return [
-      // FbGroupDoubleInputs(
-      //   '',
-      //   input1: _config.heightInput,
-      //   input2: _config.widthInput,
-      // ),
-      // _config.colorInput,
-      // _config.alignInput,
-      // _config.paddingInput,
-      // _config.marginInput,
-      // _config.borderInput,
-    ];
-  }
-
-  @override
   void updateStyles(FbContainerStyles styles) {
     this.styles = styles;
   }
@@ -57,7 +40,6 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGenerat
     // If style is null re-inititalize it
     return styles ??= FbContainerStyles(
       id,
-      colorValue: int.parse('0xFFE6E6D6'),
       color: Colors.blue,
       borderColor: const Color(0xFF000000),
     );
@@ -144,7 +126,6 @@ class FbContainerStyles extends BaseFbStyles {
 
   final double? height;
   final double? width;
-  final int colorValue;
   final Color color;
   final Alignment? alignment;
   final double radius;
@@ -169,7 +150,6 @@ class FbContainerStyles extends BaseFbStyles {
     int id, {
     this.height = 300,
     this.width = 300,
-    required this.colorValue,
     required this.color,
     this.alignment,
     List<double> pad = const [],
@@ -219,8 +199,7 @@ class FbContainerStyles extends BaseFbStyles {
       json['id'],
       height: json['height'],
       width: json['width'],
-      colorValue: json['colorValue'],
-      color: Color(json['color']),
+      color: json['color'] == null ? Colors.transparent : Color(json['color']),
       alignment: alignmentMap[json['alignment']],
       padding: EdgeInsets.fromLTRB(
         json['padding'][0],
@@ -234,8 +213,8 @@ class FbContainerStyles extends BaseFbStyles {
         json['margin'][2],
         json['margin'][3],
       ),
-      radius: json['radius'],
-      borderSize: json['borderSize'],
+      radius: json['radius'] ?? 0,
+      borderSize: json['borderSize'] ?? 0,
       borderColor: json['borderColor'],
       pad: [],
       marg: [],
@@ -268,7 +247,6 @@ class FbContainerStyles extends BaseFbStyles {
       id,
       height: height ?? this.height,
       width: width ?? this.width,
-      colorValue: colorValue ?? this.colorValue,
       color: color ?? this.color,
       alignment: alignment ?? this.alignment,
       padding: padding ?? this.padding,
@@ -287,7 +265,7 @@ class FbContainerStyles extends BaseFbStyles {
       'id': id,
       'height': height,
       'width': width,
-      'colorValue': colorValue,
+      'color': color.value,
       'alignment': alignmentMap.keys.firstWhere(
         (key) => alignmentMap[key] == alignment,
         orElse: () => defaultAlign,

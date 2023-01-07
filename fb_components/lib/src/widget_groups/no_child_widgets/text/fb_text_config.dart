@@ -1,5 +1,4 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
   factory FbTextConfig.fromJson(Map<String, dynamic> json) {
     return FbTextConfig(
       id: json['id'],
-      styles: FbTextStyles.fromJson(json['styles']),
+      styles: json['styles'] == null ? null : FbTextStyles.fromJson(json['styles']),
     );
   }
 
@@ -22,21 +21,8 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
   Map<String, dynamic> toJson() => {
         'id': id,
         'type': widgetType.name,
-        'text': styles?.text,
-        'fontSize': styles?.fontSize,
-        'color': styles?.color.value,
-        'fontWeight': styles?.fontWeight,
+        'styles': styles?.toJson(),
       };
-
-  @override
-  List<BaseFbInput> getInputs() {
-    return [
-      // textInput,
-      // fontSizeInput,
-      // colorInput,
-      // fontWeightInput,
-    ];
-  }
 
   @override
   FbTextStyles getWidgetStyles() {
@@ -44,7 +30,6 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
       id,
       text: '',
       fontSize: 13,
-      colorValue: int.parse('0xFF000000'),
       color: Colors.black,
       fontWeight: FontWeight.normal,
     );
@@ -76,7 +61,8 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
         ),
         'fontWeight': nullMapper(
           prefix: 'FontWeight.',
-          value: styles.fontWeight.toString(),
+          // ignore: prefer_null_aware_operators
+          value: styles.fontWeight == null ? null : styles.fontWeight.toString(),
           returnNullChecks: [(v) => v == FbTextStyles.defaultWeight],
         ),
       }
@@ -93,7 +79,6 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
 
 class FbTextStyles extends BaseFbStyles {
   final String text;
-  final int colorValue;
   final Color color;
   final FontWeight? fontWeight;
   final double? fontSize;
@@ -101,7 +86,6 @@ class FbTextStyles extends BaseFbStyles {
   FbTextStyles(
     int id, {
     this.text = '',
-    this.colorValue = 0,
     required this.color,
     this.fontWeight,
     this.fontSize,
@@ -113,7 +97,6 @@ class FbTextStyles extends BaseFbStyles {
       json['id'],
       text: json['text'],
       fontSize: json['fontSize'],
-      colorValue: json['colorValue'],
       fontWeight: json['fontWeight'],
       color: Color(json['color']),
     );
@@ -143,7 +126,6 @@ class FbTextStyles extends BaseFbStyles {
       id,
       text: text ?? this.text,
       color: color ?? this.color,
-      colorValue: colorValue ?? this.colorValue,
       fontWeight: fontWeight ?? this.fontWeight,
       fontSize: fontSize ?? this.fontSize,
     );
@@ -156,6 +138,6 @@ class FbTextStyles extends BaseFbStyles {
         'text': text,
         'fontSize': fontSize,
         'color': color.value,
-        'fontWeight': fontWeight.toString().split('.')[1],
+        if (fontWeight != null) 'fontWeight': fontWeight.toString().split('.')[1],
       };
 }

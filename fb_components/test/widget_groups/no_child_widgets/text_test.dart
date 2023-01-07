@@ -39,4 +39,19 @@ void main() {
       );
     });
   });
+
+  test('Text config serialized correctly', () {
+    final textConfig = FbTextConfig(
+      styles: FbTextStyles(
+        1,
+        text: 'Hello World',
+        color: Colors.red,
+      ),
+    );
+
+    final json = textConfig.toJson();
+    final newConfig = FbTextConfig.fromJson(json);
+
+    expect(newConfig.toJson(), json);
+  });
 }

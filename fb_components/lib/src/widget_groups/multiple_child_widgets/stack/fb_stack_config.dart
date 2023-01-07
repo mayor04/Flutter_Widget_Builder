@@ -1,5 +1,4 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_core/fb_core.dart';
@@ -20,7 +19,7 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic 
   factory FbStackConfig.fromJson(Map<String, dynamic> json) {
     return FbStackConfig(
       id: json['id'] as int,
-      styles: FbStackStyles.fromJson(json['styles']),
+      styles: json['styles'] == null ? null : FbStackStyles.fromJson(json['styles']),
     );
   }
 
@@ -28,15 +27,8 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic 
   Map<String, dynamic> toJson() => {
         'id': id,
         'type': widgetType.name,
-        'fit': styles?.stackFit.name,
+        'styles': styles?.toJson(),
       };
-
-  @override
-  List<BaseFbInput> getInputs() {
-    return [
-      // fitInput,
-    ];
-  }
 
   @override
   getWidgetStyles() {

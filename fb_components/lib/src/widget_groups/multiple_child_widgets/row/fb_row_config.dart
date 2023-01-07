@@ -1,5 +1,4 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_core/fb_core.dart';
@@ -20,7 +19,7 @@ class FbRowConfig extends BaseFbConfig<FbRowStyles> with CodeGeneratorLogic {
   factory FbRowConfig.fromJson(Map<String, dynamic> json) {
     return FbRowConfig(
       id: json['id'] as int,
-      styles: FbRowStyles.fromJson(json['styles']),
+      styles: json['styles'] == null ? null : FbRowStyles.fromJson(json['styles']),
     );
   }
 
@@ -28,19 +27,8 @@ class FbRowConfig extends BaseFbConfig<FbRowStyles> with CodeGeneratorLogic {
   Map<String, dynamic> toJson() => {
         'id': id,
         'type': widgetType.name,
-        'mainAxisAlignment': styles?.mainAlignment.name,
-        'crossAxisAlignment': styles?.crossAlignment.name,
-        'mainAxisSize': styles?.axisSize.name,
+        'styles': styles?.toJson(),
       };
-
-  @override
-  List<BaseFbInput> getInputs() {
-    return [
-      // mainAxisInput,
-      // crossAxisInput,
-      // mainAxisSizeInput,
-    ];
-  }
 
   @override
   FbRowStyles getWidgetStyles() {

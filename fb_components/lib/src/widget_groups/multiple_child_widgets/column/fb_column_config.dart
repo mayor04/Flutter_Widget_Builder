@@ -15,7 +15,7 @@ class FbColumnConfig extends BaseFbConfig<FbColumnStyles> with CodeGeneratorLogi
   factory FbColumnConfig.fromJson(Map<String, dynamic> json) {
     return FbColumnConfig(
       id: json['id'] as int,
-      styles: FbColumnStyles.fromJson(json['styles']),
+      styles: json['styles'] == null ? null : FbColumnStyles.fromJson(json['styles']),
     );
   }
 

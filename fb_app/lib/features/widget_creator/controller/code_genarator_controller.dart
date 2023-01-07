@@ -12,7 +12,7 @@ class CodeGeneratorController {
   final WidgetFormatter widgetFormatter = WidgetFormatter();
 
   Map<int, FbWidgetDetails> get allDetails => _interfaceController.fbDetailsMap;
-  Map<int, BaseFbConfig> get allWidgetConfig => _interfaceController.fbWidgetsMap;
+  Map<int, BaseFbConfig> get allWidgetConfig => _interfaceController.fbConfigMap;
 
   String getCode() {
     // Get the first details

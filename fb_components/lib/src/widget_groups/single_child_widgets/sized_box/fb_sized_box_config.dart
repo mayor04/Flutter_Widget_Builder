@@ -1,5 +1,4 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/base_input.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/base/fb_enum.dart';
 
@@ -14,7 +13,7 @@ class FbSizedBoxConfig extends BaseFbConfig<FbSizedBoxStyles> with CodeGenerator
   factory FbSizedBoxConfig.fromJson(Map<String, dynamic> json) {
     return FbSizedBoxConfig(
       id: json['id'],
-      styles: FbSizedBoxStyles.fromJson(json['styles']),
+      styles: json['styles'] == null ? null : FbSizedBoxStyles.fromJson(json['styles']),
     );
   }
   @override
@@ -23,14 +22,6 @@ class FbSizedBoxConfig extends BaseFbConfig<FbSizedBoxStyles> with CodeGenerator
         'type': widgetType.name,
         'styles': styles?.toJson(),
       };
-
-  @override
-  List<BaseFbInput> getInputs() {
-    return [
-      // heightInput,
-      // widthInput,
-    ];
-  }
 
   @override
   FbSizedBoxStyles getWidgetStyles() {

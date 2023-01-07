@@ -8,7 +8,6 @@ void main() {
       101,
       height: 100,
       width: 100,
-      colorValue: Colors.red.value,
       alignment: Alignment.center,
       pad: [2, 0, 0, 0],
       marg: [0, 0, 5, 0],

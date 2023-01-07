@@ -3,6 +3,8 @@ import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../utils/map_extension.dart';
+
 void main() {
   test('Row code formatted correctly', () {
     final formatter = WidgetFormatter();
@@ -20,5 +22,21 @@ void main() {
     formatter.formatWidget(
       rowConfig.generateCode(rowConfig.generateCode('')),
     );
+  });
+
+  test('Row config serialized correctly', () {
+    final rowConfig = FbRowConfig();
+
+    rowConfig.updateStyles(
+      FbRowStyles(1,
+          mainAlignment: MainAxisAlignment.center,
+          crossAlignment: CrossAxisAlignment.center,
+          axisSize: MainAxisSize.min),
+    );
+    final json = rowConfig.toJson().reDecode() as Map<String, dynamic>;
+    ;
+    final newConfig = FbRowConfig.fromJson(json);
+
+    expect(newConfig.toJson(), json);
   });
 }

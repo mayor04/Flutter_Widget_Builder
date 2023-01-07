@@ -232,37 +232,37 @@ void main() {
     expect(fbDetails[xMainId]?.children.length, 0);
   });
 
-  test('If the input style is changed for container', () {
-    var childWidget = FbContainerConfig();
-    interfaceController.addChildWidget(xMainId, childWidget);
+  // test('If the input style is changed for container', () {
+  //   var childWidget = FbContainerConfig();
+  //   interfaceController.addChildWidget(xMainId, childWidget);
 
-    var inputList = interfaceController.getWidgetInput(childWidget.id);
-    var inputGroupData = inputList[0] as FbGroupDoubleInputs;
+  //   var inputList = interfaceController.getWidgetInput(childWidget.id);
+  //   var inputGroupData = inputList[0] as FbGroupDoubleInputs;
 
-    var input1 = inputGroupData.input1;
-    input1.value = 100.0;
+  //   var input1 = inputGroupData.input1;
+  //   input1.value = 100.0;
 
-    expect(childWidget.getWidgetStyles().height, 100);
-  });
+  //   expect(childWidget.getWidgetStyles().height, 100);
+  // });
 
-  test('Verify if Color is changed', () {
-    var childWidget = FbContainerConfig();
-    var childWidget2 = FbContainerConfig();
+  // test('Verify if Color is changed', () {
+  //   var childWidget = FbContainerConfig();
+  //   var childWidget2 = FbContainerConfig();
 
-    int parentColor = childWidget.getWidgetStyles().colorValue;
+  //   int parentColor = childWidget.getWidgetStyles().colorValue;
 
-    interfaceController.addChildWidget(xMainId, childWidget);
-    interfaceController.addChildWidget(childWidget.id, childWidget2);
+  //   interfaceController.addChildWidget(xMainId, childWidget);
+  //   interfaceController.addChildWidget(childWidget.id, childWidget2);
 
-    var inputList = interfaceController.getWidgetInput(childWidget2.id);
-    var inputGroupData = inputList[1] as FbInputDataColor;
+  //   var inputList = interfaceController.getWidgetInput(childWidget2.id);
+  //   var inputGroupData = inputList[1] as FbInputDataColor;
 
-    inputGroupData.value = int.parse('0xFFFFFFFF');
+  //   inputGroupData.value = int.parse('0xFFFFFFFF');
 
-    expect(childWidget2.getWidgetStyles().colorValue, int.parse('0xFFFFFFFF'));
-    //Parent color doesn't change
-    expect(childWidget.getWidgetStyles().colorValue, parentColor);
-  });
+  //   expect(childWidget2.getWidgetStyles().colorValue, int.parse('0xFFFFFFFF'));
+  //   //Parent color doesn't change
+  //   expect(childWidget.getWidgetStyles().colorValue, parentColor);
+  // });
 }
 
 ///Wait so the id will be different,
@@ -280,7 +280,7 @@ FbWidgetDetails? getDetails(InterfaceController interfaceController, int widgetI
 bool isChildPresent(id, InterfaceController fbControl) {
   return fbControl.fbDetailsMap.containsKey(id) &&
       fbControl.idList.contains(id) &&
-      fbControl.fbWidgetsMap.containsKey(id);
+      fbControl.fbConfigMap.containsKey(id);
   // &&
   // fbControl.widgetStylesCallbackMap.containsKey(id);
 }
