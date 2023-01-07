@@ -1,7 +1,7 @@
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 
-class TextFieldInput extends StatelessWidget {
+class TextFieldInput extends StatefulWidget {
   const TextFieldInput({
     Key? key,
     required this.title,
@@ -14,6 +14,14 @@ class TextFieldInput extends StatelessWidget {
   final ValueChanged<String> onChanged;
 
   @override
+  State<TextFieldInput> createState() => _TextFieldInputState();
+}
+
+class _TextFieldInputState extends State<TextFieldInput> {
+  late final controller = TextEditingController(
+    text: widget.value,
+  );
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(13, 15, 13, 15),
@@ -21,22 +29,20 @@ class TextFieldInput extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            title,
+            widget.title,
             style: context.textTheme.bodyMedium,
           ),
           SizedBox(
             width: AppDimen.dropDownInputWidth,
             child: TextField(
               maxLines: 3,
-              controller: TextEditingController(
-                text: value,
-              ),
+              controller: controller,
               decoration: const InputDecoration(
                 contentPadding: EdgeInsets.all(10),
               ),
               onChanged: (text) {
                 try {
-                  onChanged(text);
+                  widget.onChanged(text);
                 } catch (e) {
                   AppLog.warn('InputExpanded > onSubmitted', 'Incorrect input type  $e');
                   return;

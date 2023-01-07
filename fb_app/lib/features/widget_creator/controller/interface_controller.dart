@@ -8,7 +8,7 @@ class InterfaceController {
   final log = AppLog('FbInterfaceController');
 
   final List<int> idList = [];
-  final Map<int, BaseFbConfig> fbWidgetsMap = {};
+  final Map<int, BaseFbConfig> fbConfigMap = {};
 
   /// Each of them hold the list of child/children and parent id
   /// For example lets take a look at
@@ -53,7 +53,7 @@ class InterfaceController {
 
     // Add id to the Id list
     idList.add(id);
-    fbWidgetsMap[id] = childWidget;
+    fbConfigMap[id] = childWidget;
     // widgetStylesCallbackMap[id] = childWidget.getWidgetStyles;
 
     var parentData = fbDetailsMap[parentId];
@@ -68,7 +68,6 @@ class InterfaceController {
       childType: childWidget.childType,
       widgetType: childWidget.widgetType,
       levelInTree: parentData.levelInTree + 1,
-      widgetStylesCallback: childWidget.getWidgetStyles,
       children: [],
     );
 
@@ -121,7 +120,7 @@ class InterfaceController {
 
     // Finally remove the widget totally
     fbDetailsMap.remove(removeWidgetId);
-    fbWidgetsMap.remove(removeWidgetId);
+    fbConfigMap.remove(removeWidgetId);
     // widgetStylesCallbackMap.remove(removeWidgetId);
 
     return fbDetailsMap;
@@ -174,22 +173,18 @@ class InterfaceController {
     fbDetailsMap[parentId]?.replaceChild(widgetId, null);
 
     fbDetailsMap.remove(widgetId);
-    fbWidgetsMap.remove(widgetId);
+    fbConfigMap.remove(widgetId);
     // widgetStylesCallbackMap.remove(widgetId);
 
     return fbDetailsMap;
   }
 
-  List<BaseFbInput> getWidgetInput(int id) {
-    return fbWidgetsMap[id]?.getInputs() ?? [];
-  }
-
   BaseFbStyles? getWidgetStyles(int id) {
-    return fbWidgetsMap[id]?.getWidgetStyles();
+    return fbConfigMap[id]?.getWidgetStyles();
   }
 
   void changeWidgetStyles(BaseFbStyles styles) {
-    fbWidgetsMap[styles.id]?.updateStyles(styles);
+    fbConfigMap[styles.id]?.updateStyles(styles);
   }
 
   // void _refreshWidgetConfig(int id) {

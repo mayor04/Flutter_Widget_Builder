@@ -57,6 +57,7 @@ class _ChildWidgetBuilder extends StatefulWidget {
 class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
   late FbWidgetDetails details;
   late Map<int, FbWidgetDetails> allWidgetDetails;
+  late Map<int, BaseFbConfig> allWidgetConfig;
   bool isSelected = false;
 
   @override
@@ -69,7 +70,10 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
   @override
   Widget build(BuildContext context) {
     details = widget.details;
-    allWidgetDetails = widget.allWidgetDetails;
+
+    final bloc = BlocProvider.of<WidgetTreeBloc>(context);
+    allWidgetDetails = bloc.state.fbDetailsMap;
+    allWidgetConfig = bloc.state.fbConfigMap;
 
     return BlocConsumer<NotifierBloc, NotifierState>(
       listenWhen: (previous, current) {
@@ -94,12 +98,14 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
         }
 
         void selectCallback() => context.read<NotifierBloc>().select(details.id);
+        final widgetStyles = allWidgetConfig[details.id]!.getWidgetStyles();
 
         if (details.widgetType == FbWidgetType.expanded ||
             details.widgetType == FbWidgetType.positioned) {
           return _buildParenDataWidget(
             details: details,
             allWidgetDetails: allWidgetDetails,
+            widgetStyles: widgetStyles,
           );
         }
 
@@ -109,29 +115,21 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
               onTap: selectCallback,
               details: details,
               allWidgetDetails: allWidgetDetails,
+              widgetStyles: widgetStyles,
             );
           case FbChildType.multiple:
             return _buildMultipleChildWidget(
               onTap: selectCallback,
               details: details,
               allWidgetDetails: allWidgetDetails,
+              widgetStyles: widgetStyles,
             );
           default:
             return NoChildChildWidgetBuilder(
-              widgetStyles: details.styles,
               onTap: selectCallback,
+              widgetStyles: widgetStyles,
             );
         }
-
-        // return GestureDetector(
-        //   onTap: () {
-        //     context.read<NotifierCubit>().select(details!.id);
-        //   },
-        //   child: getMappedWidget(
-        //     details: details!,
-        //     allWidgetDetails: allWidgetDetails,
-        //   ),
-        // );
       },
     );
   }
@@ -154,6 +152,7 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
 
   Widget _buildSingleChildWidget({
     required FbWidgetDetails details,
+    required BaseFbStyles widgetStyles,
     required Map<int, FbWidgetDetails> allWidgetDetails,
     required VoidCallback onTap,
   }) {
@@ -173,12 +172,13 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
             )
           //Means this widget has no child
           : const SizedBox(),
-      widgetStyles: details.styles,
+      widgetStyles: widgetStyles,
     );
   }
 
   Widget _buildParenDataWidget({
     required FbWidgetDetails details,
+    required BaseFbStyles widgetStyles,
     required Map<int, FbWidgetDetails> allWidgetDetails,
   }) {
     FbWidgetDetails? childDetails;
@@ -196,18 +196,19 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
             )
           //Means this widget has no child
           : const SizedBox(),
-      widgetStyles: details.styles,
+      widgetStyles: widgetStyles,
     );
   }
 
   Widget _buildMultipleChildWidget({
     required FbWidgetDetails details,
+    required BaseFbStyles widgetStyles,
     required Map<int, FbWidgetDetails> allWidgetDetails,
     required VoidCallback onTap,
   }) {
     return MultipleChildWidgetBuilder(
       onTap: onTap,
-      widgetStyles: details.styles,
+      widgetStyles: widgetStyles,
       children: List.generate(details.children.length, (i) {
         var childDetails = getChildDetailsAt(i);
         assert(childDetails != null, 'Error, could not get child details of a multiple widget');
@@ -223,61 +224,4 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
       }),
     );
   }
-
-  // Widget getMappedWidget({
-  //   required FbWidgetDetails details,
-  //   required Map<int, FbWidgetDetails> allWidgetDetails,
-  // }) {
-  //   switch (details.childType) {
-  //     case FbChildType.multiple:
-  //       return MultipleChildWidgetMapper(
-  //         widgetStyles: details.styles,
-  //         children: List.generate(details.children.length, (i) {
-  //           var childDetails = getChildDetailsAt(i);
-  //           assert(childDetails != null, 'Error, could not get child details of a multiple widget');
-
-  //           //If the child is a positioned then we create a special layout
-  //           if (childDetails?.widgetType == FbWidgetType.positioned) {
-  //             return PositionedChildWidgetMapper(
-  //               widgetStyle: childDetails!.styles,
-  //               parentStyle: details.styles,
-  //               child: _ChildWidgetBuilder(
-  //                 allWidgetDetails: allWidgetDetails,
-  //                 details: allWidgetDetails[childDetails.childAt(0)],
-  //               ),
-  //             );
-  //           }
-
-  //           return _ChildWidgetBuilder(
-  //             allWidgetDetails: allWidgetDetails,
-  //             details: childDetails!,
-  //           );
-  //         }),
-  //       );
-
-  //     case FbChildType.single:
-  //       FbWidgetDetails? childDetails;
-
-  //       if (details.hasChild) {
-  //         childDetails = getChildDetailsAt(0);
-  //         assert(childDetails != null, 'Error, could not get child details of a single widget');
-  //       }
-
-  //       return SingleChildWidgetMapper(
-  //         child: details.hasChild
-  //             ? _ChildWidgetBuilder(
-  //                 allWidgetDetails: allWidgetDetails,
-  //                 details: childDetails!,
-  //               )
-  //             //Means this widget has no child
-  //             : const SizedBox(),
-  //         widgetStyles: details.styles,
-  //       );
-
-  //     default:
-  //       return NoChildChildWidgetMapper(
-  //         widgetStyles: details.styles,
-  //       );
-  //   }
-  // }
 }
