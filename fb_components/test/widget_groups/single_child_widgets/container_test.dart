@@ -12,7 +12,7 @@ void main() {
 
     containerConfig.updateStyles(
       FbContainerStyles(
-        1,
+        '1',
         color: Colors.blue,
         height: 100,
         width: 100,
@@ -32,7 +32,7 @@ void main() {
 
     containerConfig.updateStyles(
       FbContainerStyles(
-        1,
+        '1',
         color: Colors.blue,
         height: 100,
         width: 100,

@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MenuOverlay extends StatelessWidget {
   final FbWidgetType widgetType;
   final WidgetTreeBloc widgetTreeBloc;
-  final int widgetId;
+  final String widgetId;
 
   const MenuOverlay({
     Key? key,

@@ -11,8 +11,8 @@ class CodeGeneratorController {
   final InterfaceController _interfaceController;
   final WidgetFormatter widgetFormatter = WidgetFormatter();
 
-  Map<int, FbWidgetDetails> get allDetails => _interfaceController.fbDetailsMap;
-  Map<int, BaseFbConfig> get allWidgetConfig => _interfaceController.fbConfigMap;
+  Map<String, FbWidgetDetails> get allDetails => _interfaceController.fbDetailsMap;
+  Map<String, BaseFbConfig> get allWidgetConfig => _interfaceController.fbConfigMap;
 
   String getCode() {
     // Get the first details
@@ -24,7 +24,7 @@ class CodeGeneratorController {
     return widgetFormatter.formatWidget(code);
   }
 
-  String _generateCode(int id, FbWidgetDetails widgetDetails, {int level = 1}) {
+  String _generateCode(String id, FbWidgetDetails widgetDetails, {int level = 1}) {
     final children = widgetDetails.children;
     final List<String> childrenCodeList = [];
 

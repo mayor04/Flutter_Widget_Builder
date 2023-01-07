@@ -3,11 +3,11 @@ part of 'widget_tree_bloc.dart';
 enum WidgetTreeAction { none, add, remove, wrap, delete }
 
 class WidgetTreeState {
-  final Map<int, FbWidgetDetails> fbDetailsMap;
-  final Map<int, BaseFbConfig> fbConfigMap;
+  final Map<String, FbWidgetDetails> fbDetailsMap;
+  final Map<String, BaseFbConfig> fbConfigMap;
   final WidgetTreeAction? action;
-  final int? widgetId;
-  final int? parentId;
+  final String? widgetId;
+  final String? parentId;
 
   WidgetTreeState({
     required this.fbDetailsMap,

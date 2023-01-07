@@ -9,7 +9,7 @@ const _type = FbWidgetType.row;
 class FbRowConfig extends BaseFbConfig<FbRowStyles> with CodeGeneratorLogic {
   FbRowStyles? styles;
 
-  FbRowConfig({int? id, this.styles})
+  FbRowConfig({String? id, this.styles})
       : super(
           _type,
           FbChildType.multiple,
@@ -18,7 +18,7 @@ class FbRowConfig extends BaseFbConfig<FbRowStyles> with CodeGeneratorLogic {
 
   factory FbRowConfig.fromJson(Map<String, dynamic> json) {
     return FbRowConfig(
-      id: json['id'] as int,
+      id: json['id'] as String,
       styles: json['styles'] == null ? null : FbRowStyles.fromJson(json['styles']),
     );
   }
@@ -71,7 +71,7 @@ class FbRowStyles extends BaseFbStyles {
   MainAxisSize axisSize;
 
   FbRowStyles(
-    int id, {
+    String id, {
     this.mainAlignment = MainAxisAlignment.start,
     this.crossAlignment = CrossAxisAlignment.center,
     this.axisSize = MainAxisSize.max,
@@ -80,7 +80,7 @@ class FbRowStyles extends BaseFbStyles {
   // from json
   factory FbRowStyles.fromJson(Map<String, dynamic> json) {
     return FbRowStyles(
-      json['id'] as int,
+      json['id'] as String,
       mainAlignment: (json['mainAxisAlignment'] as String).toEnum(MainAxisAlignment.values) ??
           MainAxisAlignment.start,
       crossAlignment: (json['crossAxisAlignment'] as String).toEnum(CrossAxisAlignment.values) ??

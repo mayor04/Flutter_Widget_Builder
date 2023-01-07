@@ -10,11 +10,11 @@ const _type = FbWidgetType.column;
 class FbColumnConfig extends BaseFbConfig<FbColumnStyles> with CodeGeneratorLogic {
   FbColumnStyles? styles;
 
-  FbColumnConfig({int? id, this.styles}) : super(_type, FbChildType.multiple, id: id);
+  FbColumnConfig({String? id, this.styles}) : super(_type, FbChildType.multiple, id: id);
 
   factory FbColumnConfig.fromJson(Map<String, dynamic> json) {
     return FbColumnConfig(
-      id: json['id'] as int,
+      id: json['id'] as String,
       styles: json['styles'] == null ? null : FbColumnStyles.fromJson(json['styles']),
     );
   }
@@ -81,7 +81,7 @@ class FbColumnStyles extends BaseFbStyles {
   MainAxisSize axisSize;
 
   FbColumnStyles(
-    int id, {
+    String id, {
     this.mainAlignment = MainAxisAlignment.start,
     this.crossAlignment = CrossAxisAlignment.center,
     this.axisSize = MainAxisSize.max,
@@ -90,7 +90,7 @@ class FbColumnStyles extends BaseFbStyles {
   //from json
   factory FbColumnStyles.fromJson(Map<String, dynamic> json) {
     return FbColumnStyles(
-      json['id'] as int,
+      json['id'] as String,
       mainAlignment: (json['mainAxisAlignment'] as String).toEnum(MainAxisAlignment.values) ??
           MainAxisAlignment.start,
       crossAlignment: (json['crossAxisAlignment'] as String).toEnum(CrossAxisAlignment.values) ??

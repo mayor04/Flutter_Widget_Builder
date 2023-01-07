@@ -54,7 +54,7 @@ class SectionStyles extends StatelessWidget {
 
 class FInputPad extends StatelessWidget {
   final BaseFbInput fbInputBase;
-  final int widgetId;
+  final String widgetId;
 
   const FInputPad({
     Key? key,

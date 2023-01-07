@@ -7,7 +7,7 @@ void main() {
     final formatter = WidgetFormatter();
     final expandedConfig = FbExpandedConfig(
       styles: FbExpandedStyles(
-        1,
+        '1',
         flex: 10,
       ),
     );
@@ -22,8 +22,8 @@ void main() {
   test('Expanded config serialized correctly', () {
     final expandedConfig = FbExpandedConfig(
       styles: FbExpandedStyles(
-        1,
-        flex: 10,
+        '1',
+        flex: 0,
       ),
     );
 

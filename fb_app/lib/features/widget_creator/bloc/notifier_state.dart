@@ -10,7 +10,7 @@ abstract class NotifierState extends Equatable {
 class NotifierInitial extends NotifierState {}
 
 class NotifierSelected extends NotifierState {
-  final int id;
+  final String id;
   const NotifierSelected(this.id);
 
   @override
@@ -18,7 +18,7 @@ class NotifierSelected extends NotifierState {
 }
 
 class NotifierStyleChanged extends NotifierState {
-  final int id;
+  final String id;
   const NotifierStyleChanged(this.id);
 
   @override

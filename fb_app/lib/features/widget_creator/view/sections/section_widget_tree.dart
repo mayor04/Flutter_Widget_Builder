@@ -68,7 +68,7 @@ class SectionWidgetTree extends StatelessWidget {
                   await Future.delayed(Duration.zero);
 
                   if (state.action == WidgetTreeAction.add) {
-                    context.read<NotifierBloc>().select(state.widgetId ?? 0);
+                    context.read<NotifierBloc>().select(state.widgetId ?? '0');
                   }
                 },
                 builder: (context, state) {
@@ -96,7 +96,7 @@ class SectionWidgetTree extends StatelessWidget {
 /// This is more like a nested widget that keeps
 /// nesting children recurssively till they are none left
 class WidgetTypeItem extends StatelessWidget {
-  final Map<int, FbWidgetDetails> allWidgetDetails;
+  final Map<String, FbWidgetDetails> allWidgetDetails;
   final FbWidgetDetails widgetDetails;
 
   const WidgetTypeItem({

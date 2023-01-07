@@ -14,7 +14,7 @@ void main() {
     test('Text code formatted correctly', () {
       final textConfig = FbTextConfig(
         styles: FbTextStyles(
-          1,
+          '1',
           text: 'Hello World',
           color: Colors.red,
         ),
@@ -28,7 +28,7 @@ void main() {
     test('Text formatting with bad text', () {
       final textConfig = FbTextConfig(
         styles: FbTextStyles(
-          1,
+          '1',
           text: '''Abnormal '"text''',
           color: Colors.blue,
         ),
@@ -43,7 +43,7 @@ void main() {
   test('Text config serialized correctly', () {
     final textConfig = FbTextConfig(
       styles: FbTextStyles(
-        1,
+        '1',
         text: 'Hello World',
         color: Colors.red,
       ),

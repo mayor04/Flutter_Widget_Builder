@@ -13,7 +13,7 @@ void main() {
     formatter.formatWidget(rowConfig.generateCode(''));
 
     rowConfig.updateStyles(
-      FbRowStyles(1,
+      FbRowStyles('1',
           mainAlignment: MainAxisAlignment.center,
           crossAlignment: CrossAxisAlignment.center,
           axisSize: MainAxisSize.min),
@@ -28,7 +28,7 @@ void main() {
     final rowConfig = FbRowConfig();
 
     rowConfig.updateStyles(
-      FbRowStyles(1,
+      FbRowStyles('1',
           mainAlignment: MainAxisAlignment.center,
           crossAlignment: CrossAxisAlignment.center,
           axisSize: MainAxisSize.min),

@@ -10,27 +10,27 @@ abstract class WidgetTreeEvent extends Equatable {
 class InitialWidgetTreeEvent extends WidgetTreeEvent {}
 
 class AddWidgetEvent extends WidgetTreeEvent {
-  final int parentId;
+  final String parentId;
   final FbWidgetType fbWidgetType;
 
   const AddWidgetEvent(this.parentId, this.fbWidgetType);
 }
 
 class WrapWidgetEvent extends WidgetTreeEvent {
-  final int childId;
+  final String childId;
   final FbWidgetType fbWidgetType;
 
   const WrapWidgetEvent(this.childId, this.fbWidgetType);
 }
 
 class RemoveWidgetEvent extends WidgetTreeEvent {
-  final int id;
+  final String id;
 
   const RemoveWidgetEvent(this.id);
 }
 
 class DeleteWidgetEvent extends WidgetTreeEvent {
-  final int id;
+  final String id;
 
   const DeleteWidgetEvent(this.id);
 }

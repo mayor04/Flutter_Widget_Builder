@@ -7,15 +7,15 @@ typedef FbWidgetStylesCallback = BaseFbStyles Function();
 class InterfaceController {
   final log = AppLog('FbInterfaceController');
 
-  final List<int> idList = [];
-  final Map<int, BaseFbConfig> fbConfigMap = {};
+  final List<String> idList = [];
+  final Map<String, BaseFbConfig> fbConfigMap = {};
 
   /// Each of them hold the list of child/children and parent id
   /// For example lets take a look at
   ///               ` Container1 > Column > Container2`
   /// The columnDetails holds reference to container1 as parentId and
   /// Hold refrence to container2 as children
-  final Map<int, FbWidgetDetails> fbDetailsMap = {};
+  final Map<String, FbWidgetDetails> fbDetailsMap = {};
 
   // Todo: inspect this implemntation -> is the styles suppose to be stored in a map
   // final Map<int, FbWidgetStylesCallback> widgetStylesCallbackMap = {};
@@ -26,7 +26,7 @@ class InterfaceController {
     idList.add(xMainId);
     fbDetailsMap[xMainId] = FbWidgetDetails(
       id: xMainId,
-      parentId: 0,
+      parentId: '0',
       widgetType: FbWidgetType.main,
       levelInTree: 0,
       children: [],
@@ -34,7 +34,7 @@ class InterfaceController {
   }
 
   /// This is called first when the screen is loaded
-  Map<int, FbWidgetDetails> initialLoad() {
+  Map<String, FbWidgetDetails> initialLoad() {
     /// Since no data is saved locally for now the initial load
     /// is always 1 for now
 
@@ -48,7 +48,7 @@ class InterfaceController {
 
   /// throws `Exception('Parent not found')` when the parent id is not found
   /// Add child widget to the `fbWidgetMap` and `idList`
-  Map<int, FbWidgetDetails> addChildWidget(int parentId, BaseFbConfig childWidget) {
+  Map<String, FbWidgetDetails> addChildWidget(String parentId, BaseFbConfig childWidget) {
     final id = childWidget.id;
 
     // Add id to the Id list
@@ -77,7 +77,7 @@ class InterfaceController {
   }
 
   /// Removes only the particular widget from the widget tree
-  Map<int, FbWidgetDetails> removeWidget(int removeWidgetId) {
+  Map<String, FbWidgetDetails> removeWidget(String removeWidgetId) {
     // The aim of this remove is to remove all the reference to the widget
     // To acheive this we remove the child reference from the parent
     // And also remove the reference to parent id from the child
@@ -92,8 +92,8 @@ class InterfaceController {
       throw Failure('widget does not exist');
     }
 
-    int? parentId = removeWidgetDetails.parentId;
-    List<int> children = removeWidgetDetails.children;
+    String? parentId = removeWidgetDetails.parentId;
+    List<String> children = removeWidgetDetails.children;
 
     // If this widget has multiple children it mean it can be removed
     if (children.length > 1) {
@@ -126,7 +126,7 @@ class InterfaceController {
     return fbDetailsMap;
   }
 
-  Map<int, FbWidgetDetails> wrapWidget(int childId, BaseFbConfig wrapWidget) {
+  Map<String, FbWidgetDetails> wrapWidget(String childId, BaseFbConfig wrapWidget) {
     // The aim of wrap is to insert a widget in between two widget
     // What we would do first is attach childId to the new widget to be created
     // and detach the childId from the previous parent.
@@ -168,7 +168,7 @@ class InterfaceController {
   /// from the widget tree the children appears to be deleted
   ///
   /// This pattern is used incase the user wants to undo his action
-  Map<int, FbWidgetDetails> deleteWidget(int widgetId) {
+  Map<String, FbWidgetDetails> deleteWidget(String widgetId) {
     final parentId = fbDetailsMap[widgetId]?.parentId;
     fbDetailsMap[parentId]?.replaceChild(widgetId, null);
 
@@ -179,7 +179,7 @@ class InterfaceController {
     return fbDetailsMap;
   }
 
-  BaseFbStyles? getWidgetStyles(int id) {
+  BaseFbStyles? getWidgetStyles(String id) {
     return fbConfigMap[id]?.getWidgetStyles();
   }
 
@@ -187,7 +187,7 @@ class InterfaceController {
     fbConfigMap[styles.id]?.updateStyles(styles);
   }
 
-  // void _refreshWidgetConfig(int id) {
+  // void _refreshWidgetConfig(String id) {
   //   var config = fbWidgetsMap[id]?.getWidgetStyles;
   //   if (config == null) {
   //     log.error('refreshWidgetConfig($id)', 'Found no config data while refreshing');

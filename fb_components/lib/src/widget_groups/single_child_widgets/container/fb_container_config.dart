@@ -12,7 +12,7 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGenerat
   FbContainerStyles? styles;
 
   FbContainerConfig({
-    int? id,
+    String? id,
     this.styles,
   }) : super(_type, FbChildType.single, id: id);
 
@@ -147,7 +147,7 @@ class FbContainerStyles extends BaseFbStyles {
   //color
 
   FbContainerStyles(
-    int id, {
+    String id, {
     this.height = 300,
     this.width = 300,
     required this.color,

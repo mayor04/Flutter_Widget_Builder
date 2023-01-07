@@ -4,17 +4,17 @@ import 'package:fb_core/fb_core.dart';
 class FbWidgetDetails {
   final log = AppLog('FBdata');
 
-  final int id;
+  final String id;
   final FbWidgetType widgetType;
 
   // Both parent and children can be changed since removing doe
   // Chilren is not made immutable to allow changing children
-  List<int> _children;
-  List<int> get children => _children;
+  List<String> _children;
+  List<String> get children => _children;
 
   // For easy search when
-  int _parentId;
-  int get parentId => _parentId;
+  String _parentId;
+  String get parentId => _parentId;
 
   /// Represent the how the widget is in the tree.
   /// The topmost widget is `0` and child `1` any subsequent child added
@@ -26,9 +26,9 @@ class FbWidgetDetails {
   FbWidgetDetails({
     required this.id,
     required this.widgetType,
-    required List<int> children,
+    required List<String> children,
     required this.levelInTree,
-    required int parentId,
+    required String parentId,
     this.childType = FbChildType.single,
   })  : _children = children,
         _parentId = parentId;
@@ -36,11 +36,11 @@ class FbWidgetDetails {
   // FROM json
   factory FbWidgetDetails.fromJson(Map<String, dynamic> json) {
     return FbWidgetDetails(
-      id: json['id'] as int,
+      id: json['id'],
       widgetType: FbWidgetType.values[json['widgetType'] as int],
-      children: (json['children'] as List<dynamic>).cast<int>(),
+      children: (json['children'] as List<dynamic>).cast<String>(),
       levelInTree: json['levelInTree'] as int,
-      parentId: json['parentId'] as int,
+      parentId: json['parentId'] as String,
       childType: FbChildType.values[json['childType'] as int],
     );
   }
@@ -54,12 +54,12 @@ class FbWidgetDetails {
   }
 
   /// Change children is used only when there is a wrap
-  void changeChildren(List<int> children) {
+  void changeChildren(List<String> children) {
     _children = children;
   }
 
   /// Replace childId with another child id
-  void replaceChild(int id, int? replaceId) {
+  void replaceChild(String id, String? replaceId) {
     final index = _children.indexOf(id);
     if (replaceId == null) {
       _children.removeAt(index);
@@ -70,7 +70,7 @@ class FbWidgetDetails {
   }
 
   ///Change parent is used only when there is a remove or wrap
-  void changeParentId(int parentId) {
+  void changeParentId(String parentId) {
     _parentId = parentId;
   }
 
@@ -87,11 +87,11 @@ class FbWidgetDetails {
     return true;
   }
 
-  int? childAt(index) {
+  String? childAt(index) {
     return children.itemAt(index);
   }
 
-  int? get firstChildId {
+  String? get firstChildId {
     return childAt(0);
   }
 

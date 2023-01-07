@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('Test if container is rendered correctly', (WidgetTester tester) async {
     var containerStyles = FbContainerStyles(
-      101,
+      '101',
       height: 100,
       width: 100,
       alignment: Alignment.center,

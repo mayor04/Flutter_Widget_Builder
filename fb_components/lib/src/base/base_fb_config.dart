@@ -6,18 +6,18 @@ import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text_co
 import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_config.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box_config.dart';
+import 'package:fb_core/fb_core.dart';
 
 /// This abstract class is the base class for every widget
 /// Extends this class to add more functionality
 ///`FBcontainerConfig extends FBwidgetConfig`
 abstract class BaseFbConfig<T extends BaseFbStyles> {
   // TODO(sam): change id to string
-  final int id;
+  final String id;
   final FbWidgetType widgetType;
   final FbChildType childType;
 
-  BaseFbConfig(this.widgetType, this.childType, {int? id})
-      : id = id ?? DateTime.now().millisecondsSinceEpoch;
+  BaseFbConfig(this.widgetType, this.childType, {String? id}) : id = id ?? IdGen.generateIdString();
 
   static BaseFbConfig<BaseFbStyles> fromJson(Map<String, dynamic> json) {
     switch (FbWidgetType.values.firstWhere((e) => e.name == json['type'])) {
@@ -59,7 +59,7 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
 /// Each WidgetConfig contains a data, this data is used
 /// for displaying the Widget on the screen
 abstract class BaseFbStyles {
-  final int id;
+  final String id;
   final FbWidgetType widgetType;
 
   const BaseFbStyles(this.id, this.widgetType);

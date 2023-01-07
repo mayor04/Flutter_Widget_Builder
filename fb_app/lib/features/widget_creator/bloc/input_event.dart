@@ -8,6 +8,6 @@ abstract class InputEvent extends Equatable {
 }
 
 class GetInputsEvent extends InputEvent {
-  final int widgetId;
+  final String widgetId;
   const GetInputsEvent(this.widgetId);
 }

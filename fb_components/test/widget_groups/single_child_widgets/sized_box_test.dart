@@ -10,7 +10,7 @@ void main() {
     formatter.formatWidget(boxConfig.generateCode(null));
 
     boxConfig.updateStyles(
-      FbSizedBoxStyles(1, height: 20, width: 20),
+      FbSizedBoxStyles('1', height: 20, width: 20),
     );
 
     formatter.formatWidget(
@@ -22,7 +22,7 @@ void main() {
     final boxConfig = FbSizedBoxConfig();
 
     boxConfig.updateStyles(
-      FbSizedBoxStyles(1, height: 20, width: 20),
+      FbSizedBoxStyles('1', height: 20, width: 20),
     );
     final json = boxConfig.toJson();
     final newConfig = FbSizedBoxConfig.fromJson(json);

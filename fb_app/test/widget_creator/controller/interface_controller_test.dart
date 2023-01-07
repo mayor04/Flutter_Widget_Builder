@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   late InterfaceController interfaceController;
-  late Map<int, FbWidgetDetails> details;
+  late Map<String, FbWidgetDetails> details;
 
   setUp(() {
     interfaceController = InterfaceController();
@@ -273,7 +273,7 @@ Future wait() {
   return Future.delayed(const Duration(milliseconds: 4));
 }
 
-FbWidgetDetails? getDetails(InterfaceController interfaceController, int widgetId) {
+FbWidgetDetails? getDetails(InterfaceController interfaceController, String widgetId) {
   return interfaceController.fbDetailsMap[widgetId];
 }
 

@@ -13,7 +13,7 @@ void main() {
     formatter.formatWidget(stackConfig.generateCode(''));
     stackConfig.updateStyles(
       FbStackStyles(
-        1,
+        '1',
         stackFit: StackFit.loose,
       ),
     );
@@ -28,7 +28,7 @@ void main() {
 
     stackConfig.updateStyles(
       FbStackStyles(
-        1,
+        '1',
         stackFit: StackFit.loose,
       ),
     );

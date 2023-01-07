@@ -10,7 +10,7 @@ void main() {
     formatter.formatWidget(positionedConfig.generateCode(null));
 
     positionedConfig.updateStyles(
-      FbPositionedStyles(1, bottom: 20, top: 20, left: 10, right: 10),
+      FbPositionedStyles('1', bottom: 20, top: 20, left: 10, right: 10),
     );
 
     formatter.formatWidget(
@@ -22,7 +22,7 @@ void main() {
     final positionedConfig = FbPositionedConfig();
 
     positionedConfig.updateStyles(
-      FbPositionedStyles(1, bottom: 20, top: 20, left: 10, right: 10),
+      FbPositionedStyles('1', bottom: 20, top: 20, left: 10, right: 10),
     );
     final json = positionedConfig.toJson();
     final newConfig = FbPositionedConfig.fromJson(json);

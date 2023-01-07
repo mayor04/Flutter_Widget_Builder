@@ -7,7 +7,7 @@ const _type = FbWidgetType.sizedBox;
 class FbSizedBoxConfig extends BaseFbConfig<FbSizedBoxStyles> with CodeGeneratorLogic {
   FbSizedBoxStyles? styles;
 
-  FbSizedBoxConfig({int? id, this.styles})
+  FbSizedBoxConfig({String? id, this.styles})
       : super(FbWidgetType.sizedBox, FbChildType.single, id: id);
 
   factory FbSizedBoxConfig.fromJson(Map<String, dynamic> json) {
@@ -52,7 +52,7 @@ class FbSizedBoxStyles extends BaseFbStyles {
   final double? width;
 
   FbSizedBoxStyles(
-    int id, {
+    String id, {
     this.height,
     this.width,
   }) : super(id, _type);
@@ -68,7 +68,7 @@ class FbSizedBoxStyles extends BaseFbStyles {
 
   // copy with
   FbSizedBoxStyles copyWith({
-    int? id,
+    String? id,
     FbWidgetType? widgetType,
     double? height,
     double? width,

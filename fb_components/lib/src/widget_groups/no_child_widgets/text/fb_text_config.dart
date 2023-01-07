@@ -8,7 +8,7 @@ const _type = FbWidgetType.text;
 class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
   FbTextStyles? styles;
 
-  FbTextConfig({int? id, this.styles}) : super(_type, FbChildType.none, id: id);
+  FbTextConfig({String? id, this.styles}) : super(_type, FbChildType.none, id: id);
 
   factory FbTextConfig.fromJson(Map<String, dynamic> json) {
     return FbTextConfig(
@@ -84,7 +84,7 @@ class FbTextStyles extends BaseFbStyles {
   final double? fontSize;
 
   FbTextStyles(
-    int id, {
+    String id, {
     this.text = '',
     required this.color,
     this.fontWeight,

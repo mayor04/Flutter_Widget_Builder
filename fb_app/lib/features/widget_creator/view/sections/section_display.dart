@@ -41,7 +41,7 @@ class SectionDisplay extends StatelessWidget {
 /// Adds a border to every widget that is selected
 /// Also rebuilds child widget when the input changes
 class _ChildWidgetBuilder extends StatefulWidget {
-  final Map<int, FbWidgetDetails> allWidgetDetails;
+  final Map<String, FbWidgetDetails> allWidgetDetails;
   final FbWidgetDetails details;
 
   const _ChildWidgetBuilder({
@@ -56,8 +56,8 @@ class _ChildWidgetBuilder extends StatefulWidget {
 
 class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
   late FbWidgetDetails details;
-  late Map<int, FbWidgetDetails> allWidgetDetails;
-  late Map<int, BaseFbConfig> allWidgetConfig;
+  late Map<String, FbWidgetDetails> allWidgetDetails;
+  late Map<String, BaseFbConfig> allWidgetConfig;
   bool isSelected = false;
 
   @override
@@ -153,7 +153,7 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
   Widget _buildSingleChildWidget({
     required FbWidgetDetails details,
     required BaseFbStyles widgetStyles,
-    required Map<int, FbWidgetDetails> allWidgetDetails,
+    required Map<String, FbWidgetDetails> allWidgetDetails,
     required VoidCallback onTap,
   }) {
     FbWidgetDetails? childDetails;
@@ -179,7 +179,7 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
   Widget _buildParenDataWidget({
     required FbWidgetDetails details,
     required BaseFbStyles widgetStyles,
-    required Map<int, FbWidgetDetails> allWidgetDetails,
+    required Map<String, FbWidgetDetails> allWidgetDetails,
   }) {
     FbWidgetDetails? childDetails;
 
@@ -203,7 +203,7 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
   Widget _buildMultipleChildWidget({
     required FbWidgetDetails details,
     required BaseFbStyles widgetStyles,
-    required Map<int, FbWidgetDetails> allWidgetDetails,
+    required Map<String, FbWidgetDetails> allWidgetDetails,
     required VoidCallback onTap,
   }) {
     return MultipleChildWidgetBuilder(

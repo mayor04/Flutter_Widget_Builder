@@ -7,7 +7,7 @@ const _type = FbWidgetType.expanded;
 class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> with CodeGeneratorLogic {
   FbExpandedStyles? styles;
 
-  FbExpandedConfig({int? id, this.styles}) : super(_type, FbChildType.single, id: id);
+  FbExpandedConfig({String? id, this.styles}) : super(_type, FbChildType.single, id: id);
 
   factory FbExpandedConfig.fromJson(Map<String, dynamic> json) {
     return FbExpandedConfig(
@@ -54,7 +54,7 @@ class FbExpandedStyles extends BaseFbStyles {
   final int flex;
 
   FbExpandedStyles(
-    int id, {
+    String id, {
     this.flex = 1,
   }) : super(id, _type);
 

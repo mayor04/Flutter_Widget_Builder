@@ -7,7 +7,7 @@ const _type = FbWidgetType.positioned;
 class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> with CodeGeneratorLogic {
   FbPositionedStyles? styles;
 
-  FbPositionedConfig({int? id, this.styles}) : super(_type, FbChildType.single, id: id);
+  FbPositionedConfig({String? id, this.styles}) : super(_type, FbChildType.single, id: id);
 
   factory FbPositionedConfig.fromJson(Map<String, dynamic> json) {
     return FbPositionedConfig(
@@ -57,7 +57,7 @@ class FbPositionedStyles extends BaseFbStyles {
   final double? bottom;
 
   FbPositionedStyles(
-    int id, {
+    String id, {
     this.top,
     this.right,
     this.left,

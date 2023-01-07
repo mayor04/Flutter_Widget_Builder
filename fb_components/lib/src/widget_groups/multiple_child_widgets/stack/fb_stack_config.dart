@@ -9,7 +9,7 @@ const _type = FbWidgetType.stack;
 class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic {
   FbStackStyles? styles;
 
-  FbStackConfig({int? id, this.styles})
+  FbStackConfig({String? id, this.styles})
       : super(
           _type,
           FbChildType.multiple,
@@ -18,7 +18,7 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic 
 
   factory FbStackConfig.fromJson(Map<String, dynamic> json) {
     return FbStackConfig(
-      id: json['id'] as int,
+      id: json['id'] as String,
       styles: json['styles'] == null ? null : FbStackStyles.fromJson(json['styles']),
     );
   }
@@ -64,13 +64,13 @@ class FbStackStyles extends BaseFbStyles {
   final StackFit stackFit;
 
   FbStackStyles(
-    int id, {
+    String id, {
     this.stackFit = StackFit.loose,
   }) : super(id, _type);
 
   factory FbStackStyles.fromJson(Map<String, dynamic> json) {
     return FbStackStyles(
-      json['id'] as int,
+      json['id'] as String,
       stackFit: (json['stackFit'] as String).toEnum(StackFit.values) ?? StackFit.loose,
     );
   }

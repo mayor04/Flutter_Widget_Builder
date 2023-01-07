@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddWidgetOverlay extends StatelessWidget {
   final FbWidgetType widgetType;
-  final int widgetId;
+  final String widgetId;
   final AddWidgetType addOrWrap;
   final WidgetTreeBloc widgetTreeBloc;
 
@@ -90,7 +90,7 @@ class AddWidgetOverlay extends StatelessWidget {
 
 class _WidgetItem extends StatelessWidget {
   final FbWidgetType type;
-  final int parentId;
+  final String parentId;
   final AddWidgetType addOrWrap;
 
   const _WidgetItem({

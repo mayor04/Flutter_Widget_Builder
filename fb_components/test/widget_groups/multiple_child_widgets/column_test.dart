@@ -13,7 +13,7 @@ void main() {
     formatter.formatWidget(columnConfig.generateCode(''));
 
     columnConfig.updateStyles(
-      FbColumnStyles(1,
+      FbColumnStyles('1',
           mainAlignment: MainAxisAlignment.center,
           crossAlignment: CrossAxisAlignment.center,
           axisSize: MainAxisSize.min),
@@ -29,7 +29,7 @@ void main() {
     final columnConfig = FbColumnConfig();
 
     columnConfig.updateStyles(
-      FbColumnStyles(1,
+      FbColumnStyles('1',
           mainAlignment: MainAxisAlignment.center,
           crossAlignment: CrossAxisAlignment.center,
           axisSize: MainAxisSize.min),

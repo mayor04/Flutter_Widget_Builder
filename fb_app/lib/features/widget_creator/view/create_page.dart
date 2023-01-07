@@ -70,7 +70,7 @@ class _CreatePageState extends State<CreatePage> {
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-                            context.read<NotifierBloc>().select(0);
+                            context.read<NotifierBloc>().select('0');
                             AppOverlay.removeAll(context);
                           },
                           child: const SectionDisplay(),

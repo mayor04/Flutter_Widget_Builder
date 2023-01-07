@@ -1,1 +1,1 @@
-const int xMainId = 111;
+const String xMainId = '111';

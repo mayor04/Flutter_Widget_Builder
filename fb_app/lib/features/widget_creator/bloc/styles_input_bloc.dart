@@ -15,7 +15,7 @@ class StylesInputBloc extends Cubit<StylesInputState> {
     _fbController = fbController;
   }
 
-  Future<void> getStyles(int widgetId) async {
+  Future<void> getStyles(String widgetId) async {
     try {
       final styles = _fbController.getWidgetStyles(widgetId);
       emit(StylesInputState(styles, widgetId));

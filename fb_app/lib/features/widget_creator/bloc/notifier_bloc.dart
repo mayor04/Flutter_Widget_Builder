@@ -14,11 +14,11 @@ class NotifierBloc extends Cubit<NotifierState> {
     log.out('onChange()', change);
   }
 
-  void select(int id) {
+  void select(String id) {
     emit(NotifierSelected(id));
   }
 
-  void styleChanged(int id) {
+  void styleChanged(String id) {
     emit(NotifierStyleChanged(id));
   }
 }
