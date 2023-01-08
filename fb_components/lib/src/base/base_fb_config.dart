@@ -22,21 +22,21 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
   static BaseFbConfig<BaseFbStyles> fromJson(Map<String, dynamic> json) {
     switch (FbWidgetType.values.firstWhere((e) => e.name == json['type'])) {
       case FbWidgetType.container:
-        return FbContainerConfig();
+        return FbContainerConfig.fromJson(json);
       case FbWidgetType.column:
-        return FbColumnConfig();
+        return FbColumnConfig.fromJson(json);
       case FbWidgetType.row:
-        return FbRowConfig();
+        return FbRowConfig.fromJson(json);
       case FbWidgetType.sizedBox:
-        return FbSizedBoxConfig();
+        return FbSizedBoxConfig.fromJson(json);
       case FbWidgetType.stack:
-        return FbStackConfig();
+        return FbStackConfig.fromJson(json);
       case FbWidgetType.expanded:
-        return FbExpandedConfig();
+        return FbExpandedConfig.fromJson(json);
       case FbWidgetType.text:
-        return FbTextConfig();
+        return FbTextConfig.fromJson(json);
       case FbWidgetType.positioned:
-        return FbPositionedConfig();
+        return FbPositionedConfig.fromJson(json);
 
       default:
     }

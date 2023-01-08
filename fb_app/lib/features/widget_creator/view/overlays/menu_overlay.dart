@@ -5,7 +5,6 @@ import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:fb_core/src/widgets/app_overlay.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MenuOverlay extends StatelessWidget {
   final FbWidgetType widgetType;
@@ -73,7 +72,7 @@ class MenuOverlay extends StatelessWidget {
             text: 'Remove',
             onTap: (tapDetails) {
               AppOverlay.removeAll(context);
-              context.read<WidgetTreeBloc>().add(RemoveWidgetEvent(widgetId));
+              widgetTreeBloc.add(RemoveWidgetEvent(widgetId));
             },
           ),
           const Divider(color: Colors.white10, height: 15),

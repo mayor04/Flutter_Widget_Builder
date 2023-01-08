@@ -9,6 +9,7 @@ class FileBloc extends Cubit<FileState> {
   FileBloc() : super(const FileState(status: FileStateStatus.initial));
 
   final FilesRepository _fileRepo = FilesRepository();
+  final WidgetDataRepository _widgetRepo = WidgetDataRepository();
 
   void createFile({
     required String name,
@@ -16,14 +17,22 @@ class FileBloc extends Cubit<FileState> {
     String? desc,
   }) async {
     emit(state.copyWith(status: FileStateStatus.loading));
+    final fileId = IdGen.generateIdString();
     try {
       await _fileRepo.create(FileModel(
-        id: IdGen.generateIdString(),
+        id: fileId,
         name: name,
         desc: desc ?? '',
-        projectId: '',
+        projectId: projectId,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
+      ));
+
+      await _widgetRepo.create(WidgetDataModel(
+        id: fileId,
+        idList: [],
+        fbConfigMap: {},
+        fbDetailsMap: {},
       ));
 
       emit(state.copyWith(status: FileStateStatus.success));

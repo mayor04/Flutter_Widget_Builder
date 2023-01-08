@@ -19,16 +19,22 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGenerat
   factory FbContainerConfig.fromJson(Map<String, dynamic> json) {
     return FbContainerConfig(
       id: json['id'],
-      styles: json['styles'] == null ? null : FbContainerStyles.fromJson(json['styles']),
+      styles: json['styles'] == null
+          ? null
+          : FbContainerStyles.fromJson(
+              json['styles'] as Map<String, dynamic>,
+            ),
     );
   }
 
   @override
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'type': widgetType.name,
-        'styles': styles?.toJson(),
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'type': widgetType.name,
+      'styles': styles?.toJson(),
+    };
+  }
 
   @override
   void updateStyles(FbContainerStyles styles) {

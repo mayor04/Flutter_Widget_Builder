@@ -27,15 +27,11 @@ void main() async {
   setPathUrlStrategy();
   await Datastore.initStorage();
 
-  runApp(MyApp(
-    fbController: InterfaceController(),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  final InterfaceController fbController;
-
-  const MyApp({Key? key, required this.fbController}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -65,23 +61,28 @@ class _MyAppState extends State<MyApp> {
               routes: [
                 GoRoute(
                   path: 'build/:file_id',
-                  builder: (context, state) => MultiBlocProvider(
-                    providers: [
-                      BlocProvider<WidgetTreeBloc>(
-                        create: (_) =>
-                            WidgetTreeBloc(widget.fbController)..add(InitialWidgetTreeEvent()),
-                      ),
-                      BlocProvider<StylesInputBloc>(
-                          create: (_) => StylesInputBloc(widget.fbController)),
-                      BlocProvider<NotifierBloc>(create: (_) => NotifierBloc()),
-                      BlocProvider<CodeDisplayBloc>(
-                        create: (_) => CodeDisplayBloc(
-                          generator: CodeGeneratorController(widget.fbController),
+                  builder: (context, state) {
+                    final interfaceController =
+                        InterfaceController(widgetDataId: state.params['file_id']!);
+
+                    return MultiBlocProvider(
+                      providers: [
+                        BlocProvider<WidgetTreeBloc>(
+                          create: (_) =>
+                              WidgetTreeBloc(interfaceController)..add(InitialWidgetTreeEvent()),
                         ),
-                      ),
-                    ],
-                    child: CreatePage(fileId: state.params['file_id']),
-                  ),
+                        BlocProvider<StylesInputBloc>(
+                            create: (_) => StylesInputBloc(interfaceController)),
+                        BlocProvider<NotifierBloc>(create: (_) => NotifierBloc()),
+                        BlocProvider<CodeDisplayBloc>(
+                          create: (_) => CodeDisplayBloc(
+                            generator: CodeGeneratorController(interfaceController),
+                          ),
+                        ),
+                      ],
+                      child: CreatePage(fileId: state.params['file_id']),
+                    );
+                  },
                 ),
               ],
             ),

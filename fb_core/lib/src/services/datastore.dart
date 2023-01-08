@@ -1,5 +1,6 @@
 import 'package:fb_core/src/domain/enitities/local/file_local_entity.dart';
 import 'package:fb_core/src/domain/enitities/local/project_local_entity.dart';
+import 'package:fb_core/src/domain/enitities/local/widget_data_local_entity.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // A wrapper around local storage (hive)
@@ -8,6 +9,7 @@ class Datastore {
     await Hive.initFlutter();
     Hive.registerAdapter(ProjectLocalEntityAdapter());
     Hive.registerAdapter(FileLocalEntityAdapter());
+    Hive.registerAdapter(WidgetDataLocalEntityAdapter());
   }
 
   Future<DatastoreBox<E>> openBox<E>(String boxName) async {
@@ -55,7 +57,7 @@ class DatastoreBox<E> {
     return box.get(key, defaultValue: defaultValue);
   }
 
-  List<dynamic> getAll() {
+  List<E> getAll() {
     return box.values.toList();
   }
 }

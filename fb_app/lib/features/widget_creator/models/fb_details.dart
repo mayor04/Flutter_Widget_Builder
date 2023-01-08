@@ -37,11 +37,11 @@ class FbWidgetDetails {
   factory FbWidgetDetails.fromJson(Map<String, dynamic> json) {
     return FbWidgetDetails(
       id: json['id'],
-      widgetType: FbWidgetType.values[json['widgetType'] as int],
+      widgetType: FbWidgetType.values.firstWhere((e) => e.name == json['widgetType']),
       children: (json['children'] as List<dynamic>).cast<String>(),
       levelInTree: json['levelInTree'] as int,
       parentId: json['parentId'] as String,
-      childType: FbChildType.values[json['childType'] as int],
+      childType: FbChildType.values.firstWhere((e) => e.name == json['childType']),
     );
   }
 

@@ -7,30 +7,62 @@ typedef FbWidgetStylesCallback = BaseFbStyles Function();
 class InterfaceController {
   final log = AppLog('FbInterfaceController');
 
-  final List<String> idList = [];
-  final Map<String, BaseFbConfig> fbConfigMap = {};
+  final String widgetDataId;
+
+  List<String> idList = [];
+  Map<String, BaseFbConfig> fbConfigMap = {};
 
   /// Each of them hold the list of child/children and parent id
   /// For example lets take a look at
   ///               ` Container1 > Column > Container2`
   /// The columnDetails holds reference to container1 as parentId and
   /// Hold refrence to container2 as children
-  final Map<String, FbWidgetDetails> fbDetailsMap = {};
+  Map<String, FbWidgetDetails> fbDetailsMap = {};
 
   // Todo: inspect this implemntation -> is the styles suppose to be stored in a map
   // final Map<int, FbWidgetStylesCallback> widgetStylesCallbackMap = {};
 
-  InterfaceController() {
-    // The main data is used to know the starting point of the widget
+  final WidgetDataRepository _widgetRepo = WidgetDataRepository();
 
-    idList.add(xMainId);
-    fbDetailsMap[xMainId] = FbWidgetDetails(
-      id: xMainId,
-      parentId: '0',
-      widgetType: FbWidgetType.main,
-      levelInTree: 0,
-      children: [],
+  InterfaceController({required this.widgetDataId});
+
+  Future<void> init() => loadWidgetData(widgetDataId);
+
+  Future<void> loadWidgetData(String widgetDataId) async {
+    final widgetData = await _widgetRepo.get(widgetDataId);
+
+    idList = widgetData.idList;
+    fbConfigMap = widgetData.fbConfigMap.map(
+      (key, value) => MapEntry(key, BaseFbConfig.fromJson(value)),
     );
+    fbDetailsMap = widgetData.fbDetailsMap.map(
+      (key, value) => MapEntry(key, FbWidgetDetails.fromJson(value)),
+    );
+
+    if (idList.isEmpty) {
+      // The main data is used to know the starting point of the widget
+      idList.add(xMainId);
+      fbDetailsMap[xMainId] = FbWidgetDetails(
+        id: xMainId,
+        parentId: '0',
+        widgetType: FbWidgetType.main,
+        levelInTree: 0,
+        children: [],
+      );
+    }
+
+    // For debug purpose
+    initialLoad();
+  }
+
+  Future<void> saveWidgetData() {
+    final widgetData = WidgetDataModel(
+      id: widgetDataId,
+      idList: idList,
+      fbConfigMap: fbConfigMap.map((key, value) => MapEntry(key, value.toJson())),
+      fbDetailsMap: fbDetailsMap.map((key, value) => MapEntry(key, value.toJson())),
+    );
+    return _widgetRepo.update(widgetData);
   }
 
   /// This is called first when the screen is loaded
@@ -73,6 +105,8 @@ class InterfaceController {
 
     //add widget to parent list
     parentData.addWidget(id);
+
+    saveWidgetData();
     return fbDetailsMap;
   }
 
@@ -121,8 +155,10 @@ class InterfaceController {
     // Finally remove the widget totally
     fbDetailsMap.remove(removeWidgetId);
     fbConfigMap.remove(removeWidgetId);
+    idList.remove(removeWidgetId);
     // widgetStylesCallbackMap.remove(removeWidgetId);
 
+    saveWidgetData();
     return fbDetailsMap;
   }
 
@@ -160,6 +196,7 @@ class InterfaceController {
     childDetails.changeParentId(wrapWidget.id);
     fbDetailsMap[wrapWidget.id]?.changeChildren([childId]);
 
+    saveWidgetData();
     return fbDetailsMap;
   }
 
@@ -176,6 +213,7 @@ class InterfaceController {
     fbConfigMap.remove(widgetId);
     // widgetStylesCallbackMap.remove(widgetId);
 
+    saveWidgetData();
     return fbDetailsMap;
   }
 

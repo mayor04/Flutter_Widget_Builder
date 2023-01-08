@@ -49,42 +49,50 @@ class _YourFilesViewState extends State<YourFilesView> {
                   itemBuilder: (context, index) {
                     final file = state.fileList[index];
 
-                    return Column(
-                      children: [
-                        Container(
-                          height: 220,
-                          color: Colors.green,
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                    return InkWell(
+                      onTap: () {
+                        context.go('/widget/build/${file.id}');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
                           children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
+                            Container(
+                              height: 220,
+                              color: Colors.green,
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  file.name,
-                                  style: context.textTheme.bodyMedium,
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      file.name,
+                                      style: context.textTheme.bodyMedium,
+                                    ),
+                                    const SizedBox(height: 9),
+                                    Text(
+                                      '10 months ago',
+                                      style: context.textTheme.bodyMedium,
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(height: 9),
-                                Text(
-                                  '10 months ago',
-                                  style: context.textTheme.bodyMedium,
+                                GestureDetector(
+                                  onTapUp: (tapDetails) {},
+                                  child: const IconBox(
+                                    filled: true,
+                                    icon: Icon(Icons.more_horiz),
+                                  ),
                                 ),
                               ],
-                            ),
-                            GestureDetector(
-                              onTapUp: (tapDetails) {},
-                              child: const IconBox(
-                                filled: true,
-                                icon: Icon(Icons.more_horiz),
-                              ),
-                            ),
+                            )
                           ],
-                        )
-                      ],
+                        ),
+                      ),
                     );
                   },
                 ),

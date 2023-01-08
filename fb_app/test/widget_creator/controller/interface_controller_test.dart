@@ -9,7 +9,8 @@ void main() {
   late Map<String, FbWidgetDetails> details;
 
   setUp(() {
-    interfaceController = InterfaceController();
+    // TODO: all test would fail if reository is not injected
+    interfaceController = InterfaceController(widgetDataId: '1');
     details = interfaceController.fbDetailsMap;
   });
 
