@@ -22,7 +22,7 @@ class FbContainerConfig extends BaseFbConfig<FbContainerStyles> with CodeGenerat
       styles: json['styles'] == null
           ? null
           : FbContainerStyles.fromJson(
-              json['styles'] as Map<String, dynamic>,
+              (json['styles'] as Map<dynamic, dynamic>).cast(),
             ),
     );
   }

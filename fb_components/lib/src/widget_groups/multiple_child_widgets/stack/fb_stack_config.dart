@@ -19,7 +19,11 @@ class FbStackConfig extends BaseFbConfig<FbStackStyles> with CodeGeneratorLogic 
   factory FbStackConfig.fromJson(Map<String, dynamic> json) {
     return FbStackConfig(
       id: json['id'] as String,
-      styles: json['styles'] == null ? null : FbStackStyles.fromJson(json['styles']),
+      styles: json['styles'] == null
+          ? null
+          : FbStackStyles.fromJson(
+              (json['styles'] as Map<dynamic, dynamic>).cast(),
+            ),
     );
   }
 

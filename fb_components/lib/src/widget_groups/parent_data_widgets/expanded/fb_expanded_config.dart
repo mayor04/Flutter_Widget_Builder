@@ -12,7 +12,11 @@ class FbExpandedConfig extends BaseFbConfig<FbExpandedStyles> with CodeGenerator
   factory FbExpandedConfig.fromJson(Map<String, dynamic> json) {
     return FbExpandedConfig(
       id: json['id'],
-      styles: json['styles'] == null ? null : FbExpandedStyles.fromJson(json['styles']),
+      styles: json['styles'] == null
+          ? null
+          : FbExpandedStyles.fromJson(
+              (json['styles'] as Map<dynamic, dynamic>).cast(),
+            ),
     );
   }
 

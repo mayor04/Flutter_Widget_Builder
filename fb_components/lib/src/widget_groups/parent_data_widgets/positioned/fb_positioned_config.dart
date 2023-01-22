@@ -12,7 +12,11 @@ class FbPositionedConfig extends BaseFbConfig<FbPositionedStyles> with CodeGener
   factory FbPositionedConfig.fromJson(Map<String, dynamic> json) {
     return FbPositionedConfig(
       id: json['id'],
-      styles: json['styles'] == null ? null : FbPositionedStyles.fromJson(json['styles']),
+      styles: json['styles'] == null
+          ? null
+          : FbPositionedStyles.fromJson(
+              (json['styles'] as Map<dynamic, dynamic>).cast(),
+            ),
     );
   }
 

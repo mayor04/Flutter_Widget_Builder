@@ -13,7 +13,11 @@ class FbSizedBoxConfig extends BaseFbConfig<FbSizedBoxStyles> with CodeGenerator
   factory FbSizedBoxConfig.fromJson(Map<String, dynamic> json) {
     return FbSizedBoxConfig(
       id: json['id'],
-      styles: json['styles'] == null ? null : FbSizedBoxStyles.fromJson(json['styles']),
+      styles: json['styles'] == null
+          ? null
+          : FbSizedBoxStyles.fromJson(
+              (json['styles'] as Map<dynamic, dynamic>).cast(),
+            ),
     );
   }
   @override

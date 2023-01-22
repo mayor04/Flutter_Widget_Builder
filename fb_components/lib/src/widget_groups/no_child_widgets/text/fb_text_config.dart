@@ -13,7 +13,11 @@ class FbTextConfig extends BaseFbConfig<FbTextStyles> with CodeGeneratorLogic {
   factory FbTextConfig.fromJson(Map<String, dynamic> json) {
     return FbTextConfig(
       id: json['id'],
-      styles: json['styles'] == null ? null : FbTextStyles.fromJson(json['styles']),
+      styles: json['styles'] == null
+          ? null
+          : FbTextStyles.fromJson(
+              (json['styles'] as Map<dynamic, dynamic>).cast(),
+            ),
     );
   }
 
