@@ -1,9 +1,10 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/column/fb_column.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/row/fb_row.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack.dart';
 import 'package:flutter/material.dart';
+
+import 'fb_widget_type.dart';
 
 /// This class return the widget that matches the styles config provided
 /// For Example `FbColumnStyle` would return `Column` with the styles provided

@@ -1,8 +1,9 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/container/fb_container.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box.dart';
 import 'package:flutter/material.dart';
+
+import 'fb_widget_type.dart';
 
 /// This class return the widget that matches the styles config provided
 /// For Example `FbContainerStyle` would return `Container` with the styles provided

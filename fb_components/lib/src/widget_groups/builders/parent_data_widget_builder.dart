@@ -1,8 +1,9 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned.dart';
 import 'package:flutter/material.dart';
+
+import 'fb_widget_type.dart';
 
 /// This class return the widget that matches the styles config provided
 /// For Example `FbExpandedStyle` would return `Expanded` with the styles provided

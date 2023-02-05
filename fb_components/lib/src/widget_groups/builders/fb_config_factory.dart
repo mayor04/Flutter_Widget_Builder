@@ -1,5 +1,4 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
-import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/column/fb_column_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/row/fb_row_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack_config.dart';
@@ -8,6 +7,8 @@ import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_config.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/container/fb_container_config.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box_config.dart';
+
+import 'fb_widget_type.dart';
 
 class FbConfigFactory {
   static BaseFbConfig createConfig(FbWidgetType widgetType) {

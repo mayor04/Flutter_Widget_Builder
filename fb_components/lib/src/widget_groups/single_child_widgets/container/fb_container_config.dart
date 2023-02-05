@@ -2,8 +2,8 @@
 
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
-import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/extension.dart/num_extension.dart';
+import 'package:fb_components/src/widget_groups/builders/all.dart';
 import 'package:flutter/material.dart';
 
 const _type = FbWidgetType.container;

@@ -1,6 +1,6 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
-import 'package:fb_components/src/base/fb_enum.dart';
+import 'package:fb_components/src/widget_groups/builders/all.dart';
 
 const _type = FbWidgetType.text;
 
