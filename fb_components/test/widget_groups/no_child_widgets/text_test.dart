@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  late final WidgetFormatter formatter;
+  late WidgetFormatter formatter;
 
   setUp(() {
     formatter = WidgetFormatter();
@@ -46,6 +46,8 @@ void main() {
         '1',
         text: 'Hello World',
         color: Colors.red,
+        fontSize: 13,
+        fontWeight: FontWeight.bold,
       ),
     );
 

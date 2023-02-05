@@ -101,7 +101,7 @@ class FbTextStyles extends BaseFbStyles {
       json['id'],
       text: json['text'],
       fontSize: json['fontSize'],
-      fontWeight: json['fontWeight'],
+      fontWeight: fontWeightMap[(json['fontWeight'] as String)],
       color: Color(json['color']),
     );
   }
