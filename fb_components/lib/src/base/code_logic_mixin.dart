@@ -27,7 +27,7 @@ mixin CodeGeneratorLogic<T extends BaseFbStyles> on BaseFbConfig<T> {
         );
       }
 
-      if (valueCode == null) {
+      if (valueCode == null || valueCode is String && valueCode.isEmpty) {
         count++;
         continue;
       }
