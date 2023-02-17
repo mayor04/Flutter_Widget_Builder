@@ -2,10 +2,10 @@ import 'package:fb_core/fb_core.dart';
 import 'package:fb_core/src/domain/enitities/local/base_local_entity.dart';
 import 'package:hive/hive.dart';
 
-part 'project_local_entity.g.dart';
+part 'app_details_local_entity.g.dart';
 
 @HiveType(typeId: 1)
-class ProjectLocalEntity extends LocalEntity<ProjectModel> {
+class AppDetailsLocalEntity extends LocalEntity<AppDetailsModel> {
   @HiveField(0)
   final String id;
 
@@ -21,7 +21,7 @@ class ProjectLocalEntity extends LocalEntity<ProjectModel> {
   @HiveField(5)
   final DateTime updatedAt;
 
-  const ProjectLocalEntity({
+  const AppDetailsLocalEntity({
     required this.id,
     required this.name,
     required this.desc,
@@ -29,7 +29,7 @@ class ProjectLocalEntity extends LocalEntity<ProjectModel> {
     required this.updatedAt,
   });
 
-  factory ProjectLocalEntity.fromModel(ProjectModel projectModel) => ProjectLocalEntity(
+  factory AppDetailsLocalEntity.fromModel(AppDetailsModel projectModel) => AppDetailsLocalEntity(
         id: projectModel.id,
         name: projectModel.name,
         desc: projectModel.desc,
@@ -38,7 +38,7 @@ class ProjectLocalEntity extends LocalEntity<ProjectModel> {
       );
 
   @override
-  ProjectModel toModel() => ProjectModel(
+  AppDetailsModel toModel() => AppDetailsModel(
         id: id,
         name: name,
         desc: desc,

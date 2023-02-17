@@ -1,3 +1,3 @@
-export 'files_repository.dart';
-export 'project_repository.dart';
-export 'widget_data_repository.dart';
+export 'app_details_repository.dart';
+export 'widget_details_repository.dart';
+export 'widget_ui_repository.dart';

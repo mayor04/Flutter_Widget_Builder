@@ -1,4 +1,5 @@
-class FileModel {
+/// Stores the minimal details of a widget
+class WidgetDetailsModel {
   final String id;
   final String name;
   final String desc;
@@ -6,7 +7,7 @@ class FileModel {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  const FileModel({
+  const WidgetDetailsModel({
     required this.id,
     required this.name,
     required this.desc,

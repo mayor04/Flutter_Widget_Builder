@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'widget_data_local_entity.dart';
+part of 'widget_ui_local_entity.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class WidgetDataLocalEntityAdapter extends TypeAdapter<WidgetDataLocalEntity> {
+class WidgetUILocalEntityAdapter extends TypeAdapter<WidgetUILocalEntity> {
   @override
   final int typeId = 2;
 
   @override
-  WidgetDataLocalEntity read(BinaryReader reader) {
+  WidgetUILocalEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return WidgetDataLocalEntity(
+    return WidgetUILocalEntity(
       id: fields[0] as String,
       idList: (fields[1] as List).cast<String>(),
       fbConfigMap: (fields[2] as Map).map((dynamic k, dynamic v) =>
@@ -27,7 +27,7 @@ class WidgetDataLocalEntityAdapter extends TypeAdapter<WidgetDataLocalEntity> {
   }
 
   @override
-  void write(BinaryWriter writer, WidgetDataLocalEntity obj) {
+  void write(BinaryWriter writer, WidgetUILocalEntity obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
@@ -46,7 +46,7 @@ class WidgetDataLocalEntityAdapter extends TypeAdapter<WidgetDataLocalEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WidgetDataLocalEntityAdapter &&
+      other is WidgetUILocalEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

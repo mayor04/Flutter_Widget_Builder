@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'project_local_entity.dart';
+part of 'app_details_local_entity.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ProjectLocalEntityAdapter extends TypeAdapter<ProjectLocalEntity> {
+class AppDetailsLocalEntityAdapter extends TypeAdapter<AppDetailsLocalEntity> {
   @override
   final int typeId = 1;
 
   @override
-  ProjectLocalEntity read(BinaryReader reader) {
+  AppDetailsLocalEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ProjectLocalEntity(
+    return AppDetailsLocalEntity(
       id: fields[0] as String,
       name: fields[1] as String,
       desc: fields[2] as String,
@@ -26,7 +26,7 @@ class ProjectLocalEntityAdapter extends TypeAdapter<ProjectLocalEntity> {
   }
 
   @override
-  void write(BinaryWriter writer, ProjectLocalEntity obj) {
+  void write(BinaryWriter writer, AppDetailsLocalEntity obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)
@@ -47,7 +47,7 @@ class ProjectLocalEntityAdapter extends TypeAdapter<ProjectLocalEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ProjectLocalEntityAdapter &&
+      other is AppDetailsLocalEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -1,5 +1,5 @@
-import 'package:fb_app/features/home/presentation/blocs/project_bloc.dart';
-import 'package:fb_app/features/home/presentation/blocs/project_list_bloc.dart';
+import 'package:fb_app/features/home/presentation/blocs/app_details_bloc.dart';
+import 'package:fb_app/features/home/presentation/blocs/app_list_bloc.dart';
 import 'package:fb_app/features/home/presentation/dialogs/create_project_dialog.dart';
 import 'package:fb_app/features/widget_creator/view/widgets/icon_box.dart';
 import 'package:fb_core/fb_core.dart';
@@ -19,7 +19,7 @@ class _YourProjectsViewState extends State<YourProjectsView> {
   void initState() {
     super.initState();
 
-    BlocProvider.of<ProjectListBloc>(context).loadProjectList();
+    BlocProvider.of<AppListBloc>(context).loadProjectList();
   }
 
   @override
@@ -30,7 +30,7 @@ class _YourProjectsViewState extends State<YourProjectsView> {
         children: [
           const _ProjectHeader(),
           const SizedBox(height: 30),
-          BlocBuilder<ProjectListBloc, ProjectListState>(
+          BlocBuilder<AppListBloc, AppListState>(
             builder: (context, state) {
               return Expanded(
                 child: GridView.builder(
@@ -140,7 +140,7 @@ class _ProjectHeader extends StatelessWidget {
               context: context,
               builder: (_) => Dialog(
                 child: BlocProvider.value(
-                  value: context.read<ProjectBloc>(),
+                  value: context.read<AppDetailsBloc>(),
                   child: const CreateProjectDialog(),
                 ),
               ),

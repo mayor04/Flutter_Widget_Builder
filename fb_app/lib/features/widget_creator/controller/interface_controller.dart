@@ -22,7 +22,7 @@ class InterfaceController {
   // Todo: inspect this implemntation -> is the styles suppose to be stored in a map
   // final Map<int, FbWidgetStylesCallback> widgetStylesCallbackMap = {};
 
-  final WidgetDataRepository _widgetRepo = WidgetDataRepository();
+  final WidgetUIRepository _widgetRepo = WidgetUIRepository();
 
   InterfaceController({required this.widgetDataId});
 
@@ -56,7 +56,7 @@ class InterfaceController {
   }
 
   Future<void> saveWidgetData() {
-    final widgetData = WidgetDataModel(
+    final widgetData = WidgetUIModel(
       id: widgetDataId,
       idList: idList,
       fbConfigMap: fbConfigMap.map((key, value) => MapEntry(key, value.toJson())),

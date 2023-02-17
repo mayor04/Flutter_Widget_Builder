@@ -1,4 +1,4 @@
-import 'package:fb_app/features/home/presentation/blocs/file_bloc.dart';
+import 'package:fb_app/features/home/presentation/blocs/widget_details_bloc.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,7 +65,7 @@ class _CreateWidgetDialogState extends State<CreateWidgetDialog> {
 
   void createFile() {
     if (controller.text.isNotEmpty) {
-      context.read<FileBloc>().createFile(
+      context.read<WidgetDetailsBloc>().createFile(
             name: controller.text,
             projectId: widget.projectId,
           );

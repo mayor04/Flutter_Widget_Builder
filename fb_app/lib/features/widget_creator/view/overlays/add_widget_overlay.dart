@@ -1,5 +1,5 @@
 import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
-import 'package:fb_app/utils/enum.dart';
+import 'package:fb_app/utils/enums/add_widget_type_enum.dart';
 import 'package:fb_app/widget/box_spacing.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';

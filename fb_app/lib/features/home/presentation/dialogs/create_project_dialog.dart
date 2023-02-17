@@ -1,4 +1,4 @@
-import 'package:fb_app/features/home/presentation/blocs/project_bloc.dart';
+import 'package:fb_app/features/home/presentation/blocs/app_details_bloc.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,7 +63,7 @@ class _CreateProjectDialogState extends State<CreateProjectDialog> {
 
   void createProject() {
     if (controller.text.isNotEmpty) {
-      context.read<ProjectBloc>().createProject(name: controller.text);
+      context.read<AppDetailsBloc>().createProject(name: controller.text);
     }
   }
 }

@@ -1,3 +1,4 @@
+// TO-CREATE - edit this
 enum FbWidgetType {
   main,
   container,
@@ -8,4 +9,5 @@ enum FbWidgetType {
   expanded,
   text,
   positioned,
+  divider,
 }

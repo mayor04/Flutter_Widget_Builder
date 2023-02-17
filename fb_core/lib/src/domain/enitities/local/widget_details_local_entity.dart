@@ -2,10 +2,10 @@ import 'package:fb_core/src/domain/enitities/local/base_local_entity.dart';
 import 'package:fb_core/src/domain/models/all.dart';
 import 'package:hive/hive.dart';
 
-part 'file_local_entity.g.dart';
+part 'widget_details_local_entity.g.dart';
 
 @HiveType(typeId: 0)
-class FileLocalEntity extends LocalEntity<FileModel> {
+class WidgetDetailsLocalEntity extends LocalEntity<WidgetDetailsModel> {
   @HiveField(0)
   final String id;
 
@@ -24,7 +24,7 @@ class FileLocalEntity extends LocalEntity<FileModel> {
   @HiveField(5)
   final DateTime updatedAt;
 
-  const FileLocalEntity({
+  const WidgetDetailsLocalEntity({
     required this.id,
     required this.name,
     required this.desc,
@@ -34,7 +34,8 @@ class FileLocalEntity extends LocalEntity<FileModel> {
   });
 
   // from model
-  factory FileLocalEntity.fromModel(FileModel fileModel) => FileLocalEntity(
+  factory WidgetDetailsLocalEntity.fromModel(WidgetDetailsModel fileModel) =>
+      WidgetDetailsLocalEntity(
         id: fileModel.id,
         name: fileModel.name,
         desc: fileModel.desc,
@@ -45,7 +46,7 @@ class FileLocalEntity extends LocalEntity<FileModel> {
 
   // to model
   @override
-  FileModel toModel() => FileModel(
+  WidgetDetailsModel toModel() => WidgetDetailsModel(
         id: id,
         name: name,
         desc: desc,

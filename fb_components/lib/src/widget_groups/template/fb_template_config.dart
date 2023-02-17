@@ -61,7 +61,7 @@ class FbTemplateStyles extends BaseFbStyles {
     );
   }
 
-  copyWith({String? temp}) {
+  FbTemplateStyles copyWith({String? temp}) {
     return FbTemplateStyles(
       id,
     );

@@ -1,5 +1,5 @@
-import 'package:fb_app/features/home/presentation/blocs/file_bloc.dart';
-import 'package:fb_app/features/home/presentation/blocs/file_list_bloc.dart';
+import 'package:fb_app/features/home/presentation/blocs/widget_details_bloc.dart';
+import 'package:fb_app/features/home/presentation/blocs/widget_list_bloc.dart';
 import 'package:fb_app/features/home/presentation/dialogs/create_widget_dialog.dart';
 import 'package:fb_app/features/widget_creator/view/widgets/icon_box.dart';
 import 'package:fb_core/fb_core.dart';
@@ -21,12 +21,12 @@ class _YourFilesViewState extends State<YourFilesView> {
   void initState() {
     super.initState();
 
-    BlocProvider.of<FileListBloc>(context).loadFileList(widget.projectId);
+    BlocProvider.of<WidgetListBloc>(context).loadWidgetList(widget.projectId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FileListBloc, FileListState>(
+    return BlocBuilder<WidgetListBloc, WidgetListState>(
       builder: (context, state) {
         return Container(
           padding: const EdgeInsets.all(20),
@@ -147,7 +147,7 @@ class _FilesHeader extends StatelessWidget {
               context: context,
               builder: (_) => Dialog(
                 child: BlocProvider.value(
-                  value: context.read<FileBloc>(),
+                  value: context.read<WidgetDetailsBloc>(),
                   child: CreateWidgetDialog(
                     projectId: projectId ?? AppStrings.rootProjectId,
                   ),

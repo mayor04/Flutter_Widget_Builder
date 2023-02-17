@@ -1,5 +1,5 @@
 import 'package:fb_app/config/theme.dart';
-import 'package:fb_app/features/home/presentation/blocs/project_list_bloc.dart';
+import 'package:fb_app/features/home/presentation/blocs/app_list_bloc.dart';
 import 'package:fb_app/features/home/presentation/sidebar_view/your_files_view.dart';
 import 'package:fb_app/features/home/presentation/sidebar_view/your_project_view.dart';
 import 'package:fb_app/features/home/presentation/views/home_layout.dart';
@@ -11,20 +11,23 @@ import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
 import 'package:fb_app/features/widget_creator/controller/code_genarator_controller.dart';
 import 'package:fb_app/features/widget_creator/controller/interface_controller.dart';
 import 'package:fb_app/features/widget_creator/view/create_page.dart';
+import 'package:fb_core/di.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_strategy/url_strategy.dart';
 
-import 'features/home/presentation/blocs/file_bloc.dart';
-import 'features/home/presentation/blocs/file_list_bloc.dart';
-import 'features/home/presentation/blocs/project_bloc.dart';
+import 'features/home/presentation/blocs/app_details_bloc.dart';
+import 'features/home/presentation/blocs/widget_details_bloc.dart';
+import 'features/home/presentation/blocs/widget_list_bloc.dart';
 import 'features/widget_creator/bloc/code_display_bloc.dart';
 
 void main() async {
   setPathUrlStrategy();
   await Datastore.initStorage();
+
+  configureDependencies();
 
   runApp(const MyApp());
 }
@@ -93,10 +96,10 @@ class _MyAppState extends State<MyApp> {
                   builder: (context, state) => MultiBlocProvider(
                     providers: [
                       BlocProvider(
-                        create: (context) => ProjectListBloc(),
+                        create: (context) => AppListBloc(),
                       ),
                       BlocProvider(
-                        create: (context) => ProjectBloc(),
+                        create: (context) => AppDetailsBloc(),
                       ),
                     ],
                     child: const YourProjectsView(),
@@ -107,10 +110,10 @@ class _MyAppState extends State<MyApp> {
                   builder: (context, state) => MultiBlocProvider(
                     providers: [
                       BlocProvider(
-                        create: (context) => FileBloc(),
+                        create: (context) => WidgetDetailsBloc(),
                       ),
                       BlocProvider(
-                        create: (context) => FileListBloc(),
+                        create: (context) => WidgetListBloc(),
                       ),
                     ],
                     child: YourFilesView(

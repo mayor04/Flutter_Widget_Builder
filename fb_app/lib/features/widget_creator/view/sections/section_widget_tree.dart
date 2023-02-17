@@ -4,7 +4,7 @@ import 'package:fb_app/features/widget_creator/models/fb_details.dart';
 import 'package:fb_app/features/widget_creator/view/overlays/add_widget_overlay.dart';
 import 'package:fb_app/features/widget_creator/view/overlays/menu_overlay.dart';
 import 'package:fb_app/features/widget_creator/view/widgets/icon_box.dart';
-import 'package:fb_app/utils/enum.dart';
+import 'package:fb_app/utils/enums/add_widget_type_enum.dart';
 import 'package:fb_app/widget/box_spacing.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';

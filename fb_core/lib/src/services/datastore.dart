@@ -1,20 +1,25 @@
-import 'package:fb_core/src/domain/enitities/local/file_local_entity.dart';
-import 'package:fb_core/src/domain/enitities/local/project_local_entity.dart';
-import 'package:fb_core/src/domain/enitities/local/widget_data_local_entity.dart';
+import 'package:fb_core/src/domain/enitities/local/app_details_local_entity.dart';
+import 'package:fb_core/src/domain/enitities/local/widget_details_local_entity.dart';
+import 'package:fb_core/src/domain/enitities/local/widget_ui_local_entity.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:injectable/injectable.dart';
 
-// A wrapper around local storage (hive)
+/// A wrapper around local storage (hive)
+@Injectable()
 class Datastore {
   static Future<void> initStorage() async {
     await Hive.initFlutter();
-    Hive.registerAdapter(ProjectLocalEntityAdapter());
-    Hive.registerAdapter(FileLocalEntityAdapter());
-    Hive.registerAdapter(WidgetDataLocalEntityAdapter());
+    Hive.registerAdapter(AppDetailsLocalEntityAdapter());
+    Hive.registerAdapter(WidgetDetailsLocalEntityAdapter());
+    Hive.registerAdapter(WidgetUILocalEntityAdapter());
   }
 
   Future<DatastoreBox<E>> openBox<E>(String boxName) async {
-    final box = await Hive.openBox<E>(boxName);
-    return DatastoreBox(boxName, box);
+    if (Hive.isBoxOpen(boxName)) {
+      return box(boxName);
+    }
+
+    return DatastoreBox(boxName, await Hive.openBox<E>(boxName));
   }
 
   DatastoreBox<E> box<E>(String boxName) {
@@ -64,7 +69,6 @@ class DatastoreBox<E> {
 
 
 /* ~NOTES~ We have (project_box) (widget_meta_box) (widget_ui_box)
-
 - The project box stores all the project the user has created
     - id, Name, Created At, Updated At, Desc
 - The widget meta box stores 

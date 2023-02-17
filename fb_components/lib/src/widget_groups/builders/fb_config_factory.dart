@@ -2,6 +2,7 @@ import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/column/fb_column_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/row/fb_row_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack_config.dart';
+import 'package:fb_components/src/widget_groups/no_child_widgets/divider/fb_divider_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_config.dart';
@@ -10,6 +11,7 @@ import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/f
 
 import 'fb_widget_type.dart';
 
+// TO-CREATE - edit this
 class FbConfigFactory {
   static BaseFbConfig createConfig(FbWidgetType widgetType) {
     switch (widgetType) {
@@ -29,6 +31,8 @@ class FbConfigFactory {
         return FbSizedBoxConfig();
       case FbWidgetType.stack:
         return FbStackConfig();
+      case FbWidgetType.divider:
+        return FbDividerConfig();
       default:
         throw (Exception('Widget config is not available'));
     }

@@ -1,10 +1,11 @@
-import 'package:fb_core/src/domain/models/widget_data_model.dart';
+import 'package:fb_core/src/domain/enitities/local/base_local_entity.dart';
+import 'package:fb_core/src/domain/models/widget_ui_model.dart';
 import 'package:hive/hive.dart';
 
-part 'widget_data_local_entity.g.dart';
+part 'widget_ui_local_entity.g.dart';
 
 @HiveType(typeId: 2)
-class WidgetDataLocalEntity {
+class WidgetUILocalEntity extends LocalEntity<WidgetUIModel> {
   @HiveField(0)
   final String id;
 
@@ -17,21 +18,22 @@ class WidgetDataLocalEntity {
   @HiveField(3)
   final Map<String, Map<String, dynamic>> fbDetailsMap;
 
-  WidgetDataLocalEntity({
+  WidgetUILocalEntity({
     required this.id,
     required this.idList,
     required this.fbConfigMap,
     required this.fbDetailsMap,
   });
 
-  factory WidgetDataLocalEntity.fromModel(WidgetDataModel widgetDataModel) => WidgetDataLocalEntity(
+  factory WidgetUILocalEntity.fromModel(WidgetUIModel widgetDataModel) => WidgetUILocalEntity(
         id: widgetDataModel.id,
         idList: widgetDataModel.idList,
         fbConfigMap: widgetDataModel.fbConfigMap,
         fbDetailsMap: widgetDataModel.fbDetailsMap,
       );
 
-  WidgetDataModel toModel() => WidgetDataModel(
+  @override
+  WidgetUIModel toModel() => WidgetUIModel(
         id: id,
         idList: idList,
         fbConfigMap: fbConfigMap,

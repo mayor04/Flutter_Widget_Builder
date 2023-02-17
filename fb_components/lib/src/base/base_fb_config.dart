@@ -1,7 +1,7 @@
 import 'package:fb_components/fb_components.dart';
-import 'package:fb_components/src/base/fb_enum.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/row/fb_row_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack_config.dart';
+import 'package:fb_components/src/widget_groups/no_child_widgets/divider/fb_divider_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_config.dart';
@@ -19,6 +19,7 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
 
   BaseFbConfig(this.widgetType, this.childType, {String? id}) : id = id ?? IdGen.generateIdString();
 
+  // TO-CREATE - edit this
   static BaseFbConfig<BaseFbStyles> fromJson(Map<String, dynamic> json) {
     switch (FbWidgetType.values.firstWhere((e) => e.name == json['type'])) {
       case FbWidgetType.container:
@@ -37,6 +38,8 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
         return FbTextConfig.fromJson(json);
       case FbWidgetType.positioned:
         return FbPositionedConfig.fromJson(json);
+      case FbWidgetType.divider:
+        return FbDividerConfig.fromJson(json);
 
       default:
     }
