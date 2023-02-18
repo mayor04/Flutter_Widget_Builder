@@ -1,8 +1,8 @@
-import 'package:fb_app/features/home/presentation/widgets/home_sidebar.dart';
+import 'package:fb_app/layout/sidebar_layout/sidebar_widget.dart';
 import 'package:flutter/material.dart';
 
-class HomeLayout extends StatelessWidget {
-  const HomeLayout({
+class SidebarLayout extends StatelessWidget {
+  const SidebarLayout({
     Key? key,
     required this.child,
   }) : super(key: key);
@@ -13,7 +13,7 @@ class HomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Row(
-        children: [const HomeSidebar(), Expanded(child: child)],
+        children: [const SidebarWidget(), Expanded(child: child)],
       ),
     );
   }

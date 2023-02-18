@@ -1,8 +1,8 @@
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
 
-class HomeSidebar extends StatelessWidget {
-  const HomeSidebar({Key? key}) : super(key: key);
+class SidebarWidget extends StatelessWidget {
+  const SidebarWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,15 +1,15 @@
 import 'package:fb_app/config/theme.dart';
-import 'package:fb_app/features/home/presentation/views/home_layout.dart';
 import 'package:fb_app/features/my_apps/views/my_apps_page.dart';
 import 'package:fb_app/features/my_apps/views/my_widgets_page.dart';
 import 'package:fb_app/features/playground/playground.dart';
-import 'package:fb_app/features/tab/view/tab_layout.dart';
 import 'package:fb_app/features/widget_creator/bloc/notifier_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/styles_input_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
 import 'package:fb_app/features/widget_creator/controller/code_genarator_controller.dart';
 import 'package:fb_app/features/widget_creator/controller/interface_controller.dart';
 import 'package:fb_app/features/widget_creator/view/create_page.dart';
+import 'package:fb_app/layout/sidebar_layout/sidebar_layout.dart';
+import 'package:fb_app/layout/tab_layout/tab_layout.dart';
 import 'package:fb_core/di.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
               ],
             ),
             ShellRoute(
-              builder: (context, state, child) => HomeLayout(child: child),
+              builder: (context, state, child) => SidebarLayout(child: child),
               routes: [
                 GoRoute(
                   path: '/your_projects',

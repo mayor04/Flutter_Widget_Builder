@@ -1,4 +1,4 @@
-import 'package:fb_app/features/tab/widgets/tab_header.dart';
+import 'package:fb_app/layout/tab_layout/tab_header.dart';
 import 'package:flutter/material.dart';
 
 class TabLayout extends StatelessWidget {
