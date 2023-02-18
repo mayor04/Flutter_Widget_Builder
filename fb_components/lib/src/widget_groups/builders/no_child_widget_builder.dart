@@ -1,5 +1,6 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/divider/fb_divider.dart';
+import 'package:fb_components/src/widget_groups/no_child_widgets/icon/fb_icon.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,8 @@ class NoChildChildWidgetBuilder extends StatelessWidget {
             return FbText(styles: widgetStyles);
           case FbWidgetType.divider:
             return FbDivider(styles: widgetStyles);
+          case FbWidgetType.icon:
+            return FbIcon(styles: widgetStyles);
           default:
             return Container();
         }

@@ -7,6 +7,8 @@ import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack_input.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/divider/fb_divider_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/divider/fb_divider_input.dart';
+import 'package:fb_components/src/widget_groups/no_child_widgets/icon/fb_icon_config.dart';
+import 'package:fb_components/src/widget_groups/no_child_widgets/icon/fb_icon_input.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text_input.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded_config.dart';
@@ -75,6 +77,11 @@ class FbInputBuilderWidget extends StatelessFbInput<BaseFbStyles> {
       case FbWidgetType.divider:
         return FbDividerInput(
           styles: styles as FbDividerStyles,
+          onStylesUpdated: onStylesUpdated,
+        );
+      case FbWidgetType.icon:
+        return FbIconInput(
+          styles: styles as FbIconStyles,
           onStylesUpdated: onStylesUpdated,
         );
       default:

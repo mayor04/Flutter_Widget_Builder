@@ -3,6 +3,7 @@ import 'package:fb_components/src/widget_groups/multiple_child_widgets/column/fb
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/row/fb_row_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/divider/fb_divider_config.dart';
+import 'package:fb_components/src/widget_groups/no_child_widgets/icon/fb_icon_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_config.dart';
@@ -33,6 +34,8 @@ class FbConfigFactory {
         return FbStackConfig();
       case FbWidgetType.divider:
         return FbDividerConfig();
+      case FbWidgetType.icon:
+        return FbIconConfig();
       default:
         throw (Exception('Widget config is not available'));
     }

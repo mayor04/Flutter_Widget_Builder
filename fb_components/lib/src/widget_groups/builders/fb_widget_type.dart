@@ -10,4 +10,5 @@ enum FbWidgetType {
   text,
   positioned,
   divider,
+  icon
 }
