@@ -1,8 +1,7 @@
 import 'package:fb_app/config/theme.dart';
-import 'package:fb_app/features/home/presentation/blocs/app_list_bloc.dart';
-import 'package:fb_app/features/home/presentation/sidebar_view/your_files_view.dart';
-import 'package:fb_app/features/home/presentation/sidebar_view/your_project_view.dart';
 import 'package:fb_app/features/home/presentation/views/home_layout.dart';
+import 'package:fb_app/features/my_apps/views/my_apps_page.dart';
+import 'package:fb_app/features/my_apps/views/my_widgets_page.dart';
 import 'package:fb_app/features/playground/playground.dart';
 import 'package:fb_app/features/tab/view/tab_layout.dart';
 import 'package:fb_app/features/widget_creator/bloc/notifier_bloc.dart';
@@ -18,9 +17,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_strategy/url_strategy.dart';
 
-import 'features/home/presentation/blocs/app_details_bloc.dart';
-import 'features/home/presentation/blocs/widget_details_bloc.dart';
-import 'features/home/presentation/blocs/widget_list_bloc.dart';
+import 'features/my_apps/blocs/app_details_bloc.dart';
+import 'features/my_apps/blocs/app_list_bloc.dart';
+import 'features/my_apps/blocs/widget_details_bloc.dart';
+import 'features/my_apps/blocs/widget_list_bloc.dart';
 import 'features/widget_creator/bloc/code_display_bloc.dart';
 
 void main() async {

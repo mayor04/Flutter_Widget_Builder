@@ -1,6 +1,6 @@
-import 'package:fb_app/features/home/presentation/blocs/widget_details_bloc.dart';
-import 'package:fb_app/features/home/presentation/blocs/widget_list_bloc.dart';
-import 'package:fb_app/features/home/presentation/dialogs/create_widget_dialog.dart';
+import 'package:fb_app/features/my_apps/blocs/widget_details_bloc.dart';
+import 'package:fb_app/features/my_apps/blocs/widget_list_bloc.dart';
+import 'package:fb_app/features/my_apps/views/dialog/create_widget_dialog.dart';
 import 'package:fb_app/features/widget_creator/view/widgets/icon_box.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';

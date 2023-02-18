@@ -2,6 +2,7 @@ import 'package:fb_components/fb_components.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/row/fb_row_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/divider/fb_divider_config.dart';
+import 'package:fb_components/src/widget_groups/no_child_widgets/icon/fb_icon_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_config.dart';
@@ -40,6 +41,8 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
         return FbPositionedConfig.fromJson(json);
       case FbWidgetType.divider:
         return FbDividerConfig.fromJson(json);
+      case FbWidgetType.icon:
+        return FbIconConfig.fromJson(json);
 
       default:
     }
