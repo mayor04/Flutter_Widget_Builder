@@ -66,18 +66,20 @@ class AddWidgetOverlay extends StatelessWidget {
                   thickness: 0.3,
                 ),
                 const Box.vertical(32),
-                Wrap(
-                  spacing: 17,
-                  runSpacing: 22,
-                  alignment: WrapAlignment.start,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: List.generate(allWidgets.length, (index) {
-                    return _WidgetItem(
-                      type: allWidgets[index],
-                      parentId: widgetId,
-                      addOrWrap: addOrWrap,
-                    );
-                  }),
+                SingleChildScrollView(
+                  child: Wrap(
+                    spacing: 17,
+                    runSpacing: 22,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: List.generate(allWidgets.length, (index) {
+                      return _WidgetItem(
+                        type: allWidgets[index],
+                        parentId: widgetId,
+                        addOrWrap: addOrWrap,
+                      );
+                    }),
+                  ),
                 ),
               ],
             ),

@@ -1,24 +1,24 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:flutter/material.dart';
 
-import 'fb_icon_config.dart';
+import 'fb_center_config.dart';
 
-class FbIcon extends StatelessWidget {
+class FbCenter extends StatelessWidget {
   final BaseFbStyles styles;
+  final Widget child;
 
-  const FbIcon({
+  const FbCenter({
     Key? key,
     required this.styles,
+    required this.child,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var iconStyles = styles.cast<FbIconStyles>();
+    var centerStyles = styles.cast<FbCenterStyles>();
 
-    return Icon(
-      Icons.gif_box_outlined,
-      size: iconStyles.size,
-      color: iconStyles.color,
+    return Container(
+      child: child,
     );
   }
 }

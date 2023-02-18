@@ -17,7 +17,7 @@ class FbIconInput extends StatelessFbInput<FbIconStyles> {
     return Column(
       children: [
         FullWidthInput(
-          title: 'End Indent',
+          title: 'Size',
           value: styles.size,
           onChanged: (value) => onStylesUpdated(
             styles.copyWith(

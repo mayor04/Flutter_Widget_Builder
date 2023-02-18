@@ -223,6 +223,8 @@ class InterfaceController {
 
   void changeWidgetStyles(BaseFbStyles styles) {
     fbConfigMap[styles.id]?.updateStyles(styles);
+
+    saveWidgetData();
   }
 
   // void _refreshWidgetConfig(String id) {

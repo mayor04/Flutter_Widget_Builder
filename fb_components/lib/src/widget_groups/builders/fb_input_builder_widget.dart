@@ -15,6 +15,8 @@ import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_
 import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded_input.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_input.dart';
+import 'package:fb_components/src/widget_groups/single_child_widgets/center/fb_center_config.dart';
+import 'package:fb_components/src/widget_groups/single_child_widgets/center/fb_center_input.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/container/fb_container_input.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box_config.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box_input.dart';
@@ -82,6 +84,11 @@ class FbInputBuilderWidget extends StatelessFbInput<BaseFbStyles> {
       case FbWidgetType.icon:
         return FbIconInput(
           styles: styles as FbIconStyles,
+          onStylesUpdated: onStylesUpdated,
+        );
+      case FbWidgetType.center:
+        return FbCenterInput(
+          styles: styles as FbCenterStyles,
           onStylesUpdated: onStylesUpdated,
         );
       default:

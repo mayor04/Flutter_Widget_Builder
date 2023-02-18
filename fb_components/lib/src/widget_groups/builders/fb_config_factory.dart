@@ -7,6 +7,7 @@ import 'package:fb_components/src/widget_groups/no_child_widgets/icon/fb_icon_co
 import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/expanded/fb_expanded_config.dart';
 import 'package:fb_components/src/widget_groups/parent_data_widgets/positioned/fb_positioned_config.dart';
+import 'package:fb_components/src/widget_groups/single_child_widgets/center/fb_center_config.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/container/fb_container_config.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box_config.dart';
 
@@ -36,6 +37,8 @@ class FbConfigFactory {
         return FbDividerConfig();
       case FbWidgetType.icon:
         return FbIconConfig();
+      case FbWidgetType.center:
+        return FbCenterConfig();
       default:
         throw (Exception('Widget config is not available'));
     }

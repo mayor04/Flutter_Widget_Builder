@@ -1,4 +1,5 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
+import 'package:fb_components/src/widget_groups/single_child_widgets/center/fb_center.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/container/fb_container.dart';
 import 'package:fb_components/src/widget_groups/single_child_widgets/sized_box/fb_sized_box.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,8 @@ class SingleChildWidgetBuilder extends StatelessWidget {
             return FbContainer(styles: widgetStyles, child: child);
           case FbWidgetType.sizedBox:
             return FbSizedBox(styles: widgetStyles, child: child);
+          case FbWidgetType.center:
+            return FbCenter(styles: widgetStyles, child: child);
           default:
             return Container();
         }
