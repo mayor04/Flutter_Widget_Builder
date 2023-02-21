@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 const _type = FbWidgetType.divider;
 
+// TODO: write test for Divider
 class FbDividerConfig extends BaseFbConfig<FbDividerStyles> with CodeGeneratorLogic {
   FbDividerStyles? styles;
 

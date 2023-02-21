@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 const _type = FbWidgetType.icon;
 
+// TODO: write test for Icon
 class FbIconConfig extends BaseFbConfig<FbIconStyles> with CodeGeneratorLogic {
   FbIconStyles? styles;
 

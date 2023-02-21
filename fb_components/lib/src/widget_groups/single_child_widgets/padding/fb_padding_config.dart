@@ -4,7 +4,7 @@ import 'package:fb_components/src/widget_groups/builders/all.dart';
 
 const _type = FbWidgetType.text;
 
-// TODO: write test for Template
+// TODO: write test for Padding
 class FbTemplateConfig extends BaseFbConfig<FbTemplateStyles> with CodeGeneratorLogic {
   FbTemplateStyles? styles;
 

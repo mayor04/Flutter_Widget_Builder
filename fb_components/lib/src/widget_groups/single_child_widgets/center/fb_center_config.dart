@@ -4,10 +4,11 @@ import 'package:fb_components/src/widget_groups/builders/all.dart';
 
 const _type = FbWidgetType.center;
 
+// TODO: write test for Center
 class FbCenterConfig extends BaseFbConfig<FbCenterStyles> with CodeGeneratorLogic {
   FbCenterStyles? styles;
 
-  FbCenterConfig({String? id, this.styles}) : super(_type, FbChildType.none, id: id);
+  FbCenterConfig({String? id, this.styles}) : super(_type, FbChildType.single, id: id);
 
   factory FbCenterConfig.fromJson(Map<String, dynamic> json) {
     return FbCenterConfig(

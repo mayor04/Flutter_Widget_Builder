@@ -1,24 +1,20 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:flutter/material.dart';
 
-import 'fb_center_config.dart';
+import 'fb_padding_config.dart';
 
-class FbCenter extends StatelessWidget {
+class FbTemplate extends StatelessWidget {
   final BaseFbStyles styles;
-  final Widget child;
 
-  const FbCenter({
+  const FbTemplate({
     Key? key,
     required this.styles,
-    required this.child,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var centerStyles = styles.cast<FbCenterStyles>();
+    var TemplateStyles = styles.cast<FbTemplateStyles>();
 
-    return Center(
-      child: child,
-    );
+    return Container();
   }
 }

@@ -39,6 +39,9 @@ void main() {
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(10),
         alignment: Alignment.center,
+        radius: 10,
+        borderColor: Colors.black,
+        borderSize: 2,
       ),
     );
     final json = containerConfig.toJson();

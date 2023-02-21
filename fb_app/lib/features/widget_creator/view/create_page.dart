@@ -92,4 +92,10 @@ class _CreatePageState extends State<CreatePage> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    AppOverlay.removeAll(context);
+    super.dispose();
+  }
 }

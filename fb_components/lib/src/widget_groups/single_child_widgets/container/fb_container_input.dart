@@ -1,5 +1,6 @@
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_components/src/base/stateless_fb_input.dart';
+import 'package:fb_components/src/reusable_inputs/groups/multiple_inputs_wrap.dart';
 import 'package:fb_components/src/reusable_inputs/single/color_input.dart';
 import 'package:fb_components/src/reusable_inputs/single/dropdown_input.dart';
 import 'package:fb_components/src/reusable_inputs/single/full_width_input.dart';
@@ -73,6 +74,38 @@ class FbContainerInput extends StatelessFbInput<FbContainerStyles> {
               margin: insetFromList(list),
             ),
           ),
+        ),
+        MultipleInputWrap(
+          title: 'Border',
+          children: [
+            FullWidthInput(
+              title: 'Radius',
+              value: styles.radius,
+              onChanged: (value) => onStylesUpdated(
+                styles.copyWith(
+                  radius: value?.toDouble(),
+                ),
+              ),
+            ),
+            ColorInput(
+              title: 'Color',
+              color: styles.borderColor ?? Colors.black,
+              onChanged: (value) => onStylesUpdated(
+                styles.copyWith(
+                  borderColor: value,
+                ),
+              ),
+            ),
+            FullWidthInput(
+              title: 'Size',
+              value: styles.borderSize,
+              onChanged: (value) => onStylesUpdated(
+                styles.copyWith(
+                  borderSize: value?.toDouble(),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

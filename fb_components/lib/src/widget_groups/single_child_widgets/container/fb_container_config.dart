@@ -221,7 +221,7 @@ class FbContainerStyles extends BaseFbStyles {
       ),
       radius: json['radius'] ?? 0,
       borderSize: json['borderSize'] ?? 0,
-      borderColor: json['borderColor'],
+      borderColor: json['borderColor'] == null ? Colors.transparent : Color(json['borderColor']),
       pad: [],
       marg: [],
       // showShadow: json['showShadow'],

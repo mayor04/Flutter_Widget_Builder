@@ -24,7 +24,7 @@ class AddWidgetOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var allWidgets = [...FbWidgetType.values];
-    //remove the first one which is main
+    // remove the first one which is main
     allWidgets.removeAt(0);
 
     return BlocProvider.value(
@@ -66,19 +66,21 @@ class AddWidgetOverlay extends StatelessWidget {
                   thickness: 0.3,
                 ),
                 const Box.vertical(32),
-                SingleChildScrollView(
-                  child: Wrap(
-                    spacing: 17,
-                    runSpacing: 22,
-                    alignment: WrapAlignment.start,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: List.generate(allWidgets.length, (index) {
-                      return _WidgetItem(
-                        type: allWidgets[index],
-                        parentId: widgetId,
-                        addOrWrap: addOrWrap,
-                      );
-                    }),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Wrap(
+                      spacing: 17,
+                      runSpacing: 22,
+                      alignment: WrapAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: List.generate(allWidgets.length, (index) {
+                        return _WidgetItem(
+                          type: allWidgets[index],
+                          parentId: widgetId,
+                          addOrWrap: addOrWrap,
+                        );
+                      }),
+                    ),
                   ),
                 ),
               ],

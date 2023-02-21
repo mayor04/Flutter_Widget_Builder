@@ -37,12 +37,14 @@ class SectionStyles extends StatelessWidget {
               ),
               child: state.selectedWidgetStyle == null
                   ? const SizedBox()
-                  : FbInputBuilderWidget(
-                      styles: state.selectedWidgetStyle!,
-                      onStylesUpdated: (styles) {
-                        context.read<StylesInputBloc>().changeStyles(styles);
-                        context.read<NotifierBloc>().styleChanged(styles.id);
-                      },
+                  : SingleChildScrollView(
+                      child: FbInputBuilderWidget(
+                        styles: state.selectedWidgetStyle!,
+                        onStylesUpdated: (styles) {
+                          context.read<StylesInputBloc>().changeStyles(styles);
+                          context.read<NotifierBloc>().styleChanged(styles.id);
+                        },
+                      ),
                     ),
             ),
           );
