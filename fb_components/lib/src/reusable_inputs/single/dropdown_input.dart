@@ -17,7 +17,7 @@ class DropdownInput<T extends Object?> extends StatefulWidget {
   final T value;
   final T? defaultValue;
   final List<T> dropdownList;
-  final ValueChanged<T> onChanged;
+  final ValueChanged<T?> onChanged;
   final String Function(T) getName;
 
   @override
@@ -37,7 +37,7 @@ class _DropdownInputState<T extends Object?> extends State<DropdownInput<T>> {
             value: widget.value,
             onChanged: (value) {
               if (value == null) {
-                throw Exception('Dropdown value is null');
+                widget.onChanged(widget.defaultValue);
               }
 
               widget.onChanged(value);

@@ -33,6 +33,7 @@ class FbIconConfig extends BaseFbConfig<FbIconStyles> with CodeGeneratorLogic {
   FbIconStyles getWidgetStyles() {
     return styles ??= FbIconStyles(
       id,
+      icon: Icons.ac_unit,
     );
   }
 
@@ -56,17 +57,20 @@ class FbIconConfig extends BaseFbConfig<FbIconStyles> with CodeGeneratorLogic {
 class FbIconStyles extends BaseFbStyles {
   FbIconStyles(
     String id, {
+    required this.icon,
     this.size,
     this.color,
   }) : super(id, _type);
 
   final double? size;
   final Color? color;
+  final IconData icon;
 
   // from json
   factory FbIconStyles.fromJson(Map<String, dynamic> json) {
     return FbIconStyles(
       json['id'],
+      icon: IconData(json['icon'] as int, fontFamily: 'MaterialIcons'),
       size: json['size'],
       color: json['color'] == null ? null : Color(json['color']),
     );
@@ -76,11 +80,13 @@ class FbIconStyles extends BaseFbStyles {
   FbIconStyles copyWith({
     double? size,
     Color? color,
+    IconData? icon,
   }) {
     return FbIconStyles(
       id,
       size: size ?? this.size,
       color: color ?? this.color,
+      icon: icon ?? this.icon,
     );
   }
 
@@ -89,5 +95,6 @@ class FbIconStyles extends BaseFbStyles {
         'id': id,
         'size': size,
         'color': color?.value,
+        'icon': icon.codePoint,
       };
 }

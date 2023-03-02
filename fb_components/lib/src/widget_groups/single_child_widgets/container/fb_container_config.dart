@@ -236,10 +236,13 @@ class FbContainerStyles extends BaseFbStyles {
   // copy with
   FbContainerStyles copyWith({
     double? height,
+    bool heightChanged = false,
     double? width,
+    bool widthChanged = false,
     int? colorValue,
     Color? color,
     Alignment? alignment,
+    bool alignmentChanged = false,
     EdgeInsets? padding,
     EdgeInsets? margin,
     BorderRadiusGeometry? borderRadius,
@@ -251,10 +254,10 @@ class FbContainerStyles extends BaseFbStyles {
   }) {
     return FbContainerStyles(
       id,
-      height: height ?? this.height,
-      width: width ?? this.width,
+      height: heightChanged ? height : height ?? this.height,
+      width: widthChanged ? width : width ?? this.width,
       color: color ?? this.color,
-      alignment: alignment ?? this.alignment,
+      alignment: alignmentChanged ? alignment : alignment ?? this.alignment,
       padding: padding ?? this.padding,
       pad: [0, 0, 0, 0],
       marg: [0, 0, 0, 0],

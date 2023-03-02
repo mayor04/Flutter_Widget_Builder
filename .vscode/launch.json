@@ -9,7 +9,7 @@
             "cwd": "fb_app",
             "request": "launch",
             "type": "dart",
-            "args": ["-d", "chrome","--web-port", "3000"],
+            // "args": ["-d", "chrome","--web-port", "3000"],
 
         },
         {

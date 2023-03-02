@@ -24,6 +24,7 @@ class FbContainerInput extends StatelessFbInput<FbContainerStyles> {
           onChanged: (value) => onStylesUpdated(
             styles.copyWith(
               height: value?.toDouble(),
+              heightChanged: true,
             ),
           ),
         ),
@@ -33,6 +34,7 @@ class FbContainerInput extends StatelessFbInput<FbContainerStyles> {
           onChanged: (value) => onStylesUpdated(
             styles.copyWith(
               width: value?.toDouble(),
+              widthChanged: true,
             ),
           ),
         ),
@@ -50,10 +52,11 @@ class FbContainerInput extends StatelessFbInput<FbContainerStyles> {
           title: 'Alignment',
           value: styles.alignment,
           dropdownList: FbContainerStyles.alignmentMap.values.toList(),
-          getName: (value) => value?.toString() ?? 'none',
+          getName: (value) => value?.toString().split('.')[1] ?? 'none',
           onChanged: (value) => onStylesUpdated(
             styles.copyWith(
               alignment: value,
+              alignmentChanged: true,
             ),
           ),
         ),

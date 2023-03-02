@@ -16,7 +16,7 @@ class FbIcon extends StatelessWidget {
     var iconStyles = styles.cast<FbIconStyles>();
 
     return Icon(
-      Icons.gif_box_outlined,
+      iconStyles.icon,
       size: iconStyles.size,
       color: iconStyles.color,
     );
