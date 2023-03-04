@@ -44,6 +44,9 @@ dependencies:
   hive_flutter: ^1.1.0
   mockito: ^5.1.0
   url_strategy: ^0.2.0
+  super_overlay: 
+    git:
+      url: https://github.com/mayor04/super_overlay.git
 
 dev_dependencies:
   bloc_test: ^9.0.3

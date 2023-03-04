@@ -21,6 +21,12 @@ class FbTextInput extends StatelessFbInput<FbTextStyles> {
         TextFieldInput(
           title: 'Text',
           value: styles.text,
+          // onAddParams: (key, params){
+          //   // Add params to the style
+          // },
+          // onRemoveParams: (key, params){
+          //   // Add params to the style
+          // },
           onChanged: (value) => onStylesUpdated(
             styles.copyWith(
               text: value,

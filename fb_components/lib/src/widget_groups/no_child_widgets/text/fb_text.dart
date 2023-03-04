@@ -15,6 +15,11 @@ class FbText extends StatelessWidget {
   Widget build(BuildContext context) {
     var textStyles = styles.cast<FbTextStyles>();
 
+    // Get inherited widget parameters
+    // For each style, check if the style params is not null
+
+    if (textStyles.textParamsRef != null) {}
+
     return Text(
       textStyles.text == '' ? 'Enter Text' : textStyles.text,
       style: TextStyle(

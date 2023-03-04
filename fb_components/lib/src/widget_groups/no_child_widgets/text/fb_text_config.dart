@@ -1,5 +1,6 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
+import 'package:fb_components/src/params/style_params/style_params.dart';
 import 'package:fb_components/src/widget_groups/builders/all.dart';
 import 'package:flutter/material.dart';
 
@@ -93,7 +94,8 @@ class FbTextStyles extends BaseFbStyles {
     required this.color,
     this.fontWeight,
     this.fontSize,
-  }) : super(id, _type);
+    ParamsPlaceholder? params,
+  }) : super(id, _type, params: params ?? {});
 
   // from json
   factory FbTextStyles.fromJson(Map<String, dynamic> json) {
@@ -144,4 +146,14 @@ class FbTextStyles extends BaseFbStyles {
         'color': color.value,
         if (fontWeight != null) 'fontWeight': fontWeight.toString().split('.')[1],
       };
+}
+
+extension FbTextParams on FbTextStyles {
+  String get textSn => 'text';
+  String get colorSn => 'color';
+  String get fontWeightSn => 'fontWeight';
+  String get fontSizeSn => 'fontSize';
+
+  StyleParams? get textParamsRef => params[textSn];
+  StyleParams? get colorParamsRef => params[colorSn];
 }

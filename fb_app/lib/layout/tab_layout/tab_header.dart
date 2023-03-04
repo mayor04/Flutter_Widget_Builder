@@ -1,5 +1,6 @@
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class TabHeader extends StatelessWidget {
   const TabHeader({Key? key}) : super(key: key);
@@ -11,13 +12,16 @@ class TabHeader extends StatelessWidget {
       width: double.infinity,
       color: AppColors.appDarker,
       child: Row(
-        children: const [
+        children: [
           SizedBox(
             width: 70,
-            child: Icon(
-              Icons.home,
-              color: AppColors.inputBorder,
-              size: 21,
+            child: GestureDetector(
+              onTap: () => context.pop(),
+              child: const Icon(
+                Icons.home,
+                color: AppColors.inputBorder,
+                size: 21,
+              ),
             ),
           ),
           _Tab(),

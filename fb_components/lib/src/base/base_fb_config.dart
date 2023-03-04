@@ -1,4 +1,5 @@
 import 'package:fb_components/fb_components.dart';
+import 'package:fb_components/src/params/style_params/style_params.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/row/fb_row_config.dart';
 import 'package:fb_components/src/widget_groups/multiple_child_widgets/stack/fb_stack_config.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/divider/fb_divider_config.dart';
@@ -70,8 +71,21 @@ abstract class BaseFbConfig<T extends BaseFbStyles> {
 abstract class BaseFbStyles {
   final String id;
   final FbWidgetType widgetType;
+  final ParamsPlaceholder params;
 
-  const BaseFbStyles(this.id, this.widgetType);
+  const BaseFbStyles(
+    this.id,
+    this.widgetType, {
+    this.params = const {},
+  });
+
+  addParams({required String paramId, required String styleName}) {
+    params[styleName] = StyleParams(paramId: paramId, styleName: styleName);
+  }
+
+  removeParams(String styleName) {
+    params.remove(styleName);
+  }
 
   A cast<A extends BaseFbStyles>() {
     if (this is A) {
@@ -81,3 +95,5 @@ abstract class BaseFbStyles {
     throw Exception('Unable to cast $A to type FbInputData');
   }
 }
+
+typedef ParamsPlaceholder = Map<String, StyleParams>;
