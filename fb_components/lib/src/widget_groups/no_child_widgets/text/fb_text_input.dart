@@ -12,6 +12,7 @@ class FbTextInput extends StatelessFbInput<FbTextStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

@@ -8,6 +8,7 @@ class FbSizedBoxInput extends StatelessFbInput<FbSizedBoxStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

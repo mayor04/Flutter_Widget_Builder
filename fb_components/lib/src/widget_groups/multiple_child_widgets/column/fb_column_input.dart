@@ -9,6 +9,7 @@ class FbColumnInput extends StatelessFbInput<FbColumnStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

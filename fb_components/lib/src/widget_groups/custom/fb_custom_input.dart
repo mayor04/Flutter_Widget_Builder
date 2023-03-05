@@ -8,6 +8,7 @@ class FbCustomInput extends StatelessFbInput<FbCustomStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

@@ -15,6 +15,9 @@ dependencies:
   equatable: ^2.0.5
   fb_core:
     path: ../fb_core
+  super_overlay: 
+    git:
+      url: https://github.com/mayor04/super_overlay.git
   flutter:
     sdk: flutter
 

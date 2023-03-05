@@ -11,6 +11,7 @@ class FbIconInput extends StatelessFbInput<FbIconStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

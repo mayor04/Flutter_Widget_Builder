@@ -8,6 +8,7 @@ class FbCenterInput extends StatelessFbInput<FbCenterStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

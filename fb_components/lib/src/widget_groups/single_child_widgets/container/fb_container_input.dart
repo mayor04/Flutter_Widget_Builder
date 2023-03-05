@@ -12,6 +12,7 @@ class FbContainerInput extends StatelessFbInput<FbContainerStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

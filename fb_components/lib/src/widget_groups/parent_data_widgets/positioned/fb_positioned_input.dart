@@ -9,6 +9,7 @@ class FbPositionedInput extends StatelessFbInput<FbPositionedStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

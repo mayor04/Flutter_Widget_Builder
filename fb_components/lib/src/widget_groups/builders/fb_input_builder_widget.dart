@@ -31,6 +31,7 @@ class FbInputBuilderWidget extends StatelessFbInput<BaseFbStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override
@@ -40,56 +41,67 @@ class FbInputBuilderWidget extends StatelessFbInput<BaseFbStyles> {
         return FbContainerInput(
           styles: styles as FbContainerStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.column:
         return FbColumnInput(
           styles: styles as FbColumnStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.row:
         return FbRowInput(
           styles: styles as FbRowStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.text:
         return FbTextInput(
           styles: styles as FbTextStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.expanded:
         return FbExpandedInput(
           styles: styles as FbExpandedStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.positioned:
         return FbPositionedInput(
           styles: styles as FbPositionedStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.sizedBox:
         return FbSizedBoxInput(
           styles: styles as FbSizedBoxStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.stack:
         return FbStackInput(
           styles: styles as FbStackStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.divider:
         return FbDividerInput(
           styles: styles as FbDividerStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.icon:
         return FbIconInput(
           styles: styles as FbIconStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       case FbWidgetType.center:
         return FbCenterInput(
           styles: styles as FbCenterStyles,
           onStylesUpdated: onStylesUpdated,
+          globalParams: globalParams,
         );
       default:
         throw (Exception('Widget config is not available'));

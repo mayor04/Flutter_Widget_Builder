@@ -8,6 +8,7 @@ class FbStackInput extends StatelessFbInput<FbStackStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

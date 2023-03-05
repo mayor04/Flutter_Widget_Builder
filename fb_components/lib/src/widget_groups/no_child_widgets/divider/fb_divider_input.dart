@@ -10,6 +10,7 @@ class FbDividerInput extends StatelessFbInput<FbDividerStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override

@@ -8,6 +8,7 @@ class FbTemplateInput extends StatelessFbInput<FbTemplateStyles> {
     super.key,
     required super.styles,
     required super.onStylesUpdated,
+    required super.globalParams,
   });
 
   @override
