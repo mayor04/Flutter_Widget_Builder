@@ -1,5 +1,6 @@
 import 'package:fb_app/features/widget_creator/bloc/notifier_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/styles_input_bloc.dart';
+import 'package:fb_app/features/widget_creator/tabs/params/widget/global_params_widget.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class SectionStyles extends StatelessWidget {
                   : SingleChildScrollView(
                       child: FbInputBuilderWidget(
                         styles: state.selectedWidgetStyle!,
+                        globalParams: GlobalParamsWidget.of(context).parameters,
                         onStylesUpdated: (styles) {
                           context.read<StylesInputBloc>().changeStyles(styles);
                           context.read<NotifierBloc>().styleChanged(styles.id);

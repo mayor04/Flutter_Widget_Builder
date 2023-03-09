@@ -105,6 +105,14 @@ class FbTextStyles extends BaseFbStyles {
       fontSize: json['fontSize'],
       fontWeight: fontWeightMap[(json['fontWeight'] as String)],
       color: Color(json['color']),
+      params: json['params'] == null
+          ? {}
+          : (json['params'] as Map<dynamic, dynamic>).cast().map(
+                (key, value) => MapEntry(
+                  key.toString(),
+                  StyleParams.fromJson((value as Map<dynamic, dynamic>).cast()),
+                ),
+              ),
     );
   }
 
@@ -127,6 +135,7 @@ class FbTextStyles extends BaseFbStyles {
     FontWeight? fontWeight,
     double? fontSize,
     Color? color,
+    ParamsPlaceholder? params,
   }) {
     return FbTextStyles(
       id,
@@ -134,6 +143,7 @@ class FbTextStyles extends BaseFbStyles {
       color: color ?? this.color,
       fontWeight: fontWeight ?? this.fontWeight,
       fontSize: fontSize ?? this.fontSize,
+      params: params ?? this.params,
     );
   }
 
@@ -144,6 +154,7 @@ class FbTextStyles extends BaseFbStyles {
         'text': text,
         'fontSize': fontSize,
         'color': color.value,
+        'params': params.map((key, value) => MapEntry(key, value.toJson())),
         if (fontWeight != null) 'fontWeight': fontWeight.toString().split('.')[1],
       };
 }

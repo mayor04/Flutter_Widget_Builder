@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class YourProjectsView extends StatefulWidget {
-  const YourProjectsView({Key? key}) : super(key: key);
+class MyAppsPage extends StatefulWidget {
+  const MyAppsPage({Key? key}) : super(key: key);
 
   @override
-  State<YourProjectsView> createState() => _YourProjectsViewState();
+  State<MyAppsPage> createState() => _MyAppsPageState();
 }
 
-class _YourProjectsViewState extends State<YourProjectsView> {
+class _MyAppsPageState extends State<MyAppsPage> {
   @override
   void initState() {
     super.initState();
@@ -46,7 +46,7 @@ class _YourProjectsViewState extends State<YourProjectsView> {
 
                     return InkWell(
                       onTap: () {
-                        context.push('/files/${project.id}');
+                        context.push('/app_widgets/${project.id}');
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10),

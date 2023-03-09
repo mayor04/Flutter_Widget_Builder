@@ -11,8 +11,8 @@ part 'widget_list_state.dart';
 class WidgetListBloc extends Cubit<WidgetListState> {
   WidgetListBloc() : super(const WidgetListState(fileList: [], projectName: ''));
 
-  final WidgetDetailsRepository _widgetRepo = WidgetDetailsRepository();
-  final AppDetailsRepository _appRepo = AppDetailsRepository();
+  final WidgetDetailsRepository _widgetRepo = gi<WidgetDetailsRepository>();
+  final AppDetailsRepository _appRepo = gi<AppDetailsRepository>();
 
   void loadWidgetList(String? applicationId) async {
     emit(state.copyWith(status: StateStatus.loading));

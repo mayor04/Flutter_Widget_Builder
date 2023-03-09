@@ -1,3 +1,4 @@
+import 'package:fb_app/features/my_apps/blocs/widget_list_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
 import 'package:fb_app/utils/enums/add_widget_type_enum.dart';
 import 'package:fb_app/widget/box_spacing.dart';
@@ -7,7 +8,7 @@ import 'package:fb_core/src/widgets/app_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddWidgetOverlay extends StatelessWidget {
+class AddWidgetOverlay extends StatefulWidget {
   final FbWidgetType widgetType;
   final String widgetId;
   final AddWidgetType addOrWrap;
@@ -22,13 +23,20 @@ class AddWidgetOverlay extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AddWidgetOverlay> createState() => _AddWidgetOverlayState();
+}
+
+class _AddWidgetOverlayState extends State<AddWidgetOverlay> with SingleTickerProviderStateMixin {
+  late final tabController = TabController(length: 2, vsync: this);
+
+  @override
   Widget build(BuildContext context) {
     var allWidgets = [...FbWidgetType.values];
     // remove the first one which is main
     allWidgets.removeAt(0);
 
     return BlocProvider.value(
-      value: widgetTreeBloc,
+      value: widget.widgetTreeBloc,
       child: Material(
         child: GestureDetector(
           onTap: () {},
@@ -56,38 +64,102 @@ class AddWidgetOverlay extends StatelessWidget {
                   ),
                 ),
                 const Box.vertical(22),
-                Text(
-                  'Add Child Widget',
-                  style: context.textTheme.bodyMedium,
-                ),
-                const Box.vertical(12),
-                const Divider(
-                  color: AppColors.lightBorder,
-                  thickness: 0.3,
-                ),
-                const Box.vertical(32),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Wrap(
-                      spacing: 17,
-                      runSpacing: 22,
-                      alignment: WrapAlignment.start,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: List.generate(allWidgets.length, (index) {
-                        return _WidgetItem(
-                          type: allWidgets[index],
-                          parentId: widgetId,
-                          addOrWrap: addOrWrap,
-                        );
-                      }),
+                TabBar(
+                  controller: tabController,
+                  onTap: (value) => setState(() {}),
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        'All Widgets',
+                        style: context.textTheme.bodyMedium,
+                      ),
                     ),
-                  ),
+                    Tab(
+                      child: Text(
+                        'Your Widgets',
+                        style: context.textTheme.bodyMedium,
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: tabController.index == 0
+                      ? SingleChildScrollView(
+                          padding: const EdgeInsets.only(top: 22),
+                          child: Wrap(
+                            spacing: 17,
+                            runSpacing: 22,
+                            alignment: WrapAlignment.start,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: List.generate(allWidgets.length, (index) {
+                              return _WidgetItem(
+                                type: allWidgets[index],
+                                parentId: widget.widgetId,
+                                addOrWrap: widget.addOrWrap,
+                              );
+                            }),
+                          ))
+                      : const _YourWidgetTab(),
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _YourWidgetTab extends StatelessWidget {
+  const _YourWidgetTab({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<WidgetListBloc, WidgetListState>(
+      builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 22),
+          child: GridView.builder(
+            itemCount: state.fileList.length,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 100,
+              mainAxisExtent: 100,
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+            ),
+            itemBuilder: (context, index) {
+              final file = state.fileList[index];
+
+              return InkWell(
+                onTap: () {},
+                child: Container(
+                  decoration: AppDecoration.lightBorder(
+                    color: AppColors.appGreyDark,
+                    borderWidth: 0.7,
+                  ),
+                  padding: const EdgeInsets.all(5),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: Placeholder(),
+                      ),
+                      const Box.vertical(10),
+                      Text(
+                        file.name,
+                        style: context.textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

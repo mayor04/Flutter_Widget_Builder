@@ -1,6 +1,5 @@
 import 'package:fb_app/features/widget_creator/bloc/notifier_bloc.dart';
 import 'package:fb_app/features/widget_creator/tabs/mini_tab_view.dart';
-import 'package:fb_app/features/widget_creator/tabs/params/widget/global_params_widget.dart';
 import 'package:fb_app/features/widget_creator/tabs/tab_type_enum.dart';
 import 'package:fb_app/features/widget_creator/view/sections/section_display.dart';
 import 'package:fb_app/features/widget_creator/view/sections/section_tabs.dart';
@@ -26,47 +25,45 @@ class _CreatePageState extends State<CreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return GlobalParamsWidget(
-      child: Scaffold(
-        backgroundColor: AppColors.appBg,
-        body: Column(
-          children: [
-            // * Sections
-            Expanded(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(23, 15, 23, 15),
-                    child: Row(
-                      children: [
-                        SectionTabs(
-                          onTabChanged: (tab) => currentTab.value = tab,
+    return Scaffold(
+      backgroundColor: AppColors.appBg,
+      body: Column(
+        children: [
+          // * Sections
+          Expanded(
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(23, 15, 23, 15),
+                  child: Row(
+                    children: [
+                      SectionTabs(
+                        onTabChanged: (tab) => currentTab.value = tab,
+                      ),
+                      const Box.horizontal(10),
+                      MiniTabView(currentTab: currentTab),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            context.read<NotifierBloc>().select('0');
+                            AppOverlay.removeAll(context);
+                          },
+                          child: const SectionDisplay(),
                         ),
-                        const Box.horizontal(10),
-                        MiniTabView(currentTab: currentTab),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              context.read<NotifierBloc>().select('0');
-                              AppOverlay.removeAll(context);
-                            },
-                            child: const SectionDisplay(),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  const Positioned(
-                    right: 20,
-                    top: 20,
-                    bottom: 20,
-                    child: CodeSection(),
-                  ),
-                ],
-              ),
+                ),
+                const Positioned(
+                  right: 20,
+                  top: 20,
+                  bottom: 20,
+                  child: CodeSection(),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

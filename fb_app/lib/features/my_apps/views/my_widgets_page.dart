@@ -7,21 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class YourFilesView extends StatefulWidget {
-  const YourFilesView({Key? key, required this.projectId}) : super(key: key);
+class MyWidgetsPage extends StatefulWidget {
+  const MyWidgetsPage({Key? key, required this.applicationId}) : super(key: key);
 
-  final String? projectId;
+  final String? applicationId;
 
   @override
-  State<YourFilesView> createState() => _YourFilesViewState();
+  State<MyWidgetsPage> createState() => _MyWidgetsPageState();
 }
 
-class _YourFilesViewState extends State<YourFilesView> {
+class _MyWidgetsPageState extends State<MyWidgetsPage> {
   @override
   void initState() {
     super.initState();
 
-    BlocProvider.of<WidgetListBloc>(context).loadWidgetList(widget.projectId);
+    BlocProvider.of<WidgetListBloc>(context).loadWidgetList(widget.applicationId);
   }
 
   @override
@@ -34,7 +34,7 @@ class _YourFilesViewState extends State<YourFilesView> {
             children: [
               _FilesHeader(
                 projectName: state.projectName,
-                projectId: widget.projectId,
+                projectId: widget.applicationId,
               ),
               const SizedBox(height: 30),
               Expanded(
@@ -51,7 +51,7 @@ class _YourFilesViewState extends State<YourFilesView> {
 
                     return InkWell(
                       onTap: () {
-                        context.go('/widget/build/${file.id}');
+                        context.go('/widget/build/${widget.applicationId}/${file.id}');
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10),

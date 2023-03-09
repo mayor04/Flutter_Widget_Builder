@@ -1,4 +1,5 @@
 import 'package:fb_components/src/base/stateless_fb_input.dart';
+import 'package:fb_components/src/params/style_params/style_params.dart';
 import 'package:fb_components/src/reusable_inputs/single/color_input.dart';
 import 'package:fb_components/src/reusable_inputs/single/dropdown_input.dart';
 import 'package:fb_components/src/reusable_inputs/single/full_width_input.dart';
@@ -22,6 +23,31 @@ class FbTextInput extends StatelessFbInput<FbTextStyles> {
         TextFieldInput(
           title: 'Text',
           value: styles.text,
+          styleName: styles.textSn,
+          globalParams: globalParams,
+          onParamsSelected: (styleName, globalParamsId) {
+            final params = {...styles.params};
+            params[styleName] = StyleParams(
+              paramId: globalParamsId,
+              styleName: styleName,
+            );
+
+            onStylesUpdated(
+              styles.copyWith(
+                params: params,
+              ),
+            );
+          },
+          onParamsRemoved: (styleName) {
+            final params = {...styles.params};
+            params.remove(styleName);
+
+            onStylesUpdated(
+              styles.copyWith(
+                params: params,
+              ),
+            );
+          },
           // onAddParams: (key, params){
           //   // Add params to the style
           // },

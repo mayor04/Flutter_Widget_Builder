@@ -9,11 +9,11 @@ part 'styles_input_state.dart';
 
 class StylesInputBloc extends Cubit<StylesInputState> {
   final log = AppLog('StylesInputBloc');
-  late final InterfaceController _fbController;
+  final InterfaceController _fbController;
 
-  StylesInputBloc(InterfaceController fbController) : super(const StylesInputState(null, xMainId)) {
-    _fbController = fbController;
-  }
+  StylesInputBloc(InterfaceController fbController)
+      : _fbController = fbController,
+        super(const StylesInputState(null, xMainId));
 
   Future<void> getStyles(String widgetId) async {
     try {

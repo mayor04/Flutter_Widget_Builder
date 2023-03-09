@@ -1,6 +1,7 @@
 import 'package:fb_app/features/widget_creator/bloc/notifier_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
 import 'package:fb_app/features/widget_creator/models/fb_details.dart';
+import 'package:fb_app/features/widget_creator/tabs/params/widget/global_params_widget.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 import 'package:fb_core/src/widgets/app_overlay.dart';
@@ -109,6 +110,8 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
           );
         }
 
+        final GlobalParamsMap globalParams = GlobalParamsWidget.of(context).parameters;
+
         switch (details.childType) {
           case FbChildType.single:
             return _buildSingleChildWidget(
@@ -128,6 +131,7 @@ class _ChildWidgetBuilderState extends State<_ChildWidgetBuilder> {
             return NoChildChildWidgetBuilder(
               onTap: selectCallback,
               widgetStyles: widgetStyles,
+              globalParams: globalParams,
             );
         }
       },

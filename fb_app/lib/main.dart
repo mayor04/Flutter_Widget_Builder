@@ -7,6 +7,7 @@ import 'package:fb_app/features/widget_creator/bloc/styles_input_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
 import 'package:fb_app/features/widget_creator/controller/code_genarator_controller.dart';
 import 'package:fb_app/features/widget_creator/controller/interface_controller.dart';
+import 'package:fb_app/features/widget_creator/tabs/params/widget/global_params_widget.dart';
 import 'package:fb_app/features/widget_creator/view/create_page.dart';
 import 'package:fb_app/layout/sidebar_layout/sidebar_layout.dart';
 import 'package:fb_app/layout/tab_layout/tab_layout.dart';
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: Perform a redirect to the home page on initial route
     final _router = GoRouter(
       debugLogDiagnostics: true,
-      initialLocation: '/your_projects',
+      initialLocation: '/your_apps',
       routes: [
         GoRoute(
           path: '/play',
@@ -62,13 +63,17 @@ class _MyAppState extends State<MyApp> {
               builder: (context, state) => Container(),
               routes: [
                 GoRoute(
-                  path: 'build/:file_id',
+                  path: 'build/:app_id/:widget_id',
                   builder: (context, state) {
                     final interfaceController =
-                        InterfaceController(widgetDataId: state.params['file_id']!);
+                        InterfaceController(widgetId: state.params['widget_id']!);
 
                     return MultiBlocProvider(
                       providers: [
+                        BlocProvider(
+                          create: (context) =>
+                              WidgetListBloc()..loadWidgetList(state.params['app_id']!),
+                        ),
                         BlocProvider<WidgetTreeBloc>(
                           create: (_) =>
                               WidgetTreeBloc(interfaceController)..add(InitialWidgetTreeEvent()),
@@ -82,7 +87,20 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                       ],
-                      child: CreatePage(fileId: state.params['file_id']),
+                      child: GlobalParamsWidget(
+                        controller: interfaceController,
+                        child: FutureBuilder(
+                            future: interfaceController.ensureInitialized(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+
+                              return CreatePage(fileId: state.params['widget_id']);
+                            }),
+                      ),
                     );
                   },
                 ),
@@ -92,7 +110,7 @@ class _MyAppState extends State<MyApp> {
               builder: (context, state, child) => SidebarLayout(child: child),
               routes: [
                 GoRoute(
-                  path: '/your_projects',
+                  path: '/your_apps',
                   builder: (context, state) => MultiBlocProvider(
                     providers: [
                       BlocProvider(
@@ -102,11 +120,11 @@ class _MyAppState extends State<MyApp> {
                         create: (context) => AppDetailsBloc(),
                       ),
                     ],
-                    child: const YourProjectsView(),
+                    child: const MyAppsPage(),
                   ),
                 ),
                 GoRoute(
-                  path: '/files/:project_id',
+                  path: '/app_widgets/:app_id',
                   builder: (context, state) => MultiBlocProvider(
                     providers: [
                       BlocProvider(
@@ -116,8 +134,8 @@ class _MyAppState extends State<MyApp> {
                         create: (context) => WidgetListBloc(),
                       ),
                     ],
-                    child: YourFilesView(
-                      projectId: state.params['project_id'],
+                    child: MyWidgetsPage(
+                      applicationId: state.params['app_id'],
                     ),
                   ),
                 )
@@ -143,6 +161,6 @@ class _MyAppState extends State<MyApp> {
 - The routes available are
 - /widget/build/{fileId} for building widget
 - /widget/view/{fileId} opens the widget without buildable access
-- /your_projects/
-- /files/{projectId}
+- /your_apps/
+- /app_widgets/{projectId}
 */

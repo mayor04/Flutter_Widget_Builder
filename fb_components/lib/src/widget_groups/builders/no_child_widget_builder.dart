@@ -1,4 +1,5 @@
 import 'package:fb_components/src/base/base_fb_config.dart';
+import 'package:fb_components/src/params/input_params/input_params.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/divider/fb_divider.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/icon/fb_icon.dart';
 import 'package:fb_components/src/widget_groups/no_child_widgets/text/fb_text.dart';
@@ -14,11 +15,13 @@ import 'fb_widget_type.dart';
 class NoChildChildWidgetBuilder extends StatelessWidget {
   final BaseFbStyles widgetStyles;
   final VoidCallback onTap;
+  final GlobalParamsMap globalParams;
 
   const NoChildChildWidgetBuilder({
     Key? key,
     required this.widgetStyles,
     required this.onTap,
+    required this.globalParams,
   }) : super(key: key);
 
   @override
@@ -28,7 +31,10 @@ class NoChildChildWidgetBuilder extends StatelessWidget {
       child: () {
         switch (widgetStyles.widgetType) {
           case FbWidgetType.text:
-            return FbText(styles: widgetStyles);
+            return FbText(
+              styles: widgetStyles,
+              globalParams: globalParams,
+            );
           case FbWidgetType.divider:
             return FbDivider(styles: widgetStyles);
           case FbWidgetType.icon:

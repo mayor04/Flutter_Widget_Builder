@@ -1,3 +1,4 @@
+import 'package:fb_app/features/my_apps/blocs/widget_list_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/notifier_bloc.dart';
 import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
 import 'package:fb_app/features/widget_creator/models/fb_details.dart';
@@ -11,6 +12,7 @@ import 'package:fb_core/fb_core.dart';
 import 'package:fb_core/src/widgets/app_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:super_overlay/super_overlay.dart';
 
 class SectionWidgetTree extends StatelessWidget {
   const SectionWidgetTree({Key? key}) : super(key: key);
@@ -189,12 +191,19 @@ class WidgetTypeItem extends StatelessWidget {
   }
 }
 
-class _FbWidgetBox extends StatelessWidget {
+class _FbWidgetBox extends StatefulWidget {
   final FbWidgetDetails details;
   const _FbWidgetBox({
     Key? key,
     required this.details,
   }) : super(key: key);
+
+  @override
+  State<_FbWidgetBox> createState() => _FbWidgetBoxState();
+}
+
+class _FbWidgetBoxState extends State<_FbWidgetBox> {
+  final overlayController = OverlayController<String>();
 
   @override
   Widget build(BuildContext context) {
@@ -206,14 +215,14 @@ class _FbWidgetBox extends StatelessWidget {
         Color? borderColor = AppColors.lightBorder;
 
         if (state is NotifierSelected) {
-          if (state.id == details.id) {
+          if (state.id == widget.details.id) {
             borderColor = AppColors.focusedBorder;
           }
         }
 
         return GestureDetector(
           onTap: () {
-            context.read<NotifierBloc>().select(details.id);
+            context.read<NotifierBloc>().select(widget.details.id);
           },
           child: Container(
             height: 35,
@@ -236,7 +245,7 @@ class _FbWidgetBox extends StatelessWidget {
                     ),
                     const Box.horizontal(10),
                     Text(
-                      details.name,
+                      widget.details.name,
                       style: context.textTheme.bodyMedium,
                     ),
                   ],
@@ -251,20 +260,27 @@ class _FbWidgetBox extends StatelessWidget {
                     const Box.horizontal(15),
                     GestureDetector(
                       onTapUp: (tapDetails) {
-                        AppOverlay.showAddWidgetMenu(
-                          context,
-                          position: tapDetails.globalPosition - tapDetails.localPosition,
-                          overlay: AddWidgetOverlay(
-                            widgetType: details.widgetType,
-                            widgetId: details.id,
-                            addOrWrap: AddWidgetType.add,
-                            widgetTreeBloc: context.read<WidgetTreeBloc>(),
-                          ),
-                        );
+                        overlayController.show();
                       },
-                      child: const IconBox(
-                        tooltip: 'Add - Ctrl A',
-                        icon: Icon(Icons.add),
+                      child: SuperOverlay(
+                        childAnchor: Alignment.centerRight,
+                        overlayAnchor: Alignment.topLeft,
+                        controller: overlayController,
+                        overlay: (_, value) {
+                          return BlocProvider.value(
+                            value: context.read<WidgetListBloc>(),
+                            child: AddWidgetOverlay(
+                              widgetType: widget.details.widgetType,
+                              widgetId: widget.details.id,
+                              addOrWrap: AddWidgetType.add,
+                              widgetTreeBloc: context.read<WidgetTreeBloc>(),
+                            ),
+                          );
+                        },
+                        child: const IconBox(
+                          tooltip: 'Add - Ctrl A',
+                          icon: Icon(Icons.add),
+                        ),
                       ),
                     ),
                     const Box.horizontal(20),
@@ -274,8 +290,8 @@ class _FbWidgetBox extends StatelessWidget {
                           context,
                           position: tapDetails.globalPosition - tapDetails.localPosition,
                           overlay: MenuOverlay(
-                            widgetType: details.widgetType,
-                            widgetId: details.id,
+                            widgetType: widget.details.widgetType,
+                            widgetId: widget.details.id,
                             widgetTreeBloc: context.read<WidgetTreeBloc>(),
                           ),
                         );

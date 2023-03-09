@@ -1,5 +1,6 @@
 library fb_core;
 
+export 'di.dart';
 export 'src/constant/all.dart';
 export 'src/data/repositories/all.dart';
 export 'src/domain/models/all.dart';

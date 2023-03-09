@@ -9,12 +9,12 @@ part 'app_list_state.dart';
 class AppListBloc extends Cubit<AppListState> {
   AppListBloc() : super(const AppListState(projectList: []));
 
-  final AppDetailsRepository _projectRepo = AppDetailsRepository();
+  final AppDetailsRepository _appDetailsRepo = gi<AppDetailsRepository>();
 
   void loadProjectList() async {
     emit(state.copyWith(status: StateStatus.loading));
     try {
-      final projectList = await _projectRepo.getAll();
+      final projectList = await _appDetailsRepo.getAll();
       emit(state.copyWith(
         status: StateStatus.success,
         projectList: projectList,

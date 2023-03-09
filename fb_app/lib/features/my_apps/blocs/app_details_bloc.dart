@@ -9,7 +9,7 @@ part 'app_details_state.dart';
 class AppDetailsBloc extends Cubit<AppDetailsState> {
   AppDetailsBloc() : super(const AppDetailsState(status: StateStatus.initial));
 
-  final AppDetailsRepository _appDetailsRepo = AppDetailsRepository();
+  final AppDetailsRepository _appDetailsRepo = gi<AppDetailsRepository>();
 
   void createProject({
     required String name,

@@ -3,30 +3,31 @@ import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
 
 typedef FbWidgetStylesCallback = BaseFbStyles Function();
+final _log = AppLog('FbInterfaceController');
 
 class InterfaceController {
-  final log = AppLog('FbInterfaceController');
+  InterfaceController({required this.widgetId}) {
+    _initFuture = loadWidgetData(widgetId);
+  }
 
-  final String widgetDataId;
-
-  List<String> idList = [];
-  Map<String, BaseFbConfig> fbConfigMap = {};
+  late Future<void> _initFuture;
+  final String widgetId;
 
   /// Each of them hold the list of child/children and parent id
   /// For example lets take a look at
   ///               ` Container1 > Column > Container2`
   /// The columnDetails holds reference to container1 as parentId and
   /// Hold refrence to container2 as children
-  Map<String, FbWidgetDetails> fbDetailsMap = {};
+  late final Map<String, FbWidgetDetails> fbDetailsMap;
+  late final Map<String, BaseFbConfig> fbConfigMap;
+  late final List<String> idList;
+  late final GlobalParamsMap parameters;
 
-  // Todo: inspect this implemntation -> is the styles suppose to be stored in a map
-  // final Map<int, FbWidgetStylesCallback> widgetStylesCallbackMap = {};
+  final WidgetUIRepository _widgetRepo = gi<WidgetUIRepository>();
 
-  final WidgetUIRepository _widgetRepo = WidgetUIRepository();
-
-  InterfaceController({required this.widgetDataId});
-
-  Future<void> init() => loadWidgetData(widgetDataId);
+  Future<void> ensureInitialized() async {
+    await _initFuture;
+  }
 
   Future<void> loadWidgetData(String widgetDataId) async {
     final widgetData = await _widgetRepo.get(widgetDataId);
@@ -37,6 +38,9 @@ class InterfaceController {
     );
     fbDetailsMap = widgetData.fbDetailsMap.map(
       (key, value) => MapEntry(key, FbWidgetDetails.fromJson(value)),
+    );
+    parameters = widgetData.parameters.map(
+      (key, value) => MapEntry(key, InputParams.fromJson(value)),
     );
 
     if (idList.isEmpty) {
@@ -56,12 +60,15 @@ class InterfaceController {
   }
 
   Future<void> saveWidgetData() {
+    // TODO: make this a model that handle to json and from json
     final widgetData = WidgetUIModel(
-      id: widgetDataId,
+      id: widgetId,
       idList: idList,
       fbConfigMap: fbConfigMap.map((key, value) => MapEntry(key, value.toJson())),
       fbDetailsMap: fbDetailsMap.map((key, value) => MapEntry(key, value.toJson())),
+      parameters: parameters.map((key, value) => MapEntry(key, value.toJson())),
     );
+
     return _widgetRepo.update(widgetData);
   }
 
@@ -142,7 +149,7 @@ class InterfaceController {
 
     var childId = removeWidgetDetails.firstChildId;
     if (childId == null) {
-      log.out('removeWidget()', 'This widget has no children');
+      _log.out('removeWidget()', 'This widget has no children');
     }
 
     // Since we are removing and not totally deleting we replace this
@@ -223,6 +230,14 @@ class InterfaceController {
 
   void changeWidgetStyles(BaseFbStyles styles) {
     fbConfigMap[styles.id]?.updateStyles(styles);
+
+    saveWidgetData();
+  }
+
+  void setParams(GlobalParamsMap params) {
+    parameters
+      ..clear()
+      ..addAll(params);
 
     saveWidgetData();
   }

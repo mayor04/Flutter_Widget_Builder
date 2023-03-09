@@ -9,8 +9,8 @@ part 'widget_details_state.dart';
 class WidgetDetailsBloc extends Cubit<WidgetDetailsState> {
   WidgetDetailsBloc() : super(const WidgetDetailsState(status: StateStatus.initial));
 
-  final WidgetDetailsRepository _fileRepo = WidgetDetailsRepository();
-  final WidgetUIRepository _widgetRepo = WidgetUIRepository();
+  final WidgetDetailsRepository _fileRepo = gi<WidgetDetailsRepository>();
+  final WidgetUIRepository _widgetRepo = gi<WidgetUIRepository>();
 
   void createFile({
     required String name,
@@ -34,6 +34,7 @@ class WidgetDetailsBloc extends Cubit<WidgetDetailsState> {
         idList: [],
         fbConfigMap: {},
         fbDetailsMap: {},
+        parameters: {},
       ));
 
       emit(state.copyWith(status: StateStatus.success));

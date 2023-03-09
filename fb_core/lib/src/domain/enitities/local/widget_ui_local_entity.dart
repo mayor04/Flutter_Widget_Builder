@@ -18,11 +18,15 @@ class WidgetUILocalEntity extends LocalEntity<WidgetUIModel> {
   @HiveField(3)
   final Map<String, Map<String, dynamic>> fbDetailsMap;
 
+  @HiveField(4, defaultValue: {})
+  final Map<String, Map<String, dynamic>>? parameters;
+
   WidgetUILocalEntity({
     required this.id,
     required this.idList,
     required this.fbConfigMap,
     required this.fbDetailsMap,
+    required this.parameters,
   });
 
   factory WidgetUILocalEntity.fromModel(WidgetUIModel widgetDataModel) => WidgetUILocalEntity(
@@ -30,6 +34,7 @@ class WidgetUILocalEntity extends LocalEntity<WidgetUIModel> {
         idList: widgetDataModel.idList,
         fbConfigMap: widgetDataModel.fbConfigMap,
         fbDetailsMap: widgetDataModel.fbDetailsMap,
+        parameters: widgetDataModel.parameters,
       );
 
   @override
@@ -38,5 +43,6 @@ class WidgetUILocalEntity extends LocalEntity<WidgetUIModel> {
         idList: idList,
         fbConfigMap: fbConfigMap,
         fbDetailsMap: fbDetailsMap,
+        parameters: parameters ?? {},
       );
 }

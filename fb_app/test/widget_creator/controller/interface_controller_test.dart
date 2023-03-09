@@ -10,8 +10,7 @@ void main() {
 
   setUp(() {
     // TODO: all test would fail if reository is not injected
-    interfaceController = InterfaceController(widgetDataId: '1');
-    interfaceController.init();
+    interfaceController = InterfaceController(widgetId: '1');
     details = interfaceController.fbDetailsMap;
   });
 

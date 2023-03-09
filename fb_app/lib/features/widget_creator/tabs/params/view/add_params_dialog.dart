@@ -82,7 +82,7 @@ class _AddParamsDialogState extends State<AddParamsDialog> {
         name: name,
         type: InputParamsType.string,
         isRequired: true,
-        previewValue: 'London',
+        previewValue: name,
       ),
     );
   }

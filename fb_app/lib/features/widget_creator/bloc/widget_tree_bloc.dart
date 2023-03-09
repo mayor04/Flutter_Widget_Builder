@@ -29,8 +29,7 @@ class WidgetTreeBloc extends Bloc<WidgetTreeEvent, WidgetTreeState> {
     InitialWidgetTreeEvent event,
     Emitter<WidgetTreeState> emit,
   ) async {
-    await _fbController.init();
-
+    await _fbController.ensureInitialized();
     var fbDataMap = _fbController.fbDetailsMap;
     emit(WidgetTreeState(
       fbConfigMap: _fbController.fbConfigMap,

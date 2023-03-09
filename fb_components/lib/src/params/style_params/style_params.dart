@@ -11,4 +11,23 @@ class StyleParams {
     required this.paramId,
     required this.styleName,
   });
+
+  factory StyleParams.fromJson(Map<String, dynamic> json) {
+    return StyleParams(
+      paramId: json['paramId'],
+      styleName: json['styleName'],
+    );
+  }
+
+  // Each params should provide a way to parse its valus
+  value() {}
+
+  // to json
+  Map<String, dynamic> toJson() => {
+        'paramId': paramId,
+        'styleName': styleName,
+      };
+
+  // from json
+
 }
