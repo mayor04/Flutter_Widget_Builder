@@ -1,7 +1,7 @@
-import 'package:fb_app/features/widget_creator/controller/interface_controller.dart';
-import 'package:fb_app/features/widget_creator/models/fb_details.dart';
 import 'package:fb_components/fb_components.dart';
 import 'package:fb_core/fb_core.dart';
+import 'package:fb_widget_editor/src/presentation/widget_creator/controller/interface_controller.dart';
+import 'package:fb_widget_editor/src/presentation/widget_creator/models/fb_details.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

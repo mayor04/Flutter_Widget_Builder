@@ -2,17 +2,10 @@ import 'package:fb_app/config/theme.dart';
 import 'package:fb_app/features/my_apps/views/my_apps_page.dart';
 import 'package:fb_app/features/my_apps/views/my_widgets_page.dart';
 import 'package:fb_app/features/playground/playground.dart';
-import 'package:fb_app/features/widget_creator/bloc/notifier_bloc.dart';
-import 'package:fb_app/features/widget_creator/bloc/styles_input_bloc.dart';
-import 'package:fb_app/features/widget_creator/bloc/widget_tree_bloc.dart';
-import 'package:fb_app/features/widget_creator/controller/code_genarator_controller.dart';
-import 'package:fb_app/features/widget_creator/controller/interface_controller.dart';
-import 'package:fb_app/features/widget_creator/tabs/params/widget/global_params_widget.dart';
-import 'package:fb_app/features/widget_creator/view/create_page.dart';
 import 'package:fb_app/layout/sidebar_layout/sidebar_layout.dart';
 import 'package:fb_app/layout/tab_layout/tab_layout.dart';
-import 'package:fb_core/di.dart';
 import 'package:fb_core/fb_core.dart';
+import 'package:fb_widget_editor/fb_widget_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +15,6 @@ import 'features/my_apps/blocs/app_details_bloc.dart';
 import 'features/my_apps/blocs/app_list_bloc.dart';
 import 'features/my_apps/blocs/widget_details_bloc.dart';
 import 'features/my_apps/blocs/widget_list_bloc.dart';
-import 'features/widget_creator/bloc/code_display_bloc.dart';
 
 void main() async {
   setPathUrlStrategy();
@@ -63,47 +55,8 @@ class _MyAppState extends State<MyApp> {
               builder: (context, state) => Container(),
               routes: [
                 GoRoute(
-                  path: 'build/:app_id/:widget_id',
-                  builder: (context, state) {
-                    final interfaceController =
-                        InterfaceController(widgetId: state.params['widget_id']!);
-
-                    return MultiBlocProvider(
-                      providers: [
-                        BlocProvider(
-                          create: (context) =>
-                              WidgetListBloc()..loadWidgetList(state.params['app_id']!),
-                        ),
-                        BlocProvider<WidgetTreeBloc>(
-                          create: (_) =>
-                              WidgetTreeBloc(interfaceController)..add(InitialWidgetTreeEvent()),
-                        ),
-                        BlocProvider<StylesInputBloc>(
-                            create: (_) => StylesInputBloc(interfaceController)),
-                        BlocProvider<NotifierBloc>(create: (_) => NotifierBloc()),
-                        BlocProvider<CodeDisplayBloc>(
-                          create: (_) => CodeDisplayBloc(
-                            generator: CodeGeneratorController(interfaceController),
-                          ),
-                        ),
-                      ],
-                      child: GlobalParamsWidget(
-                        controller: interfaceController,
-                        child: FutureBuilder(
-                            future: interfaceController.ensureInitialized(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-
-                              return CreatePage(fileId: state.params['widget_id']);
-                            }),
-                      ),
-                    );
-                  },
-                ),
+                    path: 'build/:app_id/:widget_id',
+                    builder: (context, state) => WidgetEditorLayout(state: state)),
               ],
             ),
             ShellRoute(

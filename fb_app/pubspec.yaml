@@ -32,6 +32,8 @@ dependencies:
   equatable: ^2.0.3
   fb_components:
     path: ../editor/fb_components
+  fb_widget_editor:
+    path: ../editor/fb_widget_editor
   fb_core:
     path: ../fb_core
   flutter:
