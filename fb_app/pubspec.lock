@@ -172,7 +172,7 @@ packages:
   fb_components:
     dependency: "direct main"
     description:
-      path: "../fb_components"
+      path: "../editor/fb_components"
       relative: true
     source: path
     version: "0.0.1"

@@ -31,7 +31,7 @@ dependencies:
   dart_style: ^2.2.4
   equatable: ^2.0.3
   fb_components:
-    path: ../fb_components
+    path: ../editor/fb_components
   fb_core:
     path: ../fb_core
   flutter:

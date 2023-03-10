@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fb_app/utils/enums/state_status_enum.dart';
 import 'package:fb_core/fb_core.dart';
+import 'package:fb_core/src/utils/enum/state_status_enum.dart';
 import 'package:meta/meta.dart';
 
 part 'app_list_state.dart';

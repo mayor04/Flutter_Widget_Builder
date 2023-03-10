@@ -1,0 +1,42 @@
+name: fb_widget_editor
+description: A new Flutter package project.
+publish_to: none
+version: 0.0.1
+homepage: null
+
+environment:
+  sdk: ">=2.18.6 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  dart_style: ^2.2.4
+  equatable: ^2.0.3
+  fb_components:
+    path: ../fb_components
+  fb_core:
+    path: ../../fb_core
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  get_it: ^7.2.0
+  go_router: 5.1.5
+  google_fonts: ^2.3.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  meta: ^1.8.0
+  mockito: ^5.1.0
+  super_overlay:
+    git:
+      url: https://github.com/mayor04/super_overlay.git
+  url_strategy: ^0.2.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+# The following section is specific to Flutter packages.
+flutter: null
