@@ -1,3 +1,4 @@
+import 'package:fb_components/fb_components.dart';
 import 'package:fb_components/src/base/base_fb_config.dart';
 import 'package:fb_components/src/base/code_logic_mixin.dart';
 import 'package:fb_components/src/widget_groups/builders/all.dart';
@@ -52,17 +53,29 @@ class FbCustomConfig extends BaseFbConfig<FbCustomStyles> with CodeGeneratorLogi
   }
 }
 
+// TODO: implement parameters
 class FbCustomStyles extends BaseFbStyles {
-  FbCustomStyles(String id) : super(id, _type);
+  FbCustomStyles(
+    String id,
+    // {
+    // required this.parameters,
+    // required this.values,
+    // }
+  ) : super(id, _type);
+
+  // final GlobalParamsMap parameters;
+  // final Map<String, dynamic> values;
 
   // from json
   factory FbCustomStyles.fromJson(Map<String, dynamic> json) {
     return FbCustomStyles(
       json['id'],
+      // parameters: {},
+      // values:
     );
   }
 
-  FbCustomStyles copyWith({String? temp}) {
+  FbCustomStyles copyWith() {
     return FbCustomStyles(
       id,
     );
